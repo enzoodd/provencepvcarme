@@ -2,14 +2,16 @@
 (function () {
   "use strict";
 
-  // Seam progress bar (scroll indicator tied to the weld-line signature)
+  // Seam progress bar (top, horizontal) + seam rail (left, vertical, fills as you scroll)
   const seam = document.getElementById("seamProgress");
+  const seamRailFill = document.getElementById("seamRailFill");
   function updateSeam() {
     const h = document.documentElement;
     const scrolled = h.scrollTop;
     const height = h.scrollHeight - h.clientHeight;
     const pct = height > 0 ? (scrolled / height) * 100 : 0;
     if (seam) seam.style.width = pct + "%";
+    if (seamRailFill) seamRailFill.style.height = pct + "%";
   }
   document.addEventListener("scroll", updateSeam, { passive: true });
   updateSeam();
@@ -56,6 +58,45 @@
       ripple.style.width = size + "px";
       ripple.style.height = size + "px";
       chip.appendChild(ripple);
+      ripple.addEventListener("animationend", () => ripple.remove());
+    });
+
+    // water-splash droplets on hover (desktop / fine pointers only)
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      chip.addEventListener("mouseenter", function () {
+        const dropCount = 7;
+        for (let i = 0; i < dropCount; i++) {
+          const angle = (Math.PI * 2 * i) / dropCount + (Math.random() * 0.4 - 0.2);
+          const distance = 26 + Math.random() * 22;
+          const dx = Math.cos(angle) * distance;
+          const dy = Math.sin(angle) * distance - 8; // slight upward bias, like a splash
+          const drop = document.createElement("span");
+          drop.className = "splash-drop";
+          drop.style.setProperty("--dx", dx + "px");
+          drop.style.setProperty("--dy", dy + "px");
+          drop.style.animationDelay = Math.random() * 0.05 + "s";
+          chip.appendChild(drop);
+          drop.addEventListener("animationend", () => drop.remove());
+        }
+      });
+    }
+  });
+
+  // generic water-drop ripple on any button tagged .ripple-btn
+  document.querySelectorAll(".ripple-btn").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      const rect = btn.getBoundingClientRect();
+      const x = (e.clientX || rect.width / 2) - rect.left;
+      const y = (e.clientY || rect.height / 2) - rect.top;
+      const size = Math.max(rect.width, rect.height) * 1.6;
+
+      const ripple = document.createElement("span");
+      ripple.className = "btn-ripple";
+      ripple.style.left = x + "px";
+      ripple.style.top = y + "px";
+      ripple.style.width = size + "px";
+      ripple.style.height = size + "px";
+      btn.appendChild(ripple);
       ripple.addEventListener("animationend", () => ripple.remove());
     });
   });
