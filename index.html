@@ -43,6 +43,11 @@
 
 <div class="seam-progress" id="seamProgress" aria-hidden="true"></div>
 
+<div class="seam-rail" aria-hidden="true">
+  <div class="seam-rail-track"></div>
+  <div class="seam-rail-fill" id="seamRailFill"></div>
+</div>
+
 <header class="nav" id="siteNav">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
@@ -50,21 +55,21 @@
       <span class="nav-logo-text">Provence <em>PVC Armé</em></span>
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
-      <a href="#expertise">Expertise</a>
       <a href="#chiffres">Chiffres clés</a>
       <a href="#methode">Méthode</a>
+      <a href="#expertise">Expertise</a>
       <a href="#realisations">Réalisations</a>
       <a href="#avis">Avis</a>
       <a href="#faq">FAQ</a>
       <a href="#zones">Zones</a>
     </nav>
     <div class="nav-cta">
-      <a href="tel:+330000000000" class="btn-call" aria-label="Appeler maintenant">
+      <a href="tel:+330000000000" class="btn-call ripple-btn" aria-label="Appeler maintenant">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         <span>Appeler</span>
       </a>
-      <a href="#devis" class="btn-secondary-nav">Être rappelé</a>
-      <a href="#devis" class="btn-primary">Devis gratuit</a>
+      <a href="#devis" class="btn-secondary-nav ripple-btn">Être rappelé</a>
+      <a href="#devis" class="btn-primary ripple-btn">Devis gratuit</a>
     </div>
     <button class="nav-burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -100,69 +105,41 @@
 
   <div class="hero-inner">
     <p class="eyebrow">Membrane PVC armée &middot; Thermosoudage &middot; Sud-Est de la France</p>
-    <h1 class="hero-title">Une étanchéité<br><span class="hero-title-accent">sans point faible.</span></h1>
-    <p class="hero-sub">Nous soudons vos membranes PVC armées à l'air chaud, lé par lé, jusqu'à obtenir une coque monolithique — la même technique qui garantit l'étanchéité des plus grands bassins publics, appliquée à votre piscine.</p>
+    <h1 class="hero-title">Donnez à votre piscine<br><span class="hero-title-accent">une finition d'exception.</span></h1>
+    <p class="hero-sub">Provence PVC Armé réalise la pose de membranes PVC armées pour les piscines neuves et les rénovations, avec des finitions soignées et une étanchéité durable.</p>
 
     <div class="hero-actions">
-      <a href="#devis" class="btn-primary btn-lg">Demander un devis gratuit</a>
-      <a href="#devis" class="btn-outline">Être rappelé gratuitement</a>
+      <a href="#devis" class="btn-primary btn-lg ripple-btn">Demander un devis gratuit</a>
+      <a href="#devis" class="btn-outline ripple-btn">Être rappelé gratuitement</a>
       <a href="#methode" class="btn-ghost">
         <span>Voir la méthode</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
     </div>
-
-    <dl class="hero-stats">
-      <div><dt>150/100e</dt><dd>épaisseur de membrane</dd></div>
-      <div><dt>15–25 ans</dt><dd>durée de vie estimée</dd></div>
-      <div><dt>&lt;24h</dt><dd>réponse à votre devis</dd></div>
-    </dl>
   </div>
 </section>
 
-<!-- ========== TRUST STRIP ========== -->
-<section class="trust-strip">
-  <div class="trust-strip-inner">
-    <div class="trust-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
-      <span>Garantie décennale</span>
-    </div>
-    <div class="trust-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
-      <span>Poseurs certifiés Renolit Alkorplan</span>
-    </div>
-    <div class="trust-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-      <span>Devis gratuit sous 24h</span>
-    </div>
-    <div class="trust-item">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      <span>Assurance RC Pro</span>
-    </div>
-  </div>
-</section>
-
-<!-- ========== CHIFFRES CLES (interactive tabs, water-drop reveal) ========== -->
+<!-- ========== CHIFFRES CLES (big stat cards, water-splash on hover) ========== -->
 <section class="section keyfacts" id="chiffres">
   <div class="section-inner">
     <p class="eyebrow">Chiffres clés</p>
     <h2 class="section-title">Le PVC armé en quelques repères</h2>
-    <p class="section-lede">Touchez un repère pour en savoir plus.</p>
+    <p class="section-lede">Survolez un repère pour en savoir plus.</p>
 
     <div class="tabs" role="tablist" aria-label="Chiffres clés">
-      <button class="tab-chip is-active" role="tab" aria-selected="true" data-tab="epaisseur" type="button">
+      <button class="tab-chip is-active ripple-btn" role="tab" aria-selected="true" data-tab="epaisseur" type="button">
         <span class="tab-chip-value">150/100e</span>
         <span class="tab-chip-label">Épaisseur</span>
       </button>
-      <button class="tab-chip" role="tab" aria-selected="false" data-tab="duree" type="button">
+      <button class="tab-chip ripple-btn" role="tab" aria-selected="false" data-tab="duree" type="button">
         <span class="tab-chip-value">15–25 ans</span>
         <span class="tab-chip-label">Durée de vie</span>
       </button>
-      <button class="tab-chip" role="tab" aria-selected="false" data-tab="devis" type="button">
+      <button class="tab-chip ripple-btn" role="tab" aria-selected="false" data-tab="devis" type="button">
         <span class="tab-chip-value">&lt;24h</span>
         <span class="tab-chip-label">Réponse devis</span>
       </button>
-      <button class="tab-chip" role="tab" aria-selected="false" data-tab="zones" type="button">
+      <button class="tab-chip ripple-btn" role="tab" aria-selected="false" data-tab="zones" type="button">
         <span class="tab-chip-value">8</span>
         <span class="tab-chip-label">Départements couverts</span>
       </button>
@@ -180,36 +157,6 @@
       </div>
       <div class="tab-panel" data-panel="zones" role="tabpanel">
         <p><strong>8 départements</strong> couverts autour de la Provence : Vaucluse, Bouches-du-Rhône, Var, Drôme, Gard, Alpes-de-Haute-Provence, Hautes-Alpes et Ardèche.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ========== WHY PVC ARME ========== -->
-<section class="section" id="expertise">
-  <div class="section-inner">
-    <p class="eyebrow">Le matériau</p>
-    <h2 class="section-title">Pourquoi le PVC armé s'impose face au liner classique</h2>
-    <p class="section-lede">Deux couches de PVC souple prennent en sandwich une armature en polyester tissé. Le résultat : un revêtement deux fois plus épais qu'un liner traditionnel, posé non pas agrafé mais soudé — chaque joint devient une pièce continue.</p>
-
-    <div class="compare-grid">
-      <div class="compare-card compare-card--dim">
-        <p class="compare-label">Liner classique</p>
-        <ul>
-          <li>Agrafé sous margelle, tension mécanique</li>
-          <li>Épaisseur 75/100e en moyenne</li>
-          <li>Durée de vie 8 à 10 ans</li>
-          <li>Sensible au affaissement et au plissage</li>
-        </ul>
-      </div>
-      <div class="compare-card compare-card--lit">
-        <p class="compare-label compare-label--accent">Membrane PVC armée</p>
-        <ul>
-          <li>Soudée à l'air chaud, liaison moléculaire</li>
-          <li>Épaisseur 150/100e, armature polyester</li>
-          <li>Durée de vie 15 à 25 ans</li>
-          <li>Résistante aux UV, au gel et aux produits chimiques</li>
-        </ul>
       </div>
     </div>
   </div>
@@ -244,6 +191,36 @@
         <p>Vérification finale de l'étanchéité, mise en eau progressive, votre bassin est prêt à l'usage.</p>
       </li>
     </ol>
+  </div>
+</section>
+
+<!-- ========== WHY PVC ARME ========== -->
+<section class="section" id="expertise">
+  <div class="section-inner">
+    <p class="eyebrow">Le matériau</p>
+    <h2 class="section-title">Pourquoi le PVC armé s'impose face au liner classique</h2>
+    <p class="section-lede">Deux couches de PVC souple prennent en sandwich une armature en polyester tissé. Le résultat : un revêtement deux fois plus épais qu'un liner traditionnel, posé non pas agrafé mais soudé — chaque joint devient une pièce continue.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card compare-card--dim">
+        <p class="compare-label">Liner classique</p>
+        <ul>
+          <li>Agrafé sous margelle, tension mécanique</li>
+          <li>Épaisseur 75/100e en moyenne</li>
+          <li>Durée de vie 8 à 10 ans</li>
+          <li>Sensible au affaissement et au plissage</li>
+        </ul>
+      </div>
+      <div class="compare-card compare-card--lit">
+        <p class="compare-label compare-label--accent">Membrane PVC armée</p>
+        <ul>
+          <li>Soudée à l'air chaud, liaison moléculaire</li>
+          <li>Épaisseur 150/100e, armature polyester</li>
+          <li>Durée de vie 15 à 25 ans</li>
+          <li>Résistante aux UV, au gel et aux produits chimiques</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -430,8 +407,8 @@
         <input type="file" name="photos" accept="image/*" multiple>
       </label>
       <div class="form-actions">
-        <button type="submit" class="btn-primary btn-lg btn-full">Envoyer ma demande</button>
-        <a href="tel:+330000000000" class="btn-outline btn-outline--light btn-full">
+        <button type="submit" class="btn-primary btn-lg btn-full ripple-btn">Envoyer ma demande</button>
+        <a href="tel:+330000000000" class="btn-outline btn-outline--light btn-full ripple-btn">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <span>Appeler maintenant</span>
         </a>
