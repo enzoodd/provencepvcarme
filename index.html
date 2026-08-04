@@ -51,6 +51,7 @@
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
       <a href="#expertise">Expertise</a>
+      <a href="#chiffres">Chiffres clés</a>
       <a href="#methode">Méthode</a>
       <a href="#realisations">Réalisations</a>
       <a href="#avis">Avis</a>
@@ -62,6 +63,7 @@
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         <span>Appeler</span>
       </a>
+      <a href="#devis" class="btn-secondary-nav">Être rappelé</a>
       <a href="#devis" class="btn-primary">Devis gratuit</a>
     </div>
     <button class="nav-burger" id="navBurger" aria-label="Ouvrir le menu" aria-expanded="false">
@@ -80,6 +82,8 @@
 <!-- ========== HERO ========== -->
 <section class="hero">
   <div class="hero-bg" aria-hidden="true">
+    <div class="hero-orb hero-orb--1"></div>
+    <div class="hero-orb hero-orb--2"></div>
     <svg class="hero-weld" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
       <defs>
         <linearGradient id="weldGrad" x1="0" y1="0" x2="1" y2="1">
@@ -87,8 +91,10 @@
           <stop offset="100%" stop-color="#C9A876"/>
         </linearGradient>
       </defs>
-      <path class="weld-line" d="M-50,420 C 150,380 250,480 400,440 S 650,340 800,420 S 1050,500 1250,440" fill="none" stroke="url(#weldGrad)" stroke-width="2" opacity="0.5"/>
-      <path class="weld-line weld-line-2" d="M-50,460 C 180,500 300,400 450,460 S 700,540 850,460 S 1100,380 1250,460" fill="none" stroke="#1C8C94" stroke-width="1" opacity="0.25"/>
+      <path class="weld-line" d="M-50,420 C 150,380 250,480 400,440 S 650,340 800,420 S 1050,500 1250,440" fill="none" stroke="url(#weldGrad)" stroke-width="2.5" opacity="0.6"/>
+      <path class="weld-line weld-line-2" d="M-50,460 C 180,500 300,400 450,460 S 700,540 850,460 S 1100,380 1250,460" fill="none" stroke="#1C8C94" stroke-width="1.5" opacity="0.3"/>
+      <!-- the seam bends downward at the right edge, handing off to the vertical rail below -->
+      <path class="weld-line-turn" d="M1150,440 C 1180,470 1195,520 1195,600 L 1195,900" fill="none" stroke="url(#weldGrad)" stroke-width="2.5" opacity="0.5"/>
     </svg>
   </div>
 
@@ -99,6 +105,7 @@
 
     <div class="hero-actions">
       <a href="#devis" class="btn-primary btn-lg">Demander un devis gratuit</a>
+      <a href="#devis" class="btn-outline">Être rappelé gratuitement</a>
       <a href="#methode" class="btn-ghost">
         <span>Voir la méthode</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -110,6 +117,71 @@
       <div><dt>15–25 ans</dt><dd>durée de vie estimée</dd></div>
       <div><dt>&lt;24h</dt><dd>réponse à votre devis</dd></div>
     </dl>
+  </div>
+</section>
+
+<!-- ========== TRUST STRIP ========== -->
+<section class="trust-strip">
+  <div class="trust-strip-inner">
+    <div class="trust-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+      <span>Garantie décennale</span>
+    </div>
+    <div class="trust-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+      <span>Poseurs certifiés Renolit Alkorplan</span>
+    </div>
+    <div class="trust-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <span>Devis gratuit sous 24h</span>
+    </div>
+    <div class="trust-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      <span>Assurance RC Pro</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CHIFFRES CLES (interactive tabs, water-drop reveal) ========== -->
+<section class="section keyfacts" id="chiffres">
+  <div class="section-inner">
+    <p class="eyebrow">Chiffres clés</p>
+    <h2 class="section-title">Le PVC armé en quelques repères</h2>
+    <p class="section-lede">Touchez un repère pour en savoir plus.</p>
+
+    <div class="tabs" role="tablist" aria-label="Chiffres clés">
+      <button class="tab-chip is-active" role="tab" aria-selected="true" data-tab="epaisseur" type="button">
+        <span class="tab-chip-value">150/100e</span>
+        <span class="tab-chip-label">Épaisseur</span>
+      </button>
+      <button class="tab-chip" role="tab" aria-selected="false" data-tab="duree" type="button">
+        <span class="tab-chip-value">15–25 ans</span>
+        <span class="tab-chip-label">Durée de vie</span>
+      </button>
+      <button class="tab-chip" role="tab" aria-selected="false" data-tab="devis" type="button">
+        <span class="tab-chip-value">&lt;24h</span>
+        <span class="tab-chip-label">Réponse devis</span>
+      </button>
+      <button class="tab-chip" role="tab" aria-selected="false" data-tab="zones" type="button">
+        <span class="tab-chip-value">8</span>
+        <span class="tab-chip-label">Départements couverts</span>
+      </button>
+    </div>
+
+    <div class="tab-panels">
+      <div class="tab-panel is-active" data-panel="epaisseur" role="tabpanel">
+        <p><strong>150/100e (1,5 mm)</strong> — deux fois plus épais qu'un liner classique (75/100e). Deux couches de PVC souple prennent en sandwich une armature polyester tissée, pour une résistance mécanique bien supérieure aux chocs, à la pression de l'eau et aux mouvements du support.</p>
+      </div>
+      <div class="tab-panel" data-panel="duree" role="tabpanel">
+        <p><strong>15 à 25 ans</strong> de durée de vie estimée, contre 8 à 10 ans pour un liner classique. La membrane est traitée anti-UV, anti-algues et résiste aux produits chimiques de traitement de l'eau.</p>
+      </div>
+      <div class="tab-panel" data-panel="devis" role="tabpanel">
+        <p><strong>Moins de 24h</strong> pour recevoir une première réponse à votre demande de devis. Un rendez-vous de diagnostic sur site est ensuite proposé pour établir un chiffrage précis et sans surprise.</p>
+      </div>
+      <div class="tab-panel" data-panel="zones" role="tabpanel">
+        <p><strong>8 départements</strong> couverts autour de la Provence : Vaucluse, Bouches-du-Rhône, Var, Drôme, Gard, Alpes-de-Haute-Provence, Hautes-Alpes et Ardèche.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -357,7 +429,13 @@
         <span>Photos du bassin (facultatif)</span>
         <input type="file" name="photos" accept="image/*" multiple>
       </label>
-      <button type="submit" class="btn-primary btn-lg btn-full">Envoyer ma demande</button>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary btn-lg btn-full">Envoyer ma demande</button>
+        <a href="tel:+330000000000" class="btn-outline btn-outline--light btn-full">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>Appeler maintenant</span>
+        </a>
+      </div>
       <p class="form-note">En envoyant ce formulaire, vous acceptez d'être recontacté au sujet de votre projet.</p>
     </form>
   </div>
@@ -376,7 +454,7 @@
       <h3>Navigation</h3>
       <a href="#expertise">Expertise</a>
       <a href="#methode">Méthode</a>
-      <a href="#realisations">Réalisations</a> 
+      <a href="#realisations">Réalisations</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="footer-col">
