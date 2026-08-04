@@ -25,6 +25,41 @@
     });
   }
 
+  // Key facts tabs — click switches panel, spawns a water-drop ripple at the tap point
+  const tabChips = document.querySelectorAll(".tab-chip");
+  const tabPanels = document.querySelectorAll(".tab-panel");
+  tabChips.forEach((chip) => {
+    chip.addEventListener("click", function (e) {
+      const target = chip.getAttribute("data-tab");
+
+      tabChips.forEach((c) => {
+        c.classList.remove("is-active");
+        c.setAttribute("aria-selected", "false");
+      });
+      chip.classList.add("is-active");
+      chip.setAttribute("aria-selected", "true");
+
+      tabPanels.forEach((p) => {
+        p.classList.toggle("is-active", p.getAttribute("data-panel") === target);
+      });
+
+      // ripple positioned at the click coordinates within the chip
+      const rect = chip.getBoundingClientRect();
+      const x = (e.clientX || rect.width / 2) - rect.left;
+      const y = (e.clientY || rect.height / 2) - rect.top;
+      const size = Math.max(rect.width, rect.height) * 1.8;
+
+      const ripple = document.createElement("span");
+      ripple.className = "chip-ripple";
+      ripple.style.left = x + "px";
+      ripple.style.top = y + "px";
+      ripple.style.width = size + "px";
+      ripple.style.height = size + "px";
+      chip.appendChild(ripple);
+      ripple.addEventListener("animationend", () => ripple.remove());
+    });
+  });
+
   // Devis form — placeholder submit handling (no backend wired yet)
   const form = document.getElementById("devisForm");
   if (form) {
