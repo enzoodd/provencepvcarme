@@ -1,0 +1,15 @@
+<svg width="320" height="80" viewBox="0 0 320 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="seamGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1C8C94"/>
+      <stop offset="100%" stop-color="#C9A876"/>
+    </linearGradient>
+  </defs>
+
+  <!-- seam line running through the mark -->
+  <path d="M4,40 C 20,20 30,60 46,40 S 62,20 78,40" fill="none" stroke="url(#seamGrad)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- wordmark -->
+  <text x="94" y="35" font-family="Fraunces, serif" font-size="26" font-weight="500" fill="#0B2B3C">Provence</text>
+  <text x="94" y="62" font-family="Fraunces, serif" font-size="26" font-weight="500" fill="#1C8C94" font-style="italic">PVC Armé</text>
+</svg>
