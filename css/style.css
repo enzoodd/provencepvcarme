@@ -112,11 +112,13 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 500; }
 
 .nav-links {
   display: flex;
-  gap: 28px;
+  gap: 26px;
   font-size: 14px;
   font-weight: 500;
   color: var(--ink-soft);
 }
+.nav-links a { display: inline-flex; align-items: center; gap: 6px; }
+.nav-links a svg { color: var(--lagon); flex-shrink: 0; }
 .nav-links a:hover { color: var(--marine); }
 
 .nav-cta { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
@@ -147,7 +149,18 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 500; }
 .btn-full { width: 100%; padding: 16px; font-size: 16px; }
 
 /* generic water-drop ripple, usable on any button via JS */
-.ripple-btn { position: relative; overflow: hidden; isolation: isolate; }
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  outline: 2px solid transparent;
+  outline-offset: 0px;
+  transition: outline-color 0.3s var(--ease), outline-offset 0.3s var(--ease);
+}
+.ripple-btn:hover {
+  outline-color: var(--gold);
+  outline-offset: 4px;
+}
 .btn-ripple {
   position: absolute;
   border-radius: 50%;
@@ -327,53 +340,52 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 500; }
 
 .hero-actions { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 24px; }
 
-/* ---------- key facts — big stat cards with water-splash on hover ---------- */
+/* ---------- key facts tabs (water-drop interaction) ---------- */
 .tabs {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-  margin-bottom: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 32px;
 }
 .tab-chip {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
-  padding: 28px 22px;
-  border-radius: var(--radius-l);
-  border: 1.5px solid rgba(11,43,60,0.12);
+  gap: 4px;
+  padding: 16px 22px;
+  border-radius: var(--radius-m);
+  border: 1.5px solid rgba(11,43,60,0.14);
   background: var(--paper);
   cursor: pointer;
   font-family: var(--font-body);
   text-align: left;
-  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.25s var(--ease);
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.2s var(--ease);
 }
-.tab-chip:hover { transform: translateY(-5px); border-color: rgba(28,140,148,0.4); box-shadow: 0 20px 34px -18px rgba(11,43,60,0.28); }
+.tab-chip:hover { transform: translateY(-2px); border-color: rgba(28,140,148,0.4); }
 .tab-chip-value {
   font-family: var(--font-mono);
-  font-size: clamp(26px, 3vw, 34px);
+  font-size: 19px;
   font-weight: 500;
   color: var(--marine);
-  line-height: 1;
   transition: color 0.3s var(--ease);
 }
 .tab-chip-label {
-  font-size: 13.5px;
+  font-size: 12.5px;
   color: var(--ink-soft);
   transition: color 0.3s var(--ease);
 }
 .tab-chip.is-active {
   border-color: var(--lagon);
-  background: linear-gradient(160deg, rgba(28,140,148,0.12), rgba(201,168,118,0.07));
-  box-shadow: 0 0 0 1.5px rgba(28,140,148,0.3), 0 18px 32px -18px rgba(28,140,148,0.5);
+  background: linear-gradient(160deg, rgba(28,140,148,0.1), rgba(201,168,118,0.06));
+  box-shadow: 0 0 0 1px rgba(28,140,148,0.25), 0 14px 28px -16px rgba(28,140,148,0.45);
 }
 .tab-chip.is-active .tab-chip-value { color: var(--lagon); }
 .tab-chip.is-active .tab-chip-label { color: var(--ink); }
 
-/* click ripple (touch-friendly) */
+/* the water drop ripple, spawned by JS at the click point */
 .chip-ripple {
   position: absolute;
   border-radius: 50%;
@@ -382,28 +394,10 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 500; }
   pointer-events: none;
   z-index: 0;
   animation: ripple-drop 0.7s var(--ease) forwards;
-  overflow: hidden;
 }
 @keyframes ripple-drop {
   0% { transform: translate(-50%, -50%) scale(0); opacity: 0.8; }
   100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
-}
-
-/* water-splash droplets (hover, desktop) */
-.splash-drop {
-  position: absolute;
-  left: 50%; top: 50%;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--lagon-light), var(--lagon));
-  pointer-events: none;
-  z-index: 5;
-  animation: splash-fly 0.6s var(--ease) forwards;
-}
-@keyframes splash-fly {
-  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
-  70% { opacity: 1; }
-  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(0.15); opacity: 0; }
 }
 
 .tab-panels { position: relative; min-height: 88px; }
@@ -422,10 +416,9 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 500; }
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 780px) {
-  .tabs { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .tab-chip { padding: 20px 16px; }
-  .tab-chip-value { font-size: 24px; }
+@media (max-width: 640px) {
+  .tabs { gap: 10px; }
+  .tab-chip { padding: 13px 16px; flex: 1 1 calc(50% - 10px); }
 }
 
 /* ---------- hero (video background) ---------- */
@@ -587,6 +580,30 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 500; }
   .detail-strip { grid-template-columns: 1fr 1fr; }
 }
 
+/* ---------- process ---------- */
+.process {
+  list-style: none;
+  margin: 0; padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 32px;
+}
+.process-step {
+  padding-top: 20px;
+  border-top: 2px solid rgba(245,243,237,0.15);
+}
+.process-index {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 14px;
+}
+.process-step h3 { color: var(--paper); font-size: 20px; margin-bottom: 10px; }
+.process-step p { color: rgba(245,243,237,0.65); font-size: 14.5px; line-height: 1.55; margin: 0; }
+
 /* ---------- process step photos ---------- */
 .process-img {
   aspect-ratio: 4/3;
@@ -695,30 +712,6 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 500; }
 .compare-card li { padding-left: 22px; position: relative; font-size: 15px; }
 .compare-card--dim li::before { content: "–"; position: absolute; left: 0; color: var(--ink-soft); }
 .compare-card--lit li::before { content: "＋"; position: absolute; left: 0; color: var(--lagon-light); font-size: 12px; top: 3px; }
-
-/* ---------- process ---------- */
-.process {
-  list-style: none;
-  margin: 0; padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-}
-.process-step {
-  padding-top: 20px;
-  border-top: 2px solid rgba(245,243,237,0.15);
-}
-.process-index {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--gold);
-  display: block;
-  margin-bottom: 14px;
-}
-.process-step h3 { color: var(--paper); font-size: 20px; margin-bottom: 10px; }
-.process-step p { color: rgba(245,243,237,0.65); font-size: 14.5px; line-height: 1.55; margin: 0; }
 
 /* ---------- finitions ---------- */
 .finish-grid {
