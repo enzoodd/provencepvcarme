@@ -84,49 +84,25 @@
 
 <main>
 
-<!-- ========== HERO ========== -->
-<section class="hero">
-  <div class="hero-bg" aria-hidden="true">
-    <div class="hero-orb hero-orb--1"></div>
-    <div class="hero-orb hero-orb--2"></div>
-    <div class="hero-orb hero-orb--3"></div>
-    <svg class="hero-weld" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
-      <defs>
-        <linearGradient id="weldGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="#1C8C94"/>
-          <stop offset="100%" stop-color="#C9A876"/>
-        </linearGradient>
-      </defs>
-      <path class="weld-line" d="M-50,420 C 150,380 250,480 400,440 S 650,340 800,420 S 1050,500 1250,440" fill="none" stroke="url(#weldGrad)" stroke-width="2.5" opacity="0.6"/>
-      <path class="weld-line weld-line-2" d="M-50,460 C 180,500 300,400 450,460 S 700,540 850,460 S 1100,380 1250,460" fill="none" stroke="#1C8C94" stroke-width="1.5" opacity="0.3"/>
-      <!-- the seam bends downward at the right edge, handing off to the vertical rail below -->
-      <path class="weld-line-turn" d="M1150,440 C 1180,470 1195,520 1195,600 L 1195,900" fill="none" stroke="url(#weldGrad)" stroke-width="2.5" opacity="0.5"/>
-    </svg>
-  </div>
+<!-- ========== HERO (video de fond) ========== -->
+<section class="hero hero--video">
+  <video class="hero-video" autoplay muted loop playsinline poster="media/hero-poster.jpg">
+    <source src="media/hero-bg.mp4" type="video/mp4">
+  </video>
+  <div class="hero-video-overlay" aria-hidden="true"></div>
 
-  <div class="hero-inner">
-    <div class="hero-text">
-    <p class="eyebrow">Membrane PVC armée &middot; Thermosoudage &middot; Sud-Est de la France</p>
-    <h1 class="hero-title">Donnez à votre piscine<br><span class="hero-title-accent">une finition d'exception.</span></h1>
-    <p class="hero-sub">Provence PVC Armé réalise la pose de membranes PVC armées pour les piscines neuves et les rénovations, avec des finitions soignées et une étanchéité durable.</p>
+  <div class="hero-inner hero-inner--video">
+    <p class="eyebrow eyebrow--light">Membrane PVC armée &middot; Thermosoudage &middot; Sud-Est de la France</p>
+    <h1 class="hero-title hero-title--light">Donnez à votre piscine<br><span class="hero-title-accent">une finition d'exception.</span></h1>
+    <p class="hero-sub hero-sub--light">Provence PVC Armé réalise la pose de membranes PVC armées pour les piscines neuves et les rénovations, avec des finitions soignées et une étanchéité durable.</p>
 
     <div class="hero-actions">
       <a href="#devis" class="btn-primary btn-lg ripple-btn">Demander un devis gratuit</a>
-      <a href="#devis" class="btn-outline ripple-btn">Être rappelé gratuitement</a>
-      <a href="#methode" class="btn-ghost">
+      <a href="#devis" class="btn-outline btn-outline--light ripple-btn">Être rappelé gratuitement</a>
+      <a href="#methode" class="btn-ghost btn-ghost--light">
         <span>Voir la méthode</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
-    </div>
-    </div>
-
-    <div class="hero-visual" aria-hidden="true">
-      <span class="hero-visual-tag">Coupe de la membrane</span>
-      <div class="hero-visual-layers">
-        <div class="hero-visual-band"></div>
-        <div class="hero-visual-band"></div>
-        <div class="hero-visual-band"></div>
-      </div>
     </div>
   </div>
 </section>
@@ -183,27 +159,37 @@
 
     <ol class="process">
       <li class="process-step">
+        <div class="process-img"><img src="media/process-4.jpg" alt="Bassin en attente de pose de la membrane" loading="lazy"></div>
         <span class="process-index">Diagnostic</span>
         <h3>Visite &amp; relevé de cotes</h3>
         <p>Analyse complète du bassin, prise de mesures millimétrique, identification des contraintes (escaliers, plages, formes libres).</p>
       </li>
       <li class="process-step">
+        <div class="process-img"><img src="media/process-5.jpg" alt="Calepinage de la membrane sur le bassin" loading="lazy"></div>
         <span class="process-index">Calepinage</span>
         <h3>Conception sur mesure</h3>
         <p>Choix de la membrane, plan de calepinage des lés optimisé pour limiter les soudures visibles et garantir la résistance.</p>
       </li>
       <li class="process-step">
+        <div class="process-img"><img src="media/process-1.jpg" alt="Soudure à air chaud d'une membrane PVC armée" loading="lazy"></div>
         <span class="process-index">Soudure</span>
         <h3>Pose &amp; thermosoudage</h3>
         <p>Découpe sur site, positionnement précis, soudure à air chaud de chaque lé — contrôle systématique de chaque joint.</p>
       </li>
       <li class="process-step">
+        <div class="process-img"><img src="media/after-2.jpg" alt="Piscine terminée après mise en eau" loading="lazy"></div>
         <span class="process-index">Mise en eau</span>
         <h3>Contrôle &amp; livraison</h3>
         <p>Vérification finale de l'étanchéité, mise en eau progressive, votre bassin est prêt à l'usage.</p>
       </li>
     </ol>
   </div>
+</section>
+
+<!-- ========== FEATURE PHOTO ========== -->
+<section class="feature-photo">
+  <img src="media/feature-1.jpg" alt="Piscine terminée avec membrane PVC armée, terrasse en travertin" loading="lazy">
+  <p class="feature-photo-caption">Membrane bleu lagon &middot; terrasse travertin &middot; Sud-Est de la France</p>
 </section>
 
 <!-- ========== WHY PVC ARME ========== -->
@@ -268,37 +254,55 @@
   </div>
 </section>
 
-<!-- ========== REALISATIONS (placeholder gallery) ========== -->
+<!-- ========== REALISATIONS (vraies paires avant/après) ========== -->
 <section class="section section--tint" id="realisations">
   <div class="section-inner">
     <p class="eyebrow">Réalisations</p>
     <h2 class="section-title">Avant / Après</h2>
-    <p class="section-lede">Les photos de chantiers seront ajoutées au fur et à mesure — chaque encart ci-dessous est prêt à recevoir vos visuels.</p>
+    <p class="section-lede">Quatre chantiers récents, de la membrane posée à sec jusqu'à la mise en eau.</p>
 
-    <div class="gallery-grid">
-      <figure class="gallery-item gallery-item--before">
-        <div class="gallery-placeholder">
-          <span>Avant</span>
+    <div class="ba-grid">
+      <figure class="ba-pair">
+        <div class="ba-images">
+          <div class="ba-img"><img src="media/before-1.jpg" alt="Bassin avant mise en eau, membrane mosaïque foncée" loading="lazy"><span class="ba-tag">Avant</span></div>
+          <div class="ba-img"><img src="media/after-1.jpg" alt="Bassin après mise en eau, membrane mosaïque foncée, vue montagne" loading="lazy"><span class="ba-tag ba-tag--accent">Après</span></div>
         </div>
-        <figcaption>Ancien liner à remplacer</figcaption>
+        <figcaption>Membrane mosaïque foncée &middot; vue sur les montagnes</figcaption>
       </figure>
-      <figure class="gallery-item gallery-item--after">
-        <div class="gallery-placeholder gallery-placeholder--accent">
-          <span>Après</span>
+
+      <figure class="ba-pair">
+        <div class="ba-images">
+          <div class="ba-img"><img src="media/before-2.jpg" alt="Bassin avant mise en eau, membrane grise" loading="lazy"><span class="ba-tag">Avant</span></div>
+          <div class="ba-img"><img src="media/after-2.jpg" alt="Bassin après mise en eau, membrane grise, terrasse bois" loading="lazy"><span class="ba-tag ba-tag--accent">Après</span></div>
         </div>
-        <figcaption>Membrane PVC armée posée</figcaption>
+        <figcaption>Membrane grise &middot; terrasse en bois</figcaption>
       </figure>
-      <figure class="gallery-item">
-        <div class="gallery-placeholder">
-          <span>Chantier</span>
+
+      <figure class="ba-pair">
+        <div class="ba-images">
+          <div class="ba-img"><img src="media/before-3.jpg" alt="Bassin avant mise en eau, membrane effet marbre" loading="lazy"><span class="ba-tag">Avant</span></div>
+          <div class="ba-img"><img src="media/after-3.jpg" alt="Bassin après mise en eau, membrane effet marbre" loading="lazy"><span class="ba-tag ba-tag--accent">Après</span></div>
         </div>
-        <figcaption>Soudure thermique en cours</figcaption>
+        <figcaption>Finition effet marbre &middot; terrasse travertin</figcaption>
       </figure>
+
+      <figure class="ba-pair">
+        <div class="ba-images">
+          <div class="ba-img"><img src="media/before-4.jpg" alt="Bassin en cours de mise en eau, mur en pierre" loading="lazy"><span class="ba-tag">Avant</span></div>
+          <div class="ba-img"><img src="media/after-4.jpg" alt="Bassin après mise en eau complète, mur en pierre" loading="lazy"><span class="ba-tag ba-tag--accent">Après</span></div>
+        </div>
+        <figcaption>Bassin en pierre &middot; margelle sur mesure</figcaption>
+      </figure>
+    </div>
+
+    <div class="detail-strip">
+      <img src="media/process-2.jpg" alt="Colle Renolit Alkorglue et outillage de pose" loading="lazy">
+      <img src="media/process-3.jpg" alt="Géotextile de préparation avant pose de la membrane" loading="lazy">
+      <img src="media/finish-detail-1.jpg" alt="Détail des escaliers en membrane PVC armée" loading="lazy">
+      <img src="media/gallery-extra-1.jpg" alt="Petit bassin avant mise en eau" loading="lazy">
     </div>
   </div>
 </section>
-
-<!-- ========== TEMOIGNAGES ========== -->
 <section class="section" id="avis">
   <div class="section-inner">
     <p class="eyebrow">Confiance</p>
