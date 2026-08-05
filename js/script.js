@@ -101,6 +101,17 @@
     });
   });
 
+  // before/after toggle — click swaps photo with a crossfade
+  document.querySelectorAll(".ba-toggle").forEach((toggle) => {
+    toggle.addEventListener("click", function () {
+      const isAfter = toggle.classList.toggle("is-after");
+      const tag = toggle.querySelector(".ba-tag");
+      const hintLabel = toggle.querySelector(".ba-hint-label");
+      if (tag) tag.textContent = isAfter ? "Après" : "Avant";
+      if (hintLabel) hintLabel.textContent = isAfter ? "Voir avant" : "Voir après";
+    });
+  });
+
   // Devis form — placeholder submit handling (no backend wired yet)
   const form = document.getElementById("devisForm");
   if (form) {
