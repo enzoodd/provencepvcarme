@@ -16,6 +16,39 @@
   document.addEventListener("scroll", updateSeam, { passive: true });
   updateSeam();
 
+  // Nav — solidifies (deeper background/shadow) once the page has scrolled a bit
+  const siteNav = document.getElementById("siteNav");
+  function updateNavScrolled() {
+    if (siteNav) siteNav.classList.toggle("nav--scrolled", window.scrollY > 8);
+  }
+  document.addEventListener("scroll", updateNavScrolled, { passive: true });
+  updateNavScrolled();
+
+  // Hero video — subtle parallax drift while the hero is in view (never on text)
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const heroVideo = document.querySelector(".hero-video");
+  if (heroVideo && !prefersReducedMotion) {
+    const heroSection = document.querySelector(".hero--video");
+    let parallaxTicking = false;
+    function applyParallax() {
+      parallaxTicking = false;
+      const heroHeight = heroSection.offsetHeight;
+      if (window.scrollY > heroHeight) return;
+      const progress = Math.min(window.scrollY / heroHeight, 1);
+      heroVideo.style.transform = "translateY(" + (progress * 8) + "%)";
+    }
+    document.addEventListener(
+      "scroll",
+      function () {
+        if (!parallaxTicking) {
+          parallaxTicking = true;
+          requestAnimationFrame(applyParallax);
+        }
+      },
+      { passive: true }
+    );
+  }
+
   // Mobile nav burger — opens a dropdown, closable via outside click, Escape, or picking a link
   const burger = document.getElementById("navBurger");
   const navLinks = document.querySelector(".nav-links");
@@ -153,8 +186,32 @@
     });
   }
 
-  // Scroll-reveal for sections (subtle, staggered, respects reduced motion)
+  // Stat count-up (150/100e, <24h, 8 départements) — animates once the card
+  // holding it becomes visible; always falls back to the final value so
+  // reduced-motion/no-JS/no-IntersectionObserver users never see a stuck "0"
+  function setCountFinal(el) {
+    el.textContent = el.getAttribute("data-count-to");
+  }
+  function animateCount(el) {
+    const target = parseInt(el.getAttribute("data-count-to"), 10);
+    if (!Number.isFinite(target)) return;
+    const duration = 1200;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3); // ease-out-cubic
+      el.textContent = Math.round(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReduced || !("IntersectionObserver" in window)) {
+    document.querySelectorAll("[data-count-to]").forEach(setCountFinal);
+  }
+
+  // Scroll-reveal for sections (subtle, staggered, respects reduced motion)
   if (!prefersReduced && "IntersectionObserver" in window) {
     const io = new IntersectionObserver(
       (entries) => {
@@ -174,6 +231,7 @@
               },
               { once: true }
             );
+            el.querySelectorAll("[data-count-to]").forEach(animateCount);
             io.unobserve(el);
           }
         });

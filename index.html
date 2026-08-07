@@ -17,7 +17,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -89,8 +89,8 @@
 
   <div class="hero-inner hero-inner--video">
     <p class="eyebrow eyebrow--light reveal reveal-1">Membrane PVC armée &middot; Thermosoudage &middot; Sud-Est de la France</p>
-    <h1 class="hero-title hero-title--light reveal reveal-2">Donnez à votre piscine<br><span class="hero-title-accent">une finition d'exception.</span></h1>
-    <p class="hero-sub hero-sub--light reveal reveal-3">Provence PVC Armé réalise la pose de membranes PVC armées pour les piscines neuves et les rénovations, avec des finitions soignées et une étanchéité durable.</p>
+    <h1 class="hero-title reveal reveal-2">Donnez à votre piscine<br><span class="hero-title-accent">une finition <span class="serif-accent">d'exception</span>.</span></h1>
+    <p class="hero-sub reveal reveal-3">Provence PVC Armé réalise la pose de membranes PVC armées pour les piscines neuves et les rénovations, avec des finitions soignées et une étanchéité durable.</p>
 
     <div class="hero-actions reveal reveal-4">
       <a href="#devis" class="btn-primary btn-lg ripple-btn">Demander un devis gratuit</a>
@@ -100,18 +100,23 @@
       </a>
     </div>
   </div>
+
+  <a href="#chiffres" class="hero-scroll-cue">
+    <span>Découvrir</span>
+    <span class="hero-scroll-cue-line" aria-hidden="true"></span>
+  </a>
 </section>
 
-<!-- ========== CHIFFRES CLES (interactive tabs, water-drop reveal) ========== -->
+<!-- ========== CHIFFRES CLES (bento stat grid, count-up on scroll) ========== -->
 <section class="section keyfacts" id="chiffres">
   <div class="section-inner">
     <p class="eyebrow">Chiffres clés</p>
     <h2 class="section-title">Le PVC armé en quelques repères</h2>
     <p class="section-lede">Touchez un repère pour en savoir plus.</p>
 
-    <div class="tabs" role="tablist" aria-label="Chiffres clés">
-      <button class="tab-chip is-active ripple-btn" role="tab" aria-selected="true" data-tab="epaisseur" type="button">
-        <span class="tab-chip-value">150/100e</span>
+    <div class="stat-grid" role="tablist" aria-label="Chiffres clés">
+      <button class="tab-chip tab-chip--hero is-active ripple-btn" role="tab" aria-selected="true" data-tab="epaisseur" type="button">
+        <span class="tab-chip-value"><span class="stat-num" data-count-to="150">0</span><span class="stat-unit">/100e</span></span>
         <span class="tab-chip-label">Épaisseur</span>
       </button>
       <button class="tab-chip ripple-btn" role="tab" aria-selected="false" data-tab="duree" type="button">
@@ -119,11 +124,11 @@
         <span class="tab-chip-label">Durée de vie</span>
       </button>
       <button class="tab-chip ripple-btn" role="tab" aria-selected="false" data-tab="devis" type="button">
-        <span class="tab-chip-value">&lt;24h</span>
+        <span class="tab-chip-value">&lt;<span class="stat-num" data-count-to="24">0</span><span class="stat-unit">h</span></span>
         <span class="tab-chip-label">Réponse devis</span>
       </button>
       <button class="tab-chip ripple-btn" role="tab" aria-selected="false" data-tab="zones" type="button">
-        <span class="tab-chip-value">8</span>
+        <span class="tab-chip-value"><span class="stat-num" data-count-to="8">0</span></span>
         <span class="tab-chip-label">Départements couverts</span>
       </button>
     </div>
@@ -146,10 +151,10 @@
 </section>
 
 <!-- ========== METHODE / THERMOSOUDAGE ========== -->
-<section class="section section--dark" id="methode">
+<section class="section section--dark section--roomy" id="methode">
   <div class="section-inner">
     <p class="eyebrow eyebrow--light">Notre signature</p>
-    <h2 class="section-title section-title--light">La soudure thermique, lé après lé</h2>
+    <h2 class="section-title section-title--light">La soudure thermique, <span class="serif-accent">lé après lé</span></h2>
     <p class="section-lede section-lede--light">Chaque lé de membrane est chauffé à l'air chaud puis fusionné au précédent, jusqu'à former une coque continue, sans agrafe ni point de faiblesse. C'est un geste technique, pas un produit standardisé.</p>
 
     <ol class="process">
@@ -225,22 +230,22 @@
 
     <div class="finish-grid">
       <div class="finish-card" style="--swatch: linear-gradient(135deg,#8a9a9c,#4c5c5e)">
-        <div class="finish-swatch"></div>
+        <div class="finish-swatch"><span class="finish-swatch-label" aria-hidden="true">Granit Gris</span></div>
         <p class="finish-name">Granit Gris</p>
         <p class="finish-desc">Finition anthracite, esthétique contemporaine et intemporelle.</p>
       </div>
       <div class="finish-card" style="--swatch: linear-gradient(135deg,#e8e2d4,#c9bfa8)">
-        <div class="finish-swatch"></div>
+        <div class="finish-swatch"><span class="finish-swatch-label" aria-hidden="true">Marbre de Carrare</span></div>
         <p class="finish-name">Marbre de Carrare</p>
         <p class="finish-desc">Veines délicates et reflets nacrés pour un rendu élégant.</p>
       </div>
       <div class="finish-card" style="--swatch: linear-gradient(135deg,#c9a876,#a38550)">
-        <div class="finish-swatch"></div>
+        <div class="finish-swatch"><span class="finish-swatch-label" aria-hidden="true">Sable Provence</span></div>
         <p class="finish-name">Sable Provence</p>
         <p class="finish-desc">Teinte chaude qui rappelle les terrasses en pierre du Sud.</p>
       </div>
       <div class="finish-card" style="--swatch: linear-gradient(135deg,#1c8c94,#0f5a60)">
-        <div class="finish-swatch"></div>
+        <div class="finish-swatch"><span class="finish-swatch-label" aria-hidden="true">Lagon</span></div>
         <p class="finish-name">Lagon</p>
         <p class="finish-desc">Bleu profond qui accentue la sensation de volume de l'eau.</p>
       </div>
@@ -250,7 +255,7 @@
 </section>
 
 <!-- ========== REALISATIONS (vraies paires avant/après) ========== -->
-<section class="section section--tint" id="realisations">
+<section class="section section--tint section--roomy" id="realisations">
   <div class="section-inner">
     <p class="eyebrow">Réalisations</p>
     <h2 class="section-title">Avant / Après</h2>
@@ -313,15 +318,15 @@
 
     <div class="testimonial-grid">
       <blockquote class="testimonial">
-        <p>« Chantier propre, soudures impeccables, et un vrai conseil sur le choix de la membrane. Le bassin n'a jamais été aussi étanche. »</p>
+        <p>« Chantier propre, <span class="pull-accent">soudures impeccables</span>, et un vrai conseil sur le choix de la membrane. Le bassin n'a jamais été aussi étanche. »</p>
         <footer>— Client particulier, Vaucluse</footer>
       </blockquote>
       <blockquote class="testimonial">
-        <p>« Rénovation complète d'un liner vieillissant. Intervention rapide, résultat au niveau des attentes annoncées. »</p>
+        <p>« Rénovation complète d'un liner vieillissant. <span class="pull-accent">Intervention rapide</span>, résultat au niveau des attentes annoncées. »</p>
         <footer>— Client particulier, Bouches-du-Rhône</footer>
       </blockquote>
       <blockquote class="testimonial">
-        <p>« Devis clair, délais respectés, et un vrai savoir-faire sur les formes complexes de notre bassin à débordement. »</p>
+        <p>« Devis clair, délais respectés, et un vrai <span class="pull-accent">savoir-faire</span> sur les formes complexes de notre bassin à débordement. »</p>
         <footer>— Client particulier, Var</footer>
       </blockquote>
     </div>
@@ -329,7 +334,7 @@
 </section>
 
 <!-- ========== FAQ ========== -->
-<section class="section section--tint" id="faq">
+<section class="section section--tint section--tight" id="faq">
   <div class="section-inner section-inner--narrow">
     <p class="eyebrow">Questions fréquentes</p>
     <h2 class="section-title">Tout savoir sur le PVC armé</h2>
@@ -360,7 +365,7 @@
 </section>
 
 <!-- ========== ZONES ========== -->
-<section class="section" id="zones">
+<section class="section section--tight" id="zones">
   <div class="section-inner">
     <p class="eyebrow">Zones d'intervention</p>
     <h2 class="section-title">Basés en Provence, nous intervenons dans tout le Sud-Est</h2>
@@ -371,7 +376,7 @@
 </section>
 
 <!-- ========== DEVIS FORM ========== -->
-<section class="section section--dark" id="devis">
+<section class="section section--dark section--roomy" id="devis">
   <div class="section-inner section-inner--narrow">
     <p class="eyebrow eyebrow--light">Votre projet</p>
     <h2 class="section-title section-title--light">Demandez votre devis gratuit</h2>
