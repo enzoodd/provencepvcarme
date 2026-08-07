@@ -225,6 +225,31 @@
     });
   });
 
+  // Membrane detail video — deferred below the fold: only fetched/played once
+  // the section is about to scroll into view, paused again once it leaves
+  const featureVideo = document.querySelector(".feature-video-el");
+  if (featureVideo && "IntersectionObserver" in window) {
+    let featureVideoLoaded = false;
+    new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (!featureVideoLoaded) {
+              featureVideoLoaded = true;
+              featureVideo.load();
+            }
+            featureVideo.play().catch(() => {});
+          } else {
+            featureVideo.pause();
+          }
+        });
+      },
+      { rootMargin: "200px 0px" }
+    ).observe(featureVideo);
+  } else if (featureVideo) {
+    featureVideo.play().catch(() => {});
+  }
+
   // Devis form — placeholder submit handling (no backend wired yet)
   const form = document.getElementById("devisForm");
   const formStatus = document.getElementById("formStatus");
@@ -304,6 +329,7 @@
     revealGroup(".process-step", { y: 40, opacity: 0, scale: 0.97 }, { stagger: 0.12, ease: "power3.out", duration: 0.9 });
     revealGroup(".finish-card", { y: 28, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "expo.out", duration: 0.8 });
     revealGroup(".membrane-scene", { y: 30, opacity: 0, scale: 0.97 }, { stagger: 0, ease: "power3.out", duration: 1 });
+    revealGroup(".feature-video", { opacity: 0, scale: 1.03 }, { stagger: 0, ease: "power2.out", duration: 1 });
     revealGroup(
       ".compare-card",
       (el, i) => ({ x: i % 2 === 0 ? -60 : 60, opacity: 0 }),
@@ -326,28 +352,8 @@
 
     const mm = gsap.matchMedia();
 
-    // ---- Desktop-only: feature-photo pin + custom cursor ----
+    // ---- Desktop-only: custom cursor ----
     mm.add("(min-width: 768px) and (pointer: fine)", function () {
-      // Full-bleed photo holds for an extra beat while it deepens the zoom
-      // and darkens, before releasing into "Pourquoi le PVC armé" — a single,
-      // self-contained pin (never more than one) so it can't fight page flow.
-      const featurePhoto = document.querySelector(".feature-photo");
-      const featureImg = featurePhoto ? featurePhoto.querySelector("img") : null;
-      if (featurePhoto && featureImg) {
-        featurePhoto.classList.add("gsap-kenburns");
-        const scrim = document.createElement("div");
-        scrim.className = "feature-photo-scrim";
-        scrim.setAttribute("aria-hidden", "true");
-        featurePhoto.appendChild(scrim);
-
-        gsap
-          .timeline({
-            scrollTrigger: { trigger: featurePhoto, start: "top top", end: "+=60%", pin: true, scrub: 1 },
-          })
-          .to(featureImg, { scale: 1.16, ease: "none" }, 0)
-          .to(scrim, { opacity: 1, ease: "none" }, 0);
-      }
-
       // Custom cursor — a ring that magnetises toward interactive elements
       const cursor = document.createElement("div");
       cursor.className = "custom-cursor";
@@ -376,7 +382,7 @@
 
       // photos/swatches/3D panels get the larger "media" cursor instead of the button one
       const mediaTargets = document.querySelectorAll(
-        ".ba-toggle, .finish-swatch, .process-img, .feature-photo, .detail-strip img, .membrane-scene"
+        ".ba-toggle, .finish-swatch, .process-img, .feature-video, .detail-strip img, .membrane-scene"
       );
       mediaTargets.forEach((el) => {
         el.addEventListener("mouseenter", () => cursor.classList.add("is-media"));
