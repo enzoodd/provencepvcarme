@@ -21,6 +21,15 @@
 
 <link rel="stylesheet" href="css/style.css">
 
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -152,6 +161,7 @@
 
 <!-- ========== METHODE / THERMOSOUDAGE ========== -->
 <section class="section section--dark section--roomy" id="methode">
+  <canvas class="water-canvas" id="waterCanvas" aria-hidden="true"></canvas>
   <div class="section-inner">
     <p class="eyebrow eyebrow--light">Notre signature</p>
     <h2 class="section-title section-title--light">La soudure thermique, <span class="serif-accent">lé après lé</span></h2>
@@ -198,6 +208,16 @@
     <p class="eyebrow">Le matériau</p>
     <h2 class="section-title">Pourquoi le PVC armé s'impose face au liner classique</h2>
     <p class="section-lede">Deux couches de PVC souple prennent en sandwich une armature en polyester tissé. Le résultat : un revêtement deux fois plus épais qu'un liner traditionnel, posé non pas agrafé mais soudé — chaque joint devient une pièce continue.</p>
+
+    <div class="membrane-scene" id="membraneScene" aria-hidden="true">
+      <canvas id="membraneCanvas"></canvas>
+      <div class="membrane-labels" aria-hidden="true">
+        <span class="membrane-label" data-layer="top">PVC souple <em>côté eau</em></span>
+        <span class="membrane-label" data-layer="core">Armature polyester tissée</span>
+        <span class="membrane-label" data-layer="bottom">PVC souple <em>côté support</em></span>
+      </div>
+      <p class="membrane-scene-hint" aria-hidden="true">Défilez pour voir la coupe s'ouvrir</p>
+    </div>
 
     <div class="compare-grid">
       <div class="compare-card compare-card--dim">
@@ -480,5 +500,7 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
 <script src="js/script.js"></script>
+<script type="module" src="js/membrane-scene.js"></script>
+<script type="module" src="js/water-scene.js"></script>
 </body>
 </html>

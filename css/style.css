@@ -126,7 +126,6 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.25s var(--ease);
-  mix-blend-mode: difference;
 }
 .custom-cursor.is-visible { opacity: 1; }
 .custom-cursor-ring {
@@ -134,18 +133,33 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
   top: -18px; left: -18px;
   width: 36px; height: 36px;
   border-radius: 50%;
-  border: 1.5px solid var(--paper);
-  transition: transform 0.3s var(--ease-snap), border-color 0.3s var(--ease);
+  border: 1.5px solid var(--lagon-light);
+  background: rgba(28,140,148,0.08);
+  transition: transform 0.35s var(--ease-snap), border-color 0.3s var(--ease), background 0.3s var(--ease), border-radius 0.3s var(--ease);
 }
 .custom-cursor-dot {
   position: absolute;
   top: -3px; left: -3px;
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: var(--paper);
+  background: var(--gold);
+  transition: opacity 0.2s var(--ease);
 }
-.custom-cursor.is-active .custom-cursor-ring { transform: scale(1.7); }
+/* hovering a link/button: ring grows and turns gold, dot disappears */
+.custom-cursor.is-active .custom-cursor-ring {
+  transform: scale(1.8);
+  border-color: var(--gold);
+  background: rgba(201,168,118,0.12);
+}
 .custom-cursor.is-active .custom-cursor-dot { opacity: 0; }
+/* hovering a photo/swatch: ring grows further, softens into a filled lens */
+.custom-cursor.is-media .custom-cursor-ring {
+  transform: scale(2.6);
+  border-color: rgba(245,243,237,0.7);
+  background: rgba(28,140,148,0.22);
+  border-radius: 40%;
+}
+.custom-cursor.is-media .custom-cursor-dot { opacity: 0; }
 
 /* ---------- feature photo pin scrim (fades in while pinned, GSAP-driven) ---------- */
 .feature-photo-scrim {
@@ -553,6 +567,18 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
   pointer-events: none;
 }
 
+/* Three.js water-ripple shader — discreet, sits behind the content, above the base gradient */
+.water-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
 .section-inner { position: relative; z-index: 1; max-width: var(--container); margin: 0 auto; }
 .section-inner--wide { max-width: var(--container-wide); }
 .section-inner--narrow { max-width: 720px; }
@@ -882,6 +908,86 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
 @media (max-width: 780px) {
   .ba-grid { grid-template-columns: 1fr; }
   .detail-strip { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- membrane 3D cross-section (Three.js, exploded view on scroll) ---------- */
+.membrane-scene {
+  position: relative;
+  height: clamp(420px, 52vw, 620px);
+  margin-bottom: var(--space-7);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(160deg, var(--paper) 0%, var(--sand) 100%);
+  border: 1px solid rgba(11,43,60,0.08);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.membrane-scene canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: pan-y;
+}
+.membrane-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.membrane-label {
+  position: absolute;
+  top: 0; left: 0;
+  transform: translate(-9999px, -9999px);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px 7px 10px;
+  border-radius: 100px;
+  background: rgba(245,243,237,0.92);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(11,43,60,0.1);
+  box-shadow: var(--shadow-sm);
+  color: var(--marine);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.membrane-label::before {
+  content: "";
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--lagon);
+  flex-shrink: 0;
+}
+.membrane-label[data-layer="core"]::before { background: var(--gold); }
+.membrane-label em { font-style: normal; color: var(--ink-soft); }
+.membrane-scene-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: rgba(11,43,60,0.55);
+  backdrop-filter: blur(4px);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.4s var(--ease);
+}
+.membrane-scene.is-explored .membrane-scene-hint { opacity: 0; }
+@media (max-width: 640px) {
+  .membrane-scene { height: 380px; }
+  .membrane-label { font-size: 11px; padding: 6px 12px 6px 9px; }
 }
 
 /* ---------- compare grid (icon badges, no plain +/- text) ---------- */

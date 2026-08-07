@@ -303,6 +303,7 @@
 
     revealGroup(".process-step", { y: 40, opacity: 0, scale: 0.97 }, { stagger: 0.12, ease: "power3.out", duration: 0.9 });
     revealGroup(".finish-card", { y: 28, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "expo.out", duration: 0.8 });
+    revealGroup(".membrane-scene", { y: 30, opacity: 0, scale: 0.97 }, { stagger: 0, ease: "power3.out", duration: 1 });
     revealGroup(
       ".compare-card",
       (el, i) => ({ x: i % 2 === 0 ? -60 : 60, opacity: 0 }),
@@ -366,11 +367,20 @@
       document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
 
       const magneticTargets = document.querySelectorAll(
-        ".ripple-btn, .ba-toggle, .finish-swatch, .hero-scroll-cue, .zones-list span"
+        ".ripple-btn, .hero-scroll-cue, .zones-list span, .nav-links a, .footer-col a, .faq-item summary"
       );
       magneticTargets.forEach((el) => {
         el.addEventListener("mouseenter", () => cursor.classList.add("is-active"));
         el.addEventListener("mouseleave", () => cursor.classList.remove("is-active"));
+      });
+
+      // photos/swatches/3D panels get the larger "media" cursor instead of the button one
+      const mediaTargets = document.querySelectorAll(
+        ".ba-toggle, .finish-swatch, .process-img, .feature-photo, .detail-strip img, .membrane-scene"
+      );
+      mediaTargets.forEach((el) => {
+        el.addEventListener("mouseenter", () => cursor.classList.add("is-media"));
+        el.addEventListener("mouseleave", () => cursor.classList.remove("is-media"));
       });
 
       return function cleanup() {
