@@ -2,19 +2,59 @@
 (function () {
   "use strict";
 
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isDesktopViewport = window.innerWidth >= 768;
+  const hasGSAP = !!(window.gsap && window.ScrollTrigger);
+  const hasLenis = !!window.Lenis;
+
+  if (hasGSAP) window.gsap.registerPlugin(window.ScrollTrigger);
+
+  // Lenis — inertial smooth scroll. Desktop only: touch devices already have
+  // great native momentum scrolling, and Lenis is really a mouse-wheel refinement.
+  // Skipped entirely under prefers-reduced-motion.
+  let lenis = null;
+  if (hasLenis && !prefersReducedMotion && isDesktopViewport) {
+    lenis = new window.Lenis({
+      duration: 1.1,
+      easing: (t) => 1 - Math.pow(1 - t, 3),
+      smoothWheel: true,
+    });
+    if (hasGSAP) {
+      lenis.on("scroll", window.ScrollTrigger.update);
+      window.gsap.ticker.add((time) => lenis.raf(time * 1000));
+      window.gsap.ticker.lagSmoothing(0);
+    } else {
+      const raf = (time) => {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      };
+      requestAnimationFrame(raf);
+    }
+  }
+
   // Seam progress bar (top, horizontal) + seam rail (left, vertical, fills as you scroll)
   const seam = document.getElementById("seamProgress");
   const seamRailFill = document.getElementById("seamRailFill");
-  function updateSeam() {
-    const h = document.documentElement;
-    const scrolled = h.scrollTop;
-    const height = h.scrollHeight - h.clientHeight;
-    const pct = height > 0 ? (scrolled / height) * 100 : 0;
+  function setSeam(pct) {
     if (seam) seam.style.width = pct + "%";
     if (seamRailFill) seamRailFill.style.height = pct + "%";
   }
-  document.addEventListener("scroll", updateSeam, { passive: true });
-  updateSeam();
+  if (hasGSAP) {
+    window.ScrollTrigger.create({
+      trigger: document.documentElement,
+      start: "top top",
+      end: "bottom bottom",
+      onUpdate: (self) => setSeam(self.progress * 100),
+    });
+  } else {
+    const h = document.documentElement;
+    function updateSeam() {
+      const height = h.scrollHeight - h.clientHeight;
+      setSeam(height > 0 ? (h.scrollTop / height) * 100 : 0);
+    }
+    document.addEventListener("scroll", updateSeam, { passive: true });
+    updateSeam();
+  }
 
   // Nav — solidifies (deeper background/shadow) once the page has scrolled a bit
   const siteNav = document.getElementById("siteNav");
@@ -25,28 +65,35 @@
   updateNavScrolled();
 
   // Hero video — subtle parallax drift while the hero is in view (never on text)
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const heroVideo = document.querySelector(".hero-video");
-  if (heroVideo && !prefersReducedMotion) {
-    const heroSection = document.querySelector(".hero--video");
-    let parallaxTicking = false;
-    function applyParallax() {
-      parallaxTicking = false;
-      const heroHeight = heroSection.offsetHeight;
-      if (window.scrollY > heroHeight) return;
-      const progress = Math.min(window.scrollY / heroHeight, 1);
-      heroVideo.style.transform = "translateY(" + (progress * 8) + "%)";
+  const heroSection = document.querySelector(".hero--video");
+  if (heroVideo && heroSection && !prefersReducedMotion) {
+    if (hasGSAP) {
+      window.gsap.to(heroVideo, {
+        yPercent: 8,
+        ease: "none",
+        scrollTrigger: { trigger: heroSection, start: "top top", end: "bottom top", scrub: true },
+      });
+    } else {
+      let parallaxTicking = false;
+      function applyParallax() {
+        parallaxTicking = false;
+        const heroHeight = heroSection.offsetHeight;
+        if (window.scrollY > heroHeight) return;
+        const progress = Math.min(window.scrollY / heroHeight, 1);
+        heroVideo.style.transform = "translateY(" + progress * 8 + "%)";
+      }
+      document.addEventListener(
+        "scroll",
+        function () {
+          if (!parallaxTicking) {
+            parallaxTicking = true;
+            requestAnimationFrame(applyParallax);
+          }
+        },
+        { passive: true }
+      );
     }
-    document.addEventListener(
-      "scroll",
-      function () {
-        if (!parallaxTicking) {
-          parallaxTicking = true;
-          requestAnimationFrame(applyParallax);
-        }
-      },
-      { passive: true }
-    );
   }
 
   // Mobile nav burger — opens a dropdown, closable via outside click, Escape, or picking a link
@@ -154,14 +201,27 @@
     });
   });
 
-  // before/after toggle — click swaps photo with a crossfade
+  // before/after toggle — click swaps photo; GSAP adds a circular wipe from
+  // the click point on top of the base CSS crossfade when available
   document.querySelectorAll(".ba-toggle").forEach((toggle) => {
-    toggle.addEventListener("click", function () {
+    toggle.addEventListener("click", function (e) {
       const isAfter = toggle.classList.toggle("is-after");
       const tag = toggle.querySelector(".ba-tag");
       const hintLabel = toggle.querySelector(".ba-hint-label");
       if (tag) tag.textContent = isAfter ? "Après" : "Avant";
       if (hintLabel) hintLabel.textContent = isAfter ? "Voir avant" : "Voir après";
+
+      if (hasGSAP && !prefersReducedMotion) {
+        const revealImg = toggle.querySelector(isAfter ? ".ba-img-after" : ".ba-img-before");
+        const rect = toggle.getBoundingClientRect();
+        const originX = e.clientX ? ((e.clientX - rect.left) / rect.width) * 100 : 50;
+        const originY = e.clientY ? ((e.clientY - rect.top) / rect.height) * 100 : 50;
+        window.gsap.fromTo(
+          revealImg,
+          { clipPath: "circle(0% at " + originX + "% " + originY + "%)" },
+          { clipPath: "circle(145% at " + originX + "% " + originY + "%)", duration: 0.85, ease: "power3.inOut" }
+        );
+      }
     });
   });
 
@@ -186,13 +246,14 @@
     });
   }
 
-  // Stat count-up (150/100e, <24h, 8 départements) — animates once the card
-  // holding it becomes visible; always falls back to the final value so
-  // reduced-motion/no-JS/no-IntersectionObserver users never see a stuck "0"
+  // Stat count-up (150/100e, <24h, 8 départements) — always falls back to the
+  // final value so reduced-motion/no-JS users never see a stuck "0"
   function setCountFinal(el) {
     el.textContent = el.getAttribute("data-count-to");
   }
   function animateCount(el) {
+    if (el.hasAttribute("data-counted")) return;
+    el.setAttribute("data-counted", "true");
     const target = parseInt(el.getAttribute("data-count-to"), 10);
     if (!Number.isFinite(target)) return;
     const duration = 1200;
@@ -206,71 +267,175 @@
     }
     requestAnimationFrame(tick);
   }
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (prefersReduced || !("IntersectionObserver" in window)) {
-    document.querySelectorAll("[data-count-to]").forEach(setCountFinal);
+  if (prefersReducedMotion || !hasGSAP) {
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      document.querySelectorAll("[data-count-to]").forEach(setCountFinal);
+    }
   }
 
-  // Scroll-reveal for sections (subtle, staggered, respects reduced motion)
-  if (!prefersReduced && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const el = entry.target;
-            el.style.opacity = "1";
-            el.style.transform = "translateY(0)";
-            // drop the reveal-only inline transition once it has run, so hover/press
-            // states go back to using each component's own CSS-authored transition
-            // (otherwise a hover box-shadow etc. would inherit the reveal's timing/delay forever)
-            el.addEventListener(
-              "transitionend",
-              function handler() {
-                el.style.transition = "";
-                el.removeEventListener("transitionend", handler);
-              },
-              { once: true }
-            );
-            el.querySelectorAll("[data-count-to]").forEach(animateCount);
-            io.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
+  // ---------- Scroll-driven entrance animations ----------
+  if (hasGSAP && !prefersReducedMotion) {
+    const gsap = window.gsap;
+    const ScrollTrigger = window.ScrollTrigger;
 
-    // groups revealed individually so each grid staggers on its own rhythm
-    // rather than one long cascade across the whole page
-    const revealGroups = [
-      ".process-step",
-      ".finish-card",
-      ".testimonial",
+    function revealGroup(selector, buildVars, opts) {
+      opts = opts || {};
+      const stagger = opts.stagger || 0.08;
+      const ease = opts.ease || "power3.out";
+      const duration = opts.duration || 0.8;
+      const mod = opts.mod || 4;
+      gsap.utils.toArray(selector).forEach((el, i) => {
+        const vars = typeof buildVars === "function" ? buildVars(el, i) : buildVars;
+        gsap.from(
+          el,
+          Object.assign({}, vars, {
+            duration: duration,
+            ease: ease,
+            delay: (i % mod) * stagger,
+            scrollTrigger: { trigger: el, start: "top 88%", once: true },
+            onStart: function () {
+              el.querySelectorAll("[data-count-to]").forEach(animateCount);
+            },
+          })
+        );
+      });
+    }
+
+    revealGroup(".process-step", { y: 40, opacity: 0, scale: 0.97 }, { stagger: 0.12, ease: "power3.out", duration: 0.9 });
+    revealGroup(".finish-card", { y: 28, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "expo.out", duration: 0.8 });
+    revealGroup(
       ".compare-card",
-      ".tab-chip",
+      (el, i) => ({ x: i % 2 === 0 ? -60 : 60, opacity: 0 }),
+      { stagger: 0.15, ease: "power3.out", duration: 0.9, mod: 2 }
+    );
+    revealGroup(".tab-chip", { y: 24, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "back.out(1.6)", duration: 0.8 });
+    revealGroup(
       ".ba-pair",
-      ".faq-item",
-      ".detail-strip img",
-    ];
-    revealGroups.forEach((selector) => {
-      const els = document.querySelectorAll(selector);
-      els.forEach((el, i) => {
+      (el, i) => ({ y: 40, opacity: 0, rotate: i % 2 === 0 ? -2.5 : 2.5 }),
+      { stagger: 0.12, ease: "power3.out", duration: 0.9 }
+    );
+    revealGroup(
+      ".testimonial",
+      (el, i) => ({ y: 32, opacity: 0, rotate: i === 0 ? -1.5 : i === 2 ? 1.5 : 0 }),
+      { stagger: 0.1, ease: "power3.out", duration: 0.8, mod: 3 }
+    );
+    revealGroup(".faq-item", { y: 16, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.6 });
+    revealGroup(".detail-strip img", { scale: 0.9, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.7 });
+    revealGroup(".zones-list span", { y: 8, opacity: 0 }, { stagger: 0.04, ease: "power1.out", duration: 0.45, mod: 8 });
+
+    const mm = gsap.matchMedia();
+
+    // ---- Desktop-only: feature-photo pin + custom cursor ----
+    mm.add("(min-width: 768px) and (pointer: fine)", function () {
+      // Full-bleed photo holds for an extra beat while it deepens the zoom
+      // and darkens, before releasing into "Pourquoi le PVC armé" — a single,
+      // self-contained pin (never more than one) so it can't fight page flow.
+      const featurePhoto = document.querySelector(".feature-photo");
+      const featureImg = featurePhoto ? featurePhoto.querySelector("img") : null;
+      if (featurePhoto && featureImg) {
+        featurePhoto.classList.add("gsap-kenburns");
+        const scrim = document.createElement("div");
+        scrim.className = "feature-photo-scrim";
+        scrim.setAttribute("aria-hidden", "true");
+        featurePhoto.appendChild(scrim);
+
+        gsap
+          .timeline({
+            scrollTrigger: { trigger: featurePhoto, start: "top top", end: "+=60%", pin: true, scrub: 1 },
+          })
+          .to(featureImg, { scale: 1.16, ease: "none" }, 0)
+          .to(scrim, { opacity: 1, ease: "none" }, 0);
+      }
+
+      // Custom cursor — a ring that magnetises toward interactive elements
+      const cursor = document.createElement("div");
+      cursor.className = "custom-cursor";
+      cursor.innerHTML = '<div class="custom-cursor-ring"></div><div class="custom-cursor-dot"></div>';
+      document.body.appendChild(cursor);
+      document.documentElement.classList.add("has-custom-cursor");
+
+      const xTo = gsap.quickTo(cursor, "x", { duration: 0.45, ease: "power3" });
+      const yTo = gsap.quickTo(cursor, "y", { duration: 0.45, ease: "power3" });
+
+      function onMove(e) {
+        xTo(e.clientX);
+        yTo(e.clientY);
+        cursor.classList.add("is-visible");
+      }
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
+
+      const magneticTargets = document.querySelectorAll(
+        ".ripple-btn, .ba-toggle, .finish-swatch, .hero-scroll-cue, .zones-list span"
+      );
+      magneticTargets.forEach((el) => {
+        el.addEventListener("mouseenter", () => cursor.classList.add("is-active"));
+        el.addEventListener("mouseleave", () => cursor.classList.remove("is-active"));
+      });
+
+      return function cleanup() {
+        document.removeEventListener("mousemove", onMove);
+        cursor.remove();
+        document.documentElement.classList.remove("has-custom-cursor");
+      };
+    });
+
+    window.addEventListener("load", () => ScrollTrigger.refresh());
+  } else {
+    // ---------- Fallback: IntersectionObserver reveal (no GSAP / reduced motion) ----------
+    if (!prefersReducedMotion && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              el.style.opacity = "1";
+              el.style.transform = "translateY(0)";
+              el.addEventListener(
+                "transitionend",
+                function handler() {
+                  el.style.transition = "";
+                  el.removeEventListener("transitionend", handler);
+                },
+                { once: true }
+              );
+              el.querySelectorAll("[data-count-to]").forEach(animateCount);
+              io.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      const revealGroups = [
+        ".process-step",
+        ".finish-card",
+        ".testimonial",
+        ".compare-card",
+        ".tab-chip",
+        ".ba-pair",
+        ".faq-item",
+        ".detail-strip img",
+      ];
+      revealGroups.forEach((selector) => {
+        document.querySelectorAll(selector).forEach((el, i) => {
+          el.style.opacity = "0";
+          el.style.transform = "translateY(16px)";
+          el.style.transition =
+            "opacity 0.6s cubic-bezier(0.16,1,0.3,1) " + (i % 4) * 0.08 + "s, " +
+            "transform 0.6s cubic-bezier(0.16,1,0.3,1) " + (i % 4) * 0.08 + "s";
+          io.observe(el);
+        });
+      });
+
+      document.querySelectorAll(".zones-list span").forEach((el, i) => {
         el.style.opacity = "0";
-        el.style.transform = "translateY(16px)";
+        el.style.transform = "translateY(8px)";
         el.style.transition =
-          "opacity 0.6s cubic-bezier(0.16,1,0.3,1) " + (i % 4) * 0.08 + "s, " +
-          "transform 0.6s cubic-bezier(0.16,1,0.3,1) " + (i % 4) * 0.08 + "s";
+          "opacity 0.45s cubic-bezier(0.16,1,0.3,1) " + (i % 8) * 0.05 + "s, " +
+          "transform 0.45s cubic-bezier(0.16,1,0.3,1) " + (i % 8) * 0.05 + "s";
         io.observe(el);
       });
-    });
-
-    // zones chips get a lighter, quicker stagger (small inline tags, not cards)
-    document.querySelectorAll(".zones-list span").forEach((el, i) => {
-      el.style.opacity = "0";
-      el.style.transform = "translateY(8px)";
-      el.style.transition =
-        "opacity 0.45s cubic-bezier(0.16,1,0.3,1) " + (i % 8) * 0.05 + "s, " +
-        "transform 0.45s cubic-bezier(0.16,1,0.3,1) " + (i % 8) * 0.05 + "s";
-      io.observe(el);
-    });
+    }
   }
 })();
