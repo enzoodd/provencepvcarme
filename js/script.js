@@ -16,14 +16,34 @@
   document.addEventListener("scroll", updateSeam, { passive: true });
   updateSeam();
 
-  // Mobile nav burger
+  // Mobile nav burger — opens a dropdown, closable via outside click, Escape, or picking a link
   const burger = document.getElementById("navBurger");
   const navLinks = document.querySelector(".nav-links");
   if (burger && navLinks) {
+    function closeNav() {
+      burger.setAttribute("aria-expanded", "false");
+      navLinks.classList.remove("nav-links--open");
+    }
+    function openNav() {
+      burger.setAttribute("aria-expanded", "true");
+      navLinks.classList.add("nav-links--open");
+    }
     burger.addEventListener("click", function () {
       const expanded = burger.getAttribute("aria-expanded") === "true";
-      burger.setAttribute("aria-expanded", String(!expanded));
-      navLinks.classList.toggle("nav-links--open");
+      if (expanded) closeNav(); else openNav();
+    });
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeNav);
+    });
+    document.addEventListener("click", function (e) {
+      if (burger.getAttribute("aria-expanded") !== "true") return;
+      if (!navLinks.contains(e.target) && !burger.contains(e.target)) closeNav();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && burger.getAttribute("aria-expanded") === "true") {
+        closeNav();
+        burger.focus();
+      }
     });
   }
 
@@ -114,6 +134,7 @@
 
   // Devis form — placeholder submit handling (no backend wired yet)
   const form = document.getElementById("devisForm");
+  const formStatus = document.getElementById("formStatus");
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -121,36 +142,77 @@
       const original = btn.textContent;
       btn.textContent = "Demande envoyée ✓";
       btn.disabled = true;
+      if (formStatus) formStatus.textContent = "Votre demande a bien été envoyée. Nous vous recontactons sous 24h.";
       setTimeout(function () {
         btn.textContent = original;
         btn.disabled = false;
         form.reset();
+        if (formStatus) formStatus.textContent = "";
       }, 3000);
       // TODO: brancher un vrai endpoint (Formspree, Netlify Forms, etc.)
     });
   }
 
-  // Scroll-reveal for sections (subtle, respects reduced motion)
+  // Scroll-reveal for sections (subtle, staggered, respects reduced motion)
   const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (!prefersReduced && "IntersectionObserver" in window) {
-    const revealTargets = document.querySelectorAll(".process-step, .finish-card, .testimonial, .compare-card");
-    revealTargets.forEach((el) => {
-      el.style.opacity = "0";
-      el.style.transform = "translateY(16px)";
-      el.style.transition = "opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)";
-    });
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0)";
-            io.unobserve(entry.target);
+            const el = entry.target;
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+            // drop the reveal-only inline transition once it has run, so hover/press
+            // states go back to using each component's own CSS-authored transition
+            // (otherwise a hover box-shadow etc. would inherit the reveal's timing/delay forever)
+            el.addEventListener(
+              "transitionend",
+              function handler() {
+                el.style.transition = "";
+                el.removeEventListener("transitionend", handler);
+              },
+              { once: true }
+            );
+            io.unobserve(el);
           }
         });
       },
       { threshold: 0.15 }
     );
-    revealTargets.forEach((el) => io.observe(el));
+
+    // groups revealed individually so each grid staggers on its own rhythm
+    // rather than one long cascade across the whole page
+    const revealGroups = [
+      ".process-step",
+      ".finish-card",
+      ".testimonial",
+      ".compare-card",
+      ".tab-chip",
+      ".ba-pair",
+      ".faq-item",
+      ".detail-strip img",
+    ];
+    revealGroups.forEach((selector) => {
+      const els = document.querySelectorAll(selector);
+      els.forEach((el, i) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(16px)";
+        el.style.transition =
+          "opacity 0.6s cubic-bezier(0.16,1,0.3,1) " + (i % 4) * 0.08 + "s, " +
+          "transform 0.6s cubic-bezier(0.16,1,0.3,1) " + (i % 4) * 0.08 + "s";
+        io.observe(el);
+      });
+    });
+
+    // zones chips get a lighter, quicker stagger (small inline tags, not cards)
+    document.querySelectorAll(".zones-list span").forEach((el, i) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(8px)";
+      el.style.transition =
+        "opacity 0.45s cubic-bezier(0.16,1,0.3,1) " + (i % 8) * 0.05 + "s, " +
+        "transform 0.45s cubic-bezier(0.16,1,0.3,1) " + (i % 8) * 0.05 + "s";
+      io.observe(el);
+    });
   }
 })();
