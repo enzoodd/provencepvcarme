@@ -362,52 +362,6 @@
       });
     });
 
-    const mm = gsap.matchMedia();
-
-    // ---- Desktop-only: custom cursor ----
-    mm.add("(min-width: 768px) and (pointer: fine)", function () {
-      // Custom cursor — a ring that magnetises toward interactive elements
-      const cursor = document.createElement("div");
-      cursor.className = "custom-cursor";
-      cursor.innerHTML = '<div class="custom-cursor-ring"></div><div class="custom-cursor-dot"></div>';
-      document.body.appendChild(cursor);
-      document.documentElement.classList.add("has-custom-cursor");
-
-      const xTo = gsap.quickTo(cursor, "x", { duration: 0.45, ease: "power3" });
-      const yTo = gsap.quickTo(cursor, "y", { duration: 0.45, ease: "power3" });
-
-      function onMove(e) {
-        xTo(e.clientX);
-        yTo(e.clientY);
-        cursor.classList.add("is-visible");
-      }
-      document.addEventListener("mousemove", onMove);
-      document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
-
-      const magneticTargets = document.querySelectorAll(
-        ".ripple-btn, .hero-scroll-cue, .zones-list span, .nav-links a, .footer-col a, .faq-item summary, .tab-chip"
-      );
-      magneticTargets.forEach((el) => {
-        el.addEventListener("mouseenter", () => cursor.classList.add("is-active"));
-        el.addEventListener("mouseleave", () => cursor.classList.remove("is-active"));
-      });
-
-      // photos/swatches/3D panels get the larger "media" cursor instead of the button one
-      const mediaTargets = document.querySelectorAll(
-        ".ba-toggle, .finish-chip, .process-img, .detail-strip img, .membrane-scene"
-      );
-      mediaTargets.forEach((el) => {
-        el.addEventListener("mouseenter", () => cursor.classList.add("is-media"));
-        el.addEventListener("mouseleave", () => cursor.classList.remove("is-media"));
-      });
-
-      return function cleanup() {
-        document.removeEventListener("mousemove", onMove);
-        cursor.remove();
-        document.documentElement.classList.remove("has-custom-cursor");
-      };
-    });
-
     window.addEventListener("load", () => ScrollTrigger.refresh());
   } else {
     // Finish folders — no scroll-scrub available here (reduced motion, or GSAP

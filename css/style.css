@@ -112,55 +112,6 @@ h1, h2, h3 { font-family: var(--font-display); margin: 0; font-weight: 700; lett
 /* every anchor target clears the sticky nav on jump / keyboard focus */
 section[id] { scroll-margin-top: var(--nav-height); }
 
-/* ---------- custom cursor (desktop, fine-pointer only — JS-gated) ---------- */
-html.has-custom-cursor, html.has-custom-cursor a, html.has-custom-cursor button {
-  cursor: none;
-}
-html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-cursor select {
-  cursor: auto;
-}
-.custom-cursor {
-  position: fixed;
-  top: 0; left: 0;
-  z-index: 998;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.25s var(--ease);
-}
-.custom-cursor.is-visible { opacity: 1; }
-.custom-cursor-ring {
-  position: absolute;
-  top: -18px; left: -18px;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  border: 1.5px solid var(--lagon-light);
-  background: rgba(28,140,148,0.08);
-  transition: transform 0.35s var(--ease-snap), border-color 0.3s var(--ease), background 0.3s var(--ease), border-radius 0.3s var(--ease);
-}
-.custom-cursor-dot {
-  position: absolute;
-  top: -3px; left: -3px;
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--gold);
-  transition: opacity 0.2s var(--ease);
-}
-/* hovering a link/button: ring grows and turns gold, dot disappears */
-.custom-cursor.is-active .custom-cursor-ring {
-  transform: scale(1.8);
-  border-color: var(--gold);
-  background: rgba(201,168,118,0.12);
-}
-.custom-cursor.is-active .custom-cursor-dot { opacity: 0; }
-/* hovering a photo/swatch: ring grows further, softens into a filled lens */
-.custom-cursor.is-media .custom-cursor-ring {
-  transform: scale(2.6);
-  border-color: rgba(245,243,237,0.7);
-  background: rgba(28,140,148,0.22);
-  border-radius: 40%;
-}
-.custom-cursor.is-media .custom-cursor-dot { opacity: 0; }
-
 /* ---------- seam progress (signature element) ---------- */
 .seam-progress {
   position: fixed;
