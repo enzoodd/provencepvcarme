@@ -148,6 +148,15 @@
     });
   });
 
+  // Finish folders — click fans the 3 sample chips out, reclick restacks them
+  document.querySelectorAll(".finish-folder").forEach((folder) => {
+    folder.addEventListener("click", function () {
+      const isOpen = folder.getAttribute("data-open") === "1";
+      folder.setAttribute("data-open", isOpen ? "0" : "1");
+      folder.setAttribute("aria-expanded", isOpen ? "false" : "true");
+    });
+  });
+
   // generic water-drop ripple on any button tagged .ripple-btn
   document.querySelectorAll(".ripple-btn").forEach((btn) => {
     btn.addEventListener("click", function (e) {
@@ -268,7 +277,7 @@
     }
 
     revealGroup(".process-step", { y: 40, opacity: 0, scale: 0.97 }, { stagger: 0.12, ease: "power3.out", duration: 0.9 });
-    revealGroup(".finish-card", { y: 28, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "expo.out", duration: 0.8 });
+    revealGroup(".finish-folder", { y: 28, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "expo.out", duration: 0.8 });
     revealGroup(".membrane-scene", { y: 30, opacity: 0, scale: 0.97 }, { stagger: 0, ease: "power3.out", duration: 1 });
     revealGroup(
       ".compare-card",
@@ -308,7 +317,7 @@
       document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
 
       const magneticTargets = document.querySelectorAll(
-        ".ripple-btn, .hero-scroll-cue, .zones-list span, .nav-links a, .footer-col a, .faq-item summary, .tab-chip"
+        ".ripple-btn, .hero-scroll-cue, .zones-list span, .nav-links a, .footer-col a, .faq-item summary, .tab-chip, .finish-folder"
       );
       magneticTargets.forEach((el) => {
         el.addEventListener("mouseenter", () => cursor.classList.add("is-active"));
@@ -317,7 +326,7 @@
 
       // photos/swatches/3D panels get the larger "media" cursor instead of the button one
       const mediaTargets = document.querySelectorAll(
-        ".ba-toggle, .finish-swatch, .process-img, .detail-strip img, .membrane-scene"
+        ".ba-toggle, .finish-chip, .process-img, .detail-strip img, .membrane-scene"
       );
       mediaTargets.forEach((el) => {
         el.addEventListener("mouseenter", () => cursor.classList.add("is-media"));
@@ -360,7 +369,7 @@
 
       const revealGroups = [
         ".process-step",
-        ".finish-card",
+        ".finish-folder",
         ".compare-card",
         ".tab-chip",
         ".ba-pair",
