@@ -148,14 +148,31 @@
     });
   });
 
-  // Finish folders — click fans the 3 sample chips out, reclick restacks them
-  document.querySelectorAll(".finish-folder").forEach((folder) => {
-    folder.addEventListener("click", function () {
-      const isOpen = folder.getAttribute("data-open") === "1";
-      folder.setAttribute("data-open", isOpen ? "0" : "1");
-      folder.setAttribute("aria-expanded", isOpen ? "false" : "true");
+  // Finish folders — the 3 sample chips fan out progressively as the user
+  // scrolls through the section (see the ScrollTrigger scrub setup further
+  // down); CLOSED/OPEN below are the two endpoints it interpolates between,
+  // and also drive the static reduced-motion / no-GSAP fallback.
+  const FINISH_CHIP_CLOSED = [
+    { x: 8, y: 6, rotate: -6 },
+    { x: 0, y: 0, rotate: 0 },
+    { x: -8, y: 6, rotate: 6 },
+  ];
+  const FINISH_CHIP_OPEN = [
+    { x: -72, y: -18, rotate: -14 },
+    { x: 0, y: -32, rotate: 0 },
+    { x: 72, y: -18, rotate: 14 },
+  ];
+  function applyFinishFan(chips, progress) {
+    const eased = 1 - Math.pow(1 - progress, 2);
+    chips.forEach((chip, i) => {
+      const c = FINISH_CHIP_CLOSED[i];
+      const o = FINISH_CHIP_OPEN[i];
+      const x = c.x + (o.x - c.x) * eased;
+      const y = c.y + (o.y - c.y) * eased;
+      const r = c.rotate + (o.rotate - c.rotate) * eased;
+      chip.style.transform = "translate(" + x.toFixed(2) + "px, " + y.toFixed(2) + "px) rotate(" + r.toFixed(2) + "deg)";
     });
-  });
+  }
 
   // generic water-drop ripple on any button tagged .ripple-btn
   document.querySelectorAll(".ripple-btn").forEach((btn) => {
@@ -294,6 +311,30 @@
     revealGroup(".detail-strip img", { scale: 0.9, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.7 });
     revealGroup(".zones-list span", { y: 8, opacity: 0 }, { stagger: 0.04, ease: "power1.out", duration: 0.45, mod: 8 });
 
+    // Finish folders — the fan-out is scrubbed to scroll position (mirrors the
+    // membrane 3D cross-section pattern): closed at the top of the section,
+    // fully fanned once the section reaches the middle of the viewport. Each
+    // folder gets a slight stagger off the same shared progress for a soft
+    // wave across the row instead of all three snapping open in lockstep.
+    document.querySelectorAll(".finish-folders").forEach((group) => {
+      const folders = Array.from(group.querySelectorAll(".finish-folder"));
+      if (!folders.length) return;
+      const chipsByFolder = folders.map((folder) => folder.querySelectorAll(".finish-chip"));
+      ScrollTrigger.create({
+        trigger: group,
+        start: "top bottom",
+        end: "center center",
+        scrub: 0.6,
+        onUpdate: (self) => {
+          folders.forEach((folder, i) => {
+            const stagger = i * 0.12;
+            const local = Math.max(0, Math.min(1, (self.progress - stagger) / (1 - stagger)));
+            applyFinishFan(chipsByFolder[i], local);
+          });
+        },
+      });
+    });
+
     const mm = gsap.matchMedia();
 
     // ---- Desktop-only: custom cursor ----
@@ -317,7 +358,7 @@
       document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
 
       const magneticTargets = document.querySelectorAll(
-        ".ripple-btn, .hero-scroll-cue, .zones-list span, .nav-links a, .footer-col a, .faq-item summary, .tab-chip, .finish-folder"
+        ".ripple-btn, .hero-scroll-cue, .zones-list span, .nav-links a, .footer-col a, .faq-item summary, .tab-chip"
       );
       magneticTargets.forEach((el) => {
         el.addEventListener("mouseenter", () => cursor.classList.add("is-active"));
@@ -342,6 +383,13 @@
 
     window.addEventListener("load", () => ScrollTrigger.refresh());
   } else {
+    // Finish folders — no scroll-scrub available here (reduced motion, or GSAP
+    // failed to load): show every sample already fanned out rather than stuck
+    // in a stacked pile nobody can open.
+    document.querySelectorAll(".finish-folder").forEach((folder) => {
+      applyFinishFan(folder.querySelectorAll(".finish-chip"), 1);
+    });
+
     // ---------- Fallback: IntersectionObserver reveal (no GSAP / reduced motion) ----------
     if (!prefersReducedMotion && "IntersectionObserver" in window) {
       const io = new IntersectionObserver(

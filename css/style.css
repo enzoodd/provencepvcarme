@@ -988,12 +988,8 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background: none;
-  border: none;
-  padding: 0;
   font-family: var(--font-body);
   text-align: center;
-  cursor: pointer;
 }
 
 .finish-stage {
@@ -1013,19 +1009,15 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
   border-radius: var(--radius-s);
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: transform 0.5s var(--ease-snap);
 }
 .finish-chip img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* stacked / closed — a small tilted pile, like cards in a folder */
+/* rest position (no JS / before scroll) — a small tilted pile, like cards in
+   a folder. The scroll-scrubbed fan-out (js/script.js) overrides these via
+   inline transform once GSAP/ScrollTrigger takes over. */
 .finish-chip--0 { transform: translate(8px, 6px) rotate(-6deg); z-index: 10; }
 .finish-chip--1 { transform: translate(0, 0) rotate(0deg); z-index: 12; }
 .finish-chip--2 { transform: translate(-8px, 6px) rotate(6deg); z-index: 10; }
-
-/* fanned out / open — spread horizontally, middle card rises higher */
-.finish-folder[data-open="1"] .finish-chip--0 { transform: translate(-72px, -18px) rotate(-14deg); }
-.finish-folder[data-open="1"] .finish-chip--1 { transform: translate(0, -32px) rotate(0deg); }
-.finish-folder[data-open="1"] .finish-chip--2 { transform: translate(72px, -18px) rotate(14deg); }
 
 .finish-folder-name { font-family: var(--font-display); font-weight: 600; font-size: 17px; color: var(--marine); margin: 0 0 4px; letter-spacing: -0.01em; }
 .finish-folder-sub { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); margin: 0; letter-spacing: 0.02em; }
