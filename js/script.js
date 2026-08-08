@@ -127,11 +127,12 @@
     });
   }
 
-  // Key facts tabs — click switches panel, spawns a water-drop ripple at the tap point
+  // Key facts tabs — click switches panel and highlights the selected card
+  // (simple border/background state change only, no ripple/scale effects)
   const tabChips = document.querySelectorAll(".tab-chip");
   const tabPanels = document.querySelectorAll(".tab-panel");
   tabChips.forEach((chip) => {
-    chip.addEventListener("click", function (e) {
+    chip.addEventListener("click", function () {
       const target = chip.getAttribute("data-tab");
 
       tabChips.forEach((c) => {
@@ -144,42 +145,7 @@
       tabPanels.forEach((p) => {
         p.classList.toggle("is-active", p.getAttribute("data-panel") === target);
       });
-
-      // ripple positioned at the click coordinates within the chip
-      const rect = chip.getBoundingClientRect();
-      const x = (e.clientX || rect.width / 2) - rect.left;
-      const y = (e.clientY || rect.height / 2) - rect.top;
-      const size = Math.max(rect.width, rect.height) * 1.8;
-
-      const ripple = document.createElement("span");
-      ripple.className = "chip-ripple";
-      ripple.style.left = x + "px";
-      ripple.style.top = y + "px";
-      ripple.style.width = size + "px";
-      ripple.style.height = size + "px";
-      chip.appendChild(ripple);
-      ripple.addEventListener("animationend", () => ripple.remove());
     });
-
-    // water-splash droplets on hover (desktop / fine pointers only)
-    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-      chip.addEventListener("mouseenter", function () {
-        const dropCount = 7;
-        for (let i = 0; i < dropCount; i++) {
-          const angle = (Math.PI * 2 * i) / dropCount + (Math.random() * 0.4 - 0.2);
-          const distance = 26 + Math.random() * 22;
-          const dx = Math.cos(angle) * distance;
-          const dy = Math.sin(angle) * distance - 8; // slight upward bias, like a splash
-          const drop = document.createElement("span");
-          drop.className = "splash-drop";
-          drop.style.setProperty("--dx", dx + "px");
-          drop.style.setProperty("--dy", dy + "px");
-          drop.style.animationDelay = Math.random() * 0.05 + "s";
-          chip.appendChild(drop);
-          drop.addEventListener("animationend", () => drop.remove());
-        }
-      });
-    }
   });
 
   // generic water-drop ripple on any button tagged .ripple-btn
@@ -341,11 +307,6 @@
       (el, i) => ({ y: 40, opacity: 0, rotate: i % 2 === 0 ? -2.5 : 2.5 }),
       { stagger: 0.12, ease: "power3.out", duration: 0.9 }
     );
-    revealGroup(
-      ".testimonial",
-      (el, i) => ({ y: 32, opacity: 0, rotate: i === 0 ? -1.5 : i === 2 ? 1.5 : 0 }),
-      { stagger: 0.1, ease: "power3.out", duration: 0.8, mod: 3 }
-    );
     revealGroup(".faq-item", { y: 16, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.6 });
     revealGroup(".detail-strip img", { scale: 0.9, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.7 });
     revealGroup(".zones-list span", { y: 8, opacity: 0 }, { stagger: 0.04, ease: "power1.out", duration: 0.45, mod: 8 });
@@ -373,7 +334,7 @@
       document.addEventListener("mouseleave", () => cursor.classList.remove("is-visible"));
 
       const magneticTargets = document.querySelectorAll(
-        ".ripple-btn, .hero-scroll-cue, .zones-list span, .nav-links a, .footer-col a, .faq-item summary"
+        ".ripple-btn, .hero-scroll-cue, .zones-list span, .nav-links a, .footer-col a, .faq-item summary, .tab-chip"
       );
       magneticTargets.forEach((el) => {
         el.addEventListener("mouseenter", () => cursor.classList.add("is-active"));
@@ -426,7 +387,6 @@
       const revealGroups = [
         ".process-step",
         ".finish-card",
-        ".testimonial",
         ".compare-card",
         ".tab-chip",
         ".ba-pair",
