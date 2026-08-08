@@ -303,13 +303,40 @@
     );
     revealGroup(".tab-chip", { y: 24, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "back.out(1.6)", duration: 0.8 });
     revealGroup(
-      ".ba-pair",
+      ".ba-pair:not(.ba-pair--teaser)",
       (el, i) => ({ y: 40, opacity: 0, rotate: i % 2 === 0 ? -2.5 : 2.5 }),
       { stagger: 0.12, ease: "power3.out", duration: 0.9 }
+    );
+    // Homepage teaser pairs get a bolder, more deliberate wave: bigger lift,
+    // scale-in from slightly under 1, snappier easing than the standard reveal.
+    revealGroup(
+      ".ba-pair--teaser",
+      { y: 50, opacity: 0, scale: 0.95 },
+      { stagger: 0.16, ease: "expo.out", duration: 0.9 }
     );
     revealGroup(".faq-item", { y: 16, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.6 });
     revealGroup(".detail-strip img", { scale: 0.9, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.7 });
     revealGroup(".zones-list span", { y: 8, opacity: 0 }, { stagger: 0.04, ease: "power1.out", duration: 0.45, mod: 8 });
+
+    // "Pourquoi nous choisir" cards — staggered lift-in, each icon's ring
+    // draws itself in right after the card settles.
+    const RING_CIRCUMFERENCE = 163.4;
+    gsap.utils.toArray(".diff-card").forEach((card, i) => {
+      const ring = card.querySelector(".diff-icon-ring circle");
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: card, start: "top 85%", once: true },
+        delay: i * 0.12,
+      });
+      tl.from(card, { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" });
+      if (ring) {
+        tl.fromTo(
+          ring,
+          { strokeDashoffset: RING_CIRCUMFERENCE },
+          { strokeDashoffset: 0, duration: 0.7, ease: "power2.out" },
+          "-=0.4"
+        );
+      }
+    });
 
     // Finish folders — the fan-out is scrubbed to scroll position (mirrors the
     // membrane 3D cross-section pattern): closed at the top of the section,
@@ -417,6 +444,7 @@
 
       const revealGroups = [
         ".process-step",
+        ".diff-card",
         ".finish-folder",
         ".compare-card",
         ".tab-chip",

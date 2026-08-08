@@ -263,6 +263,15 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
   border: 1px solid rgba(11,43,60,0.15);
 }
 .btn-call:hover { border-color: var(--lagon); color: var(--lagon); }
+/* discreet reminder pulse — brief, and only once every 10s so it never reads as nagging */
+.btn-call { animation: call-pulse 10s ease-in-out infinite; }
+@keyframes call-pulse {
+  0%, 8%, 100% { transform: scale(1); }
+  4% { transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-call { animation: none; }
+}
 
 .btn-primary {
   display: inline-flex; align-items: center; justify-content: center;
@@ -1155,13 +1164,34 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
 .breadcrumb--light { color: rgba(245,243,237,0.5); }
 .breadcrumb--light a { color: var(--lagon-light); }
 
+/* ---------- section--mesh: subtle tinted gradient, used behind "pourquoi nous" ---------- */
+.section--mesh {
+  position: relative;
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 15%, rgba(28,140,148,0.07), transparent 60%),
+    radial-gradient(ellipse 55% 60% at 88% 10%, rgba(201,168,118,0.09), transparent 55%),
+    radial-gradient(ellipse 70% 55% at 50% 105%, rgba(220,212,192,0.5), transparent 65%),
+    var(--paper);
+}
+.section--mesh::after {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: var(--grain);
+  opacity: 0.025;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
 /* ---------- differentiation cards (homepage "pourquoi nous") ---------- */
 .diff-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
+  counter-reset: diffnum;
 }
 .diff-card {
+  position: relative;
+  overflow: hidden;
   padding: var(--space-6) var(--space-5);
   border-radius: var(--radius-xl);
   background: var(--paper);
@@ -1170,13 +1200,37 @@ html.has-custom-cursor input, html.has-custom-cursor textarea, html.has-custom-c
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 .diff-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.diff-card::before {
+  content: counter(diffnum, decimal-leading-zero);
+  counter-increment: diffnum;
+  position: absolute;
+  top: 6px; right: 20px;
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 700;
+  color: rgba(11,43,60,0.05);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+.diff-card > * { position: relative; z-index: 1; }
+.diff-icon-wrap { position: relative; width: 56px; height: 56px; margin-bottom: 20px; }
+.diff-icon-ring { position: absolute; inset: 0; width: 56px; height: 56px; }
+.diff-icon-ring circle {
+  fill: none;
+  stroke: var(--lagon);
+  stroke-width: 1.5;
+  stroke-dasharray: 163.4;
+  stroke-dashoffset: 0;
+}
 .diff-icon {
+  position: absolute;
+  top: 6px; left: 6px;
   width: 44px; height: 44px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   background: rgba(28,140,148,0.1);
   color: var(--lagon);
-  margin-bottom: 20px;
 }
 .diff-card h3 { font-size: 19px; color: var(--marine); margin-bottom: 10px; letter-spacing: -0.01em; }
 .diff-card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
