@@ -193,27 +193,46 @@
     });
   });
 
-  // before/after toggle — click swaps photo; GSAP adds a circular wipe from
-  // the click point on top of the base CSS crossfade when available
-  document.querySelectorAll(".ba-toggle").forEach((toggle) => {
-    toggle.addEventListener("click", function (e) {
-      const isAfter = toggle.classList.toggle("is-after");
-      const tag = toggle.querySelector(".ba-tag");
-      const hintLabel = toggle.querySelector(".ba-hint-label");
+  // Before/after toggle — both photos sit stacked in the same box and simply
+  // crossfade via CSS opacity (the .is-after class flips them together, no
+  // separate wipe/clip-path layered on top — that used to fight the crossfade
+  // and leave a brief white flash where both images were partly transparent
+  // at once). Also auto-cycles every ~4.5s, paused while hovered/touched, and
+  // staggered per card so the four don't all flip in lockstep.
+  document.querySelectorAll(".ba-toggle").forEach((toggle, i) => {
+    const tag = toggle.querySelector(".ba-tag");
+    const hintLabel = toggle.querySelector(".ba-hint-label");
+
+    function setState(isAfter) {
+      toggle.classList.toggle("is-after", isAfter);
       if (tag) tag.textContent = isAfter ? "Après" : "Avant";
       if (hintLabel) hintLabel.textContent = isAfter ? "Voir avant" : "Voir après";
+    }
 
-      if (hasGSAP && !prefersReducedMotion) {
-        const revealImg = toggle.querySelector(isAfter ? ".ba-img-after" : ".ba-img-before");
-        const rect = toggle.getBoundingClientRect();
-        const originX = e.clientX ? ((e.clientX - rect.left) / rect.width) * 100 : 50;
-        const originY = e.clientY ? ((e.clientY - rect.top) / rect.height) * 100 : 50;
-        window.gsap.fromTo(
-          revealImg,
-          { clipPath: "circle(0% at " + originX + "% " + originY + "%)" },
-          { clipPath: "circle(145% at " + originX + "% " + originY + "%)", duration: 0.85, ease: "power3.inOut" }
-        );
-      }
+    const AUTO_INTERVAL = 4500;
+    const STAGGER = i * 900;
+    let autoTimer = null;
+    let paused = false;
+
+    function scheduleNext(delay) {
+      clearTimeout(autoTimer);
+      autoTimer = setTimeout(function () {
+        if (!paused) setState(!toggle.classList.contains("is-after"));
+        scheduleNext(AUTO_INTERVAL);
+      }, delay);
+    }
+
+    if (!prefersReducedMotion) {
+      scheduleNext(AUTO_INTERVAL + STAGGER);
+      toggle.addEventListener("mouseenter", function () { paused = true; });
+      toggle.addEventListener("mouseleave", function () { paused = false; });
+      toggle.addEventListener("touchstart", function () { paused = true; }, { passive: true });
+      toggle.addEventListener("touchend", function () { paused = false; }, { passive: true });
+    }
+
+    toggle.addEventListener("click", function () {
+      setState(!toggle.classList.contains("is-after"));
+      if (!prefersReducedMotion) scheduleNext(AUTO_INTERVAL);
     });
   });
 
@@ -291,6 +310,96 @@
           })
         );
       });
+    }
+
+    // Section titles — each line "lifts" into place like a curtain rising,
+    // as the title scrolls into view. Words are wrapped and grouped into
+    // their rendered lines, then each line's masked wrapper translates up
+    // from below with a short stagger. Titles that contain nested markup
+    // (e.g. a serif-accent span) fall back to a plain fade + lift on the
+    // whole title instead — splitting words across an inline child element
+    // safely would need real DOM-tree-walking, not worth it for the one or
+    // two titles that use it.
+    function revealSectionTitles() {
+      document.querySelectorAll(".section-title").forEach((title) => {
+        if (title.querySelector("*")) {
+          gsap.from(title, {
+            y: 24,
+            opacity: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: { trigger: title, start: "top 88%", once: true },
+          });
+          return;
+        }
+
+        const text = title.textContent;
+        title.textContent = "";
+        const tokens = text.split(/(\s+)/).filter((t) => t !== "");
+        const wordEls = [];
+        tokens.forEach((token) => {
+          if (/^\s+$/.test(token)) {
+            title.appendChild(document.createTextNode(token));
+          } else {
+            const span = document.createElement("span");
+            span.className = "split-word";
+            span.textContent = token;
+            title.appendChild(span);
+            wordEls.push(span);
+          }
+        });
+        if (!wordEls.length) return;
+
+        // group words into their rendered lines by offsetTop
+        const lineGroups = [];
+        let currentTop = null;
+        wordEls.forEach((w) => {
+          const top = w.offsetTop;
+          if (currentTop === null || Math.abs(top - currentTop) > 4) {
+            lineGroups.push([w]);
+            currentTop = top;
+          } else {
+            lineGroups[lineGroups.length - 1].push(w);
+          }
+        });
+
+        // wrap each line's word run (plus any interleaved space nodes) in a
+        // masked outer span + a translating inner span
+        const inners = [];
+        lineGroups.forEach((group) => {
+          const first = group[0];
+          const last = group[group.length - 1];
+          const outer = document.createElement("span");
+          outer.className = "split-line";
+          const inner = document.createElement("span");
+          inner.className = "split-line-inner";
+          outer.appendChild(inner);
+          first.parentNode.insertBefore(outer, first);
+          let node = first;
+          while (node) {
+            const next = node.nextSibling;
+            inner.appendChild(node);
+            if (node === last) break;
+            node = next;
+          }
+          inners.push(inner);
+        });
+
+        gsap.set(inners, { yPercent: 110, opacity: 0 });
+        gsap.to(inners, {
+          yPercent: 0,
+          opacity: 1,
+          duration: 0.7,
+          ease: "power3.out",
+          stagger: 0.1,
+          scrollTrigger: { trigger: title, start: "top 88%", once: true },
+        });
+      });
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(revealSectionTitles);
+    } else {
+      revealSectionTitles();
     }
 
     revealGroup(".process-step", { y: 40, opacity: 0, scale: 0.97 }, { stagger: 0.12, ease: "power3.out", duration: 0.9 });

@@ -560,6 +560,11 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .section-title .serif-accent { color: var(--gold); }
 .section-title--light .serif-accent { color: var(--gold-light); }
 
+/* ---------- section title reveal ("curtain lifts" per line, JS-driven) ---------- */
+.split-line { display: block; overflow: hidden; }
+.split-line-inner { display: block; }
+.split-word { display: inline-block; }
+
 .section-lede {
   font-size: 17.5px;
   color: var(--ink-soft);
@@ -743,6 +748,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   border: none;
   padding: 0;
   cursor: pointer;
+  background: var(--marine);
   box-shadow: var(--shadow-md);
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
