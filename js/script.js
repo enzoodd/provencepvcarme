@@ -191,31 +191,6 @@
     });
   });
 
-  // Membrane detail video — deferred below the fold: only fetched/played once
-  // the section is about to scroll into view, paused again once it leaves
-  const featureVideo = document.querySelector(".feature-video-el");
-  if (featureVideo && "IntersectionObserver" in window) {
-    let featureVideoLoaded = false;
-    new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            if (!featureVideoLoaded) {
-              featureVideoLoaded = true;
-              featureVideo.load();
-            }
-            featureVideo.play().catch(() => {});
-          } else {
-            featureVideo.pause();
-          }
-        });
-      },
-      { rootMargin: "200px 0px" }
-    ).observe(featureVideo);
-  } else if (featureVideo) {
-    featureVideo.play().catch(() => {});
-  }
-
   // Devis form — placeholder submit handling (no backend wired yet)
   const form = document.getElementById("devisForm");
   const formStatus = document.getElementById("formStatus");
@@ -295,7 +270,6 @@
     revealGroup(".process-step", { y: 40, opacity: 0, scale: 0.97 }, { stagger: 0.12, ease: "power3.out", duration: 0.9 });
     revealGroup(".finish-card", { y: 28, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "expo.out", duration: 0.8 });
     revealGroup(".membrane-scene", { y: 30, opacity: 0, scale: 0.97 }, { stagger: 0, ease: "power3.out", duration: 1 });
-    revealGroup(".feature-video", { opacity: 0, scale: 1.03 }, { stagger: 0, ease: "power2.out", duration: 1 });
     revealGroup(
       ".compare-card",
       (el, i) => ({ x: i % 2 === 0 ? -60 : 60, opacity: 0 }),
@@ -343,7 +317,7 @@
 
       // photos/swatches/3D panels get the larger "media" cursor instead of the button one
       const mediaTargets = document.querySelectorAll(
-        ".ba-toggle, .finish-swatch, .process-img, .feature-video, .detail-strip img, .membrane-scene"
+        ".ba-toggle, .finish-swatch, .process-img, .detail-strip img, .membrane-scene"
       );
       mediaTargets.forEach((el) => {
         el.addEventListener("mouseenter", () => cursor.classList.add("is-media"));
