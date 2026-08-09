@@ -424,7 +424,7 @@
       { stagger: 0.16, ease: "expo.out", duration: 0.9 }
     );
     revealGroup(".faq-item", { y: 16, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.6 });
-    revealGroup(".detail-strip img", { scale: 0.9, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.7 });
+    revealGroup(".coulisses-item", { y: 30, opacity: 0, scale: 0.95 }, { stagger: 0.08, ease: "power3.out", duration: 0.8 });
     revealGroup(".zones-list span", { y: 8, opacity: 0 }, { stagger: 0.04, ease: "power1.out", duration: 0.45, mod: 8 });
 
     // "Pourquoi nous choisir" cards — staggered lift-in, each icon's ring
@@ -513,7 +513,7 @@
         ".tab-chip",
         ".ba-pair",
         ".faq-item",
-        ".detail-strip img",
+        ".coulisses-item",
       ];
       revealGroups.forEach((selector) => {
         document.querySelectorAll(selector).forEach((el, i) => {

@@ -805,25 +805,45 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 .ba-pair figcaption { margin-top: 14px; font-size: 13.5px; color: var(--ink-soft); letter-spacing: 0.01em; }
 
-.detail-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: var(--space-6);
-}
-.detail-strip img {
-  width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  border-radius: var(--radius-m);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.3s var(--ease);
-}
-.detail-strip img:hover { transform: translateY(-4px); }
-
 @media (max-width: 780px) {
   .ba-grid { grid-template-columns: 1fr; }
-  .detail-strip { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- coulisses du chantier — mosaic gallery ---------- */
+.coulisses-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 140px;
+  grid-auto-flow: dense;
+  gap: var(--space-3);
+}
+.coulisses-item {
+  margin: 0;
+  position: relative;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.coulisses-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .coulisses-item:hover img { transform: scale(1.06); }
+}
+.coulisses-item--lg { grid-column: span 2; grid-row: span 2; }
+.coulisses-item--wide { grid-column: span 2; }
+.coulisses-item--tall { grid-row: span 2; }
+
+@media (max-width: 780px) {
+  .coulisses-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+}
+@media (max-width: 480px) {
+  .coulisses-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+  .coulisses-item--lg, .coulisses-item--wide, .coulisses-item--tall { grid-column: span 1; grid-row: span 1; }
 }
 
 /* ---------- membrane 3D cross-section (Three.js, exploded view on scroll) ---------- */
