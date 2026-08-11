@@ -1282,6 +1282,12 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
+  /* the "Devis gratuit" pill is dropped from the header row below this breakpoint:
+     combined with the call button and burger it overflowed the viewport on phones
+     (header ~474px wide at a 390px viewport, pushing the burger off-screen). The
+     equivalent CTA already exists as the persistent .mobile-cta-bar at the bottom
+     of the screen, so nothing is lost — only .btn-call stays in the nav row. */
+  .nav-cta .btn-primary { display: none; }
   .nav-links { display: none; }
   .nav-links.nav-links--open {
     display: flex;
