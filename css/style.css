@@ -516,7 +516,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 /* ---------- sections ---------- */
-.section { padding: var(--space-8) 24px; }
+.section { padding: var(--space-8) 24px; position: relative; }
 .section--roomy { padding-block: var(--space-10); }
 .section--tight { padding-block: var(--space-7); }
 .section--tint { background: var(--sand); }
@@ -552,6 +552,54 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .section-inner--wide { max-width: var(--container-wide); }
 .section-inner--narrow { max-width: 720px; }
 
+/* ---------- section transitions — solid-fill wave dividers + soft fades ----------
+   Bridges hard background-color cuts between sections. Waves (solid single-tint
+   SVG shapes, no color blend) handle the high-contrast dark<->light junctions;
+   fades (short linear-gradient strips) handle the low-contrast paper<->sand ones.
+   Both sit inside the *upper* section's own box, anchored to its bottom (or, for
+   .section-wave--top, its top) edge, so they never need to know about their
+   sibling section and can't accidentally overlap that sibling's own content. */
+.section-wave {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  pointer-events: none;
+  line-height: 0;
+  overflow: hidden;
+}
+.section-wave svg { display: block; width: 100%; height: 100%; }
+.section-wave--bottom { bottom: -1px; }
+.section-wave--top { top: -1px; }
+.section-wave--top svg { transform: scaleY(-1); }
+
+.section-fade {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 44px;
+  z-index: 2;
+  pointer-events: none;
+}
+/* a faint lagon-deep "kiss" at the midpoint instead of a flat 2-stop blend —
+   paper and sand are close enough in value that a literal marine-strength
+   bridge color would look like a heavy stripe, so this stays subtle (6% mix) */
+.section-fade--paper-to-sand {
+  background: linear-gradient(to bottom,
+    var(--paper) 0%,
+    color-mix(in srgb, var(--lagon-deep) 6%, var(--paper)) 45%,
+    color-mix(in srgb, var(--lagon-deep) 6%, var(--sand)) 55%,
+    var(--sand) 100%);
+}
+.section-fade--sand-to-paper {
+  background: linear-gradient(to bottom,
+    var(--sand) 0%,
+    color-mix(in srgb, var(--lagon-deep) 6%, var(--sand)) 45%,
+    color-mix(in srgb, var(--lagon-deep) 6%, var(--paper)) 55%,
+    var(--paper) 100%);
+}
+
 /* ---------- vertical seam rail (signature element) ----------
    A single continuous line, fixed to the left edge of the viewport, with
    dashes flowing top-to-bottom. It fills in as the person scrolls down the
@@ -567,11 +615,15 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .seam-rail-track {
   position: absolute;
   inset: 0;
+  /* mid-gray + overlay blend instead of a fixed marine tint — overlay darkens
+     against light sections and lightens against dark ones, so the unfilled
+     track stays visible on both instead of vanishing against marine sections */
   background: repeating-linear-gradient(
     to bottom,
-    color-mix(in srgb, var(--marine) 16%, transparent) 0px, color-mix(in srgb, var(--marine) 16%, transparent) 5px,
+    rgba(128, 128, 128, 0.55) 0px, rgba(128, 128, 128, 0.55) 5px,
     transparent 5px, transparent 14px
   );
+  mix-blend-mode: overlay;
   background-size: 3px 28px;
   animation: seam-flow 1.1s linear infinite;
   border-radius: 2px;
@@ -590,14 +642,22 @@ section[id] { scroll-margin-top: var(--nav-height); }
   animation: seam-flow 1.1s linear infinite;
   border-radius: 2px;
   box-shadow: 0 0 10px color-mix(in srgb, var(--lagon) 50%, transparent);
-  transition: height 0.05s linear;
+  transition: height 0.05s linear, box-shadow 0.3s var(--ease);
+}
+/* brief pulse as the scroll position crosses a section boundary — js/script.js
+   toggles this class, reinforcing "the seam stitches the sections together" */
+.seam-rail-fill.is-crossing {
+  box-shadow: 0 0 18px 2px color-mix(in srgb, var(--lagon) 85%, transparent),
+              0 0 6px 1px var(--gold);
 }
 @keyframes seam-flow {
   from { background-position: 0 0; }
   to { background-position: 0 28px; }
 }
 @media (max-width: 780px) {
-  .seam-rail { display: none; }
+  /* re-enabled on mobile (was display:none) — thinner and tucked closer to
+     the edge so it doesn't compete with the narrower content margins */
+  .seam-rail { left: 8px; width: 2px; }
 }
 
 .section-title {
