@@ -2,8 +2,9 @@
    Provence PVC Armé — Design tokens
    Palette : #0B2B3C marine / #123945 carte foncée / #E8E2D4 sable
              #1C8C94 lagon (accent) / #C9A876 or Provence (accent 2) / #F5F3ED blanc chaud
-   Type : Space Grotesk (display) / Instrument Serif italique (accent éditorial)
-          Inter (corps) / IBM Plex Mono (données techniques)
+   Type : Manrope (titres, accent éditorial en italique, données techniques —
+          les 3 rôles distingués par poids/casse/tracking plutôt que par police)
+          Inter (corps de texte)
    ========================================================================== */
 
 :root {
@@ -32,10 +33,13 @@
   --color-text: var(--ink);
   --color-text-muted: var(--ink-soft);
 
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-serif: 'Instrument Serif', serif;
+  /* all three roles below resolve to the same family (Manrope) — kept as
+     separate tokens since they're distinct semantic roles, differentiated
+     via weight/case/tracking (see .serif-accent and the font-mono users) */
+  --font-display: 'Manrope', sans-serif;
+  --font-serif: 'Manrope', sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --font-mono: 'Manrope', sans-serif;
 
   --container: 1180px;
   --container-wide: 1320px;
@@ -407,6 +411,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 .eyebrow {
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -468,6 +473,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   gap: 10px;
   color: color-mix(in srgb, var(--paper) 65%, transparent);
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -625,6 +631,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .stat-group-title {
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -676,6 +683,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 .tab-chip-value {
   font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
   font-size: clamp(28px, 2.6vw, 36px);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -751,6 +759,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .process-step > * { position: relative; z-index: 1; }
 .process-index {
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -816,6 +825,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   top: 12px; left: 12px;
   z-index: 3;
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -928,6 +938,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   box-shadow: var(--shadow-sm);
   color: var(--marine);
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 12px;
   letter-spacing: 0.02em;
   white-space: nowrap;
@@ -955,6 +966,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   backdrop-filter: blur(4px);
   color: var(--paper);
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 11px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -985,7 +997,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .compare-card:hover { transform: translateY(-4px); }
 .compare-card--dim:hover { box-shadow: var(--shadow-md); }
 .compare-card--lit:hover { box-shadow: var(--glow-lagon), var(--shadow-xl); }
-.compare-label { font-family: var(--font-mono); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); margin: 0 0 22px; }
+.compare-label { font-family: var(--font-mono); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); margin: 0 0 22px; }
 .compare-label--accent { color: var(--lagon-light); }
 .compare-card ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 16px; }
 .compare-card li { padding-left: 32px; position: relative; font-size: 15px; line-height: 1.5; }
@@ -1048,7 +1060,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .finish-chip--2 { transform: translate(-8px, 6px) rotate(6deg); z-index: 10; }
 
 .finish-folder-name { font-family: var(--font-display); font-weight: 600; font-size: 17px; color: var(--marine); margin: 0 0 4px; letter-spacing: -0.01em; }
-.finish-folder-sub { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); margin: 0; letter-spacing: 0.02em; }
+.finish-folder-sub { font-family: var(--font-mono); font-weight: 600; font-variant-numeric: tabular-nums; font-size: 12px; color: var(--ink-soft); margin: 0; letter-spacing: 0.02em; }
 .finish-note { margin-top: var(--space-5); font-size: 13px; color: var(--ink-soft); font-style: italic; }
 
 @media (max-width: 900px) {
@@ -1097,6 +1109,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .zones-list { display: flex; flex-wrap: wrap; gap: 12px; }
 .zones-list span {
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 13px;
   padding: 10px 18px;
   border-radius: 100px;
@@ -1118,7 +1131,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .devis-form label { display: flex; flex-direction: column; gap: 8px; }
-.devis-form label span { font-size: 12.5px; letter-spacing: 0.03em; color: color-mix(in srgb, var(--paper) 70%, transparent); font-family: var(--font-mono); }
+.devis-form label span { font-size: 12.5px; font-weight: 600; letter-spacing: 0.03em; color: color-mix(in srgb, var(--paper) 70%, transparent); font-family: var(--font-mono); }
 .devis-form input, .devis-form select, .devis-form textarea {
   font-family: var(--font-body);
   font-size: 15px;
@@ -1184,6 +1197,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   align-items: center;
   gap: 8px;
   font-family: var(--font-mono);
+  font-weight: 600;
   font-size: 12px;
   color: var(--ink-soft);
   margin-bottom: 16px;
