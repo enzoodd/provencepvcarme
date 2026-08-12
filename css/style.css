@@ -1126,6 +1126,16 @@ section[id] { scroll-margin-top: var(--nav-height); }
   color: rgba(245,243,237,0.65);
 }
 
+/* ---------- legal-content (mentions légales / confidentialité) — plain article layout, no reveal/animation ---------- */
+.legal-content { padding-block: var(--space-2) var(--space-8); }
+.legal-content h2 { font-size: 22px; color: var(--marine); margin: var(--space-6) 0 var(--space-3); }
+.legal-content h2:first-child { margin-top: 0; }
+.legal-content p { margin: 0 0 var(--space-3); font-size: 15.5px; line-height: 1.7; color: var(--ink); }
+.legal-content ul { margin: 0 0 var(--space-3); padding-left: 22px; }
+.legal-content li { font-size: 15.5px; line-height: 1.7; color: var(--ink); margin-bottom: 6px; }
+.legal-content a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
+.legal-content a:hover { color: var(--lagon); }
+
 /* ---------- breadcrumb (sub-pages) ---------- */
 .breadcrumb {
   display: flex;
