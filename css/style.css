@@ -432,6 +432,10 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .hero-title-accent { color: var(--lagon-light); }
 .hero-title .serif-accent {
+  /* homepage hero only — pre-reduction Instrument Serif accent restored here,
+     scoped to this selector so methode.html's "lé après lé" (same .serif-accent
+     class, but outside .hero-title) stays on Manrope italic as decided */
+  font-family: 'Instrument Serif', serif;
   color: var(--gold-light);
   text-transform: none;
   font-size: 0.86em;
