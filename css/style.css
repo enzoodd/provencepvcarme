@@ -467,7 +467,9 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 .hero-scroll-cue {
   position: absolute;
-  z-index: 2;
+  /* above .section-wave/.section-fade (z-index 1-2) so it always stays fully
+     legible even where the new hero transition zone reaches up near it */
+  z-index: 3;
   left: 50%;
   bottom: 36px;
   transform: translateX(-50%);
@@ -519,6 +521,10 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .section { padding: var(--space-8) 24px; position: relative; }
 .section--roomy { padding-block: var(--space-10); }
 .section--tight { padding-block: var(--space-7); }
+/* #faq sits right before a major dark<->light junction (a taller transition
+   zone than the base 64px .section--tight padding safely fits) — scoped
+   extra bottom room so the gradient+wave never crowd the last FAQ answer */
+#faq { padding-bottom: 120px; }
 .section--tint { background: var(--sand); }
 .section--dark {
   background:
@@ -552,13 +558,15 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .section-inner--wide { max-width: var(--container-wide); }
 .section-inner--narrow { max-width: 720px; }
 
-/* ---------- section transitions — solid-fill wave dividers + soft fades ----------
-   Bridges hard background-color cuts between sections. Waves (solid single-tint
-   SVG shapes, no color blend) handle the high-contrast dark<->light junctions;
-   fades (short linear-gradient strips) handle the low-contrast paper<->sand ones.
-   Both sit inside the *upper* section's own box, anchored to its bottom (or, for
-   .section-wave--top, its top) edge, so they never need to know about their
-   sibling section and can't accidentally overlap that sibling's own content. */
+/* ---------- section transitions — gradient bridge + solid wave on top ----------
+   Bridges hard background-color cuts between sections in two layers:
+   .section-fade is a real color gradient occupying the last 60-80px of the
+   *upper* section (marine<->paper/sand junctions actually shift hue through
+   --lagon-deep now, not just a flat color stopping dead); .section-wave is a
+   solid-tint organic SVG shape layered on top of it as the decorative accent
+   — no longer the sole carrier of the transition. Both anchor to the upper
+   section's own bottom (or, for --top, top) edge, so neither needs to know
+   about its sibling and can't accidentally overlap that sibling's content. */
 .section-wave {
   position: absolute;
   left: 0;
@@ -579,12 +587,14 @@ section[id] { scroll-margin-top: var(--nav-height); }
   bottom: -1px;
   width: 100%;
   height: 44px;
-  z-index: 2;
+  z-index: 1;
   pointer-events: none;
 }
-/* a faint lagon-deep "kiss" at the midpoint instead of a flat 2-stop blend —
-   paper and sand are close enough in value that a literal marine-strength
-   bridge color would look like a heavy stripe, so this stays subtle (6% mix) */
+.section-fade--top { bottom: auto; top: -1px; }
+
+/* minor paper<->sand junctions — both colors already close in value, so this
+   stays a faint lagon-deep "kiss" (6% mix) rather than a full bridge color,
+   which would read as a heavy stripe on such a low-contrast pair */
 .section-fade--paper-to-sand {
   background: linear-gradient(to bottom,
     var(--paper) 0%,
@@ -598,6 +608,25 @@ section[id] { scroll-margin-top: var(--nav-height); }
     color-mix(in srgb, var(--lagon-deep) 6%, var(--sand)) 45%,
     color-mix(in srgb, var(--lagon-deep) 6%, var(--paper)) 55%,
     var(--paper) 100%);
+}
+
+/* major dark<->light junctions — a real hue shift through --lagon-deep at
+   full strength (placed at 55%, a touch past the midpoint since lagon-deep
+   is much closer to marine's luminance than to paper/sand's — a hard 50%
+   split would front-load all the actual brightness change into the second
+   half). Reads intentionally like "deep water lightening toward the
+   surface" rather than a flat marine block stopping dead. */
+.section-fade--marine-to-paper {
+  background: linear-gradient(to bottom, var(--marine) 0%, var(--lagon-deep) 55%, var(--paper) 100%);
+}
+.section-fade--paper-to-marine {
+  background: linear-gradient(to bottom, var(--paper) 0%, var(--lagon-deep) 45%, var(--marine) 100%);
+}
+.section-fade--marine-to-sand {
+  background: linear-gradient(to bottom, var(--marine) 0%, var(--lagon-deep) 55%, var(--sand) 100%);
+}
+.section-fade--sand-to-marine {
+  background: linear-gradient(to bottom, var(--sand) 0%, var(--lagon-deep) 45%, var(--marine) 100%);
 }
 
 /* ---------- vertical seam rail (signature element) ----------
