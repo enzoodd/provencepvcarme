@@ -515,6 +515,23 @@ section[id] { scroll-margin-top: var(--nav-height); }
   .hero-scroll-cue { display: none; }
 }
 
+/* ---------- section transitions (test — index.html only for now) ----------
+   A generous color-gradient band inserted as a normal sibling BETWEEN two
+   sections — not an overlay, so it can never sit on top of either section's
+   own text (it occupies its own space in the document flow instead). 3-stop
+   gradient through --lagon-deep as a real hue bridge, at full strength (not
+   the faint kiss used elsewhere) so marine actually reads as lightening
+   toward the surface rather than stopping dead. */
+.section-transition {
+  width: 100%;
+}
+.section-transition--marine-to-paper {
+  background: linear-gradient(to bottom, var(--marine) 0%, var(--lagon-deep) 50%, var(--paper) 100%);
+}
+.section-transition--paper-to-marine {
+  background: linear-gradient(to bottom, var(--paper) 0%, var(--lagon-deep) 50%, var(--marine) 100%);
+}
+
 /* ---------- sections ---------- */
 .section { padding: var(--space-8) 24px; }
 .section--roomy { padding-block: var(--space-10); }
