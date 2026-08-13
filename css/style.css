@@ -17,6 +17,8 @@
      left-to-right light sweep inside content sections (never a hue change) */
   --sand-lift: color-mix(in srgb, var(--sand) 94%, white);
   --sand-shade: color-mix(in srgb, var(--sand) 95%, black);
+  /* soft halo tint for the per-section radial glows — same hue, ~5% lighter */
+  --sand-glow: color-mix(in srgb, var(--sand) 95%, white);
   --lagon: #1C8C94;
   --lagon-light: #3BAAB2;
   --lagon-deep: #0F6169;
@@ -538,13 +540,50 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 /* index.html: #faq -> #devis (marine cta-band). #faq's padding is the
    tightest of the four (64px desktop / 48px mobile) so this fade stays
-   below the 60-80px target range to leave real safety margin. */
+   below the 60-80px target range to leave real safety margin.
+   Stops are eased (flat sand -> fast blend -> flat marine) rather than a
+   plain 0%/100% linear run: a direct sand<->marine blend, in ANY
+   interpolation space (srgb/oklab all tested — same result), necessarily
+   passes through a dull grey-blue in its middle, since the two tokens are
+   far apart in both lightness and saturation. There is no third colour
+   here to blame — holding each end flat and compressing the actual blend
+   into a shorter middle section is what makes it read as a quick, clean
+   wipe instead of a lingering haze. */
 .fade-faq-final {
   height: 48px; /* budget: 64px bottom padding */
-  background: linear-gradient(to bottom, var(--sand) 0%, var(--marine) 100%);
+  background: linear-gradient(to bottom, var(--sand) 0%, var(--sand) 20%, var(--marine) 85%, var(--marine) 100%);
 }
 @media (max-width: 640px) {
   .fade-faq-final { height: 36px; } /* budget: 48px */
+}
+
+/* index.html only: hero -> #pourquoi. Hero's overlay ends on a
+   video-dependent blend of marine, so instead of blending FROM that
+   (non-deterministic) colour, this fade goes transparent -> solid
+   --marine, reaching full opacity well before the section's true bottom
+   edge — guaranteeing the boundary itself is always a flat, predictable
+   --marine, regardless of what the video frame looks like there. Single
+   hue with only alpha changing, so none of the grey-blend issue above
+   applies. #pourquoi's own top fade then picks up from that same flat
+   --marine down to --sand, eased the same way as .fade-faq-final. */
+.fade-hero-final {
+  height: 45px; /* budget: 60px bottom padding */
+  background: linear-gradient(to bottom, transparent 0%, var(--marine) 70%, var(--marine) 100%);
+}
+@media (max-width: 780px) {
+  .fade-hero-final { height: 48px; } /* budget: 64px */
+}
+.fade-pourquoi-top {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 70px; /* budget: 96px top padding */
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--marine) 0%, var(--marine) 15%, var(--sand) 80%, var(--sand) 100%);
+}
+@media (max-width: 640px) {
+  .fade-pourquoi-top { height: 36px; } /* budget: 48px */
 }
 
 /* methode.html: #finitions -> final cta-band (marine). */
@@ -591,6 +630,56 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .section--roomy { padding-block: var(--space-10); }
 .section--tight { padding-block: var(--space-7); }
+
+/* ---------- index.html only, this round: per-section halo + light traits ----------
+   Scoped under body.page-home so nothing here reaches methode/realisations/contact
+   (some of these ids — #finitions, #realisations — are reused on other pages
+   sharing this same stylesheet). Rolls out to the other pages once approved. */
+body.page-home #pourquoi,
+body.page-home #finitions,
+body.page-home #realisations,
+body.page-home #faq {
+  position: relative;
+}
+body.page-home #pourquoi {
+  background:
+    radial-gradient(ellipse 55% 45% at 18% 25%, var(--sand-glow), transparent 60%),
+    linear-gradient(to right, var(--sand-lift) 0%, var(--sand) 50%, var(--sand-shade) 100%);
+}
+body.page-home #finitions {
+  background:
+    radial-gradient(ellipse 55% 45% at 78% 65%, var(--sand-glow), transparent 60%),
+    linear-gradient(to right, var(--sand-lift) 0%, var(--sand) 50%, var(--sand-shade) 100%);
+}
+body.page-home #realisations {
+  background:
+    radial-gradient(ellipse 55% 45% at 30% 80%, var(--sand-glow), transparent 60%),
+    linear-gradient(to right, var(--sand-lift) 0%, var(--sand) 50%, var(--sand-shade) 100%);
+}
+body.page-home #faq {
+  background:
+    radial-gradient(ellipse 55% 45% at 65% 15%, var(--sand-glow), transparent 60%),
+    linear-gradient(to right, var(--sand-lift) 0%, var(--sand) 50%, var(--sand-shade) 100%);
+}
+
+/* thin horizontal light line marking a content-block boundary — purely
+   decorative (background colour doesn't change here), gold at low opacity,
+   brightest at center, fading to nothing at both edges. Sits at the very
+   top of the section that follows the boundary. */
+.light-trait {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 2px;
+  z-index: 1;
+  pointer-events: none;
+  /* gold alone reads almost invisibly against --sand (too close in hue/
+     lightness) — lifted toward white so it registers as an actual gleam
+     rather than disappearing into the section background */
+  background: linear-gradient(to right, transparent 0%, color-mix(in srgb, var(--gold) 70%, white) 50%, transparent 100%);
+  box-shadow: 0 0 6px 0 color-mix(in srgb, var(--gold) 35%, transparent);
+}
+
 .section--dark {
   background:
     radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--lagon) 18%, transparent), transparent 45%),
@@ -1288,6 +1377,16 @@ section[id] { scroll-margin-top: var(--nav-height); }
   transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
 }
 .diff-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+/* soft ambient glow marking this card as the primary reassurance argument —
+   the other two diff-cards keep their plain --shadow-sm/--shadow-md as-is.
+   Placed after .diff-card/.diff-card:hover so it actually wins the cascade
+   (equal specificity, so source order decides). */
+.diff-card--featured {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--lagon) 18%, transparent), 0 20px 48px -16px color-mix(in srgb, var(--lagon) 38%, transparent);
+}
+.diff-card--featured:hover {
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--lagon) 26%, transparent), 0 24px 56px -16px color-mix(in srgb, var(--lagon) 46%, transparent);
+}
 .diff-card::before {
   content: counter(diffnum, decimal-leading-zero);
   counter-increment: diffnum;
