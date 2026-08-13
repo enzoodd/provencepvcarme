@@ -122,7 +122,7 @@
 </section>
 
 <!-- ========== CHIFFRES CLES (matériau) ========== -->
-<section class="section keyfacts" id="chiffres">
+<section class="section section--tint keyfacts" id="chiffres">
   <div class="section-inner">
     <p class="eyebrow">Chiffres clés</p>
     <h2 class="section-title">Le matériau en quelques repères</h2>
@@ -161,11 +161,12 @@
 </section>
 
 <!-- ========== METHODE / THERMOSOUDAGE ========== -->
-<section class="section section--roomy" id="etapes">
+<section class="section section--dark section--roomy" id="etapes">
+  <canvas class="water-canvas" id="waterCanvas" aria-hidden="true"></canvas>
   <div class="section-inner">
-    <p class="eyebrow">Notre signature</p>
-    <h2 class="section-title">La soudure thermique, <span class="serif-accent">lé après lé</span></h2>
-    <p class="section-lede">Chaque lé de membrane est chauffé à l'air chaud puis fusionné au précédent, jusqu'à former une coque continue, sans agrafe ni point de faiblesse. C'est un geste technique, pas un produit standardisé.</p>
+    <p class="eyebrow eyebrow--light">Notre signature</p>
+    <h2 class="section-title section-title--light">La soudure thermique, <span class="serif-accent">lé après lé</span></h2>
+    <p class="section-lede section-lede--light">Chaque lé de membrane est chauffé à l'air chaud puis fusionné au précédent, jusqu'à former une coque continue, sans agrafe ni point de faiblesse. C'est un geste technique, pas un produit standardisé.</p>
 
     <ol class="process">
       <li class="process-step">
@@ -237,7 +238,7 @@
 </section>
 
 <!-- ========== FINITIONS ========== -->
-<section class="section" id="finitions">
+<section class="section section--tint" id="finitions">
   <div class="section-inner">
     <p class="eyebrow">Finitions</p>
     <h2 class="section-title">Une membrane pour chaque style de bassin</h2>
@@ -331,5 +332,6 @@
 <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
 <script src="js/script.js"></script>
 <script type="module" src="js/membrane-scene.js"></script>
+<script type="module" src="js/water-scene.js"></script>
 </body>
 </html>
