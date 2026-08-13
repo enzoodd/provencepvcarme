@@ -90,7 +90,7 @@ html.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 body {
   margin: 0;
   font-family: var(--font-body);
-  background: var(--paper);
+  background: var(--sand);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
@@ -521,10 +521,16 @@ section[id] { scroll-margin-top: var(--nav-height); }
    section regardless of light/dark variant — no per-page or per-junction
    variation. .footer gets the matching border-top below for the one
    boundary (last section -> footer) that .section itself doesn't cover. */
-.section { padding: var(--space-8) 24px; border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
+.section {
+  padding: var(--space-8) 24px;
+  border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent);
+  /* one flat --sand fill for every content section — no alternating
+     paper/sand, no left-right sweep, just the uniform colour + the gold
+     separators above */
+  background: var(--sand);
+}
 .section--roomy { padding-block: var(--space-10); }
 .section--tight { padding-block: var(--space-7); }
-.section--tint { background: var(--sand); }
 .section--dark {
   background:
     radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--lagon) 18%, transparent), transparent 45%),
@@ -539,18 +545,6 @@ section[id] { scroll-margin-top: var(--nav-height); }
   opacity: 0.04;
   mix-blend-mode: overlay;
   pointer-events: none;
-}
-
-/* Three.js water-ripple shader — discreet, sits behind the content, above the base gradient */
-.water-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-  opacity: 0.7;
 }
 
 .section-inner { position: relative; z-index: 1; max-width: var(--container); margin: 0 auto; }
@@ -750,7 +744,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   counter-increment: step;
   position: relative;
   padding-top: var(--space-4);
-  border-top: 1px solid color-mix(in srgb, var(--paper) 14%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--marine) 12%, transparent);
 }
 .process-step::before {
   content: counter(step, decimal-leading-zero);
@@ -760,7 +754,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   font-family: var(--font-display);
   font-size: clamp(34px, 3.6vw, 56px);
   font-weight: 700;
-  color: color-mix(in srgb, var(--paper) 7%, transparent);
+  color: color-mix(in srgb, var(--marine) 6%, transparent);
   line-height: 1;
   z-index: 0;
   pointer-events: none;
@@ -772,12 +766,15 @@ section[id] { scroll-margin-top: var(--nav-height); }
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--gold);
+  /* was solid --gold — on the (now light) --sand background that's only
+     ~1.7:1 contrast, well under WCAG AA. --lagon-deep matches the
+     "eyebrow" accent used elsewhere on light sections and clears AA. */
+  color: var(--lagon-deep);
   display: block;
   margin-bottom: 14px;
 }
-.process-step h3 { color: var(--paper); font-size: 21px; margin-bottom: 10px; letter-spacing: -0.01em; }
-.process-step p { color: color-mix(in srgb, var(--paper) 65%, transparent); font-size: 14.5px; line-height: 1.6; margin: 0; }
+.process-step h3 { color: var(--marine); font-size: 21px; margin-bottom: 10px; letter-spacing: -0.01em; }
+.process-step p { color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; margin: 0; }
 
 /* ---------- process step photos ---------- */
 .process-img {
@@ -1215,24 +1212,6 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .breadcrumb a:hover { color: var(--lagon); }
 .breadcrumb--light { color: color-mix(in srgb, var(--paper) 50%, transparent); }
 .breadcrumb--light a { color: var(--lagon-light); }
-
-/* ---------- section--mesh: subtle tinted gradient, used behind "pourquoi nous" ---------- */
-.section--mesh {
-  position: relative;
-  background:
-    radial-gradient(ellipse 60% 50% at 12% 15%, color-mix(in srgb, var(--lagon) 7%, transparent), transparent 60%),
-    radial-gradient(ellipse 55% 60% at 88% 10%, color-mix(in srgb, var(--gold) 9%, transparent), transparent 55%),
-    radial-gradient(ellipse 70% 55% at 50% 105%, color-mix(in srgb, var(--sand-deep) 50%, transparent), transparent 65%),
-    var(--paper);
-}
-.section--mesh::after {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: var(--grain);
-  opacity: 0.025;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
 
 /* ---------- differentiation cards (homepage "pourquoi nous") ---------- */
 .diff-grid {
