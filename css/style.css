@@ -516,7 +516,12 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 /* ---------- sections ---------- */
-.section { padding: var(--space-8) 24px; }
+/* Simple gold separator between every section, top-anchored so each
+   boundary gets exactly one line (never doubled). Same rule for every
+   section regardless of light/dark variant — no per-page or per-junction
+   variation. .footer gets the matching border-top below for the one
+   boundary (last section -> footer) that .section itself doesn't cover. */
+.section { padding: var(--space-8) 24px; border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
 .section--roomy { padding-block: var(--space-10); }
 .section--tight { padding-block: var(--space-7); }
 .section--tint { background: var(--sand); }
@@ -1160,7 +1165,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .form-note { font-size: 12.5px; color: color-mix(in srgb, var(--paper) 60%, transparent); text-align: center; margin: 4px 0 0; }
 
 /* ---------- footer ---------- */
-.footer { background: var(--marine-card); color: color-mix(in srgb, var(--paper) 70%, transparent); padding: var(--space-7) 24px var(--space-4); }
+.footer { background: var(--marine-card); color: color-mix(in srgb, var(--paper) 70%, transparent); padding: var(--space-7) 24px var(--space-4); border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
 .footer-inner {
   max-width: var(--container);
   margin: 0 auto;
