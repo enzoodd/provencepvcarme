@@ -209,6 +209,19 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .nav-logo-text em { font-style: normal; color: var(--lagon); }
 
+/* image-based header logo (index/methode/realisations/contact) — word
+   stacked above the wave, ~37px total so it never crowds the nav row.
+   .nav-logo-mark/.nav-logo-text above are left untouched: mentions-legales
+   and confidentialite still use the original text+mark logo. */
+.nav-logo--image {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3px;
+}
+.nav-logo-word { height: 22px; width: auto; display: block; }
+.nav-logo-wave { height: 12px; width: auto; display: block; }
+
 .nav-links {
   display: flex;
   gap: 26px;
@@ -1182,6 +1195,9 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .footer-brand { display: flex; flex-direction: column; gap: 12px; }
 .footer-brand .nav-logo-text { color: var(--paper); }
+/* image-based footer logo (index/methode/realisations/contact) — more
+   generous than the header mark, dark-bg SVG already matches the footer */
+.footer-logo { height: 72px; width: auto; display: block; }
 .footer-brand p { font-size: 13.5px; line-height: 1.6; max-width: 34ch; margin: 8px 0 0; }
 .footer-col { display: flex; flex-direction: column; gap: 12px; }
 .footer-col h3 { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: color-mix(in srgb, var(--paper) 65%, transparent); margin: 0 0 4px; font-weight: 500; }

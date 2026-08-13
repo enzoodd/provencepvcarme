@@ -1,0 +1,6 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<title>Favicon Provence PVC Armé</title>
+<rect x="0" y="0" width="200" height="200" rx="36" fill="#0B2B3C"/>
+<text x="100" y="122" text-anchor="middle" font-family="Manrope, Arial, sans-serif" font-size="110" font-weight="700" fill="#C9A876">P</text>
+<path d="M55,148 Q72,138 90,148 Q108,158 126,148 Q144,138 145,148" stroke="#C9A876" stroke-width="6" fill="none" stroke-linecap="round"/>
+</svg>
