@@ -56,30 +56,6 @@
     updateSeam();
   }
 
-  // Seam crossing glow — briefly boosts the rail's fill glow as the scroll
-  // position passes a section boundary, echoing "the seam stitches the
-  // sections together" right at the moment it's actually stitching one.
-  if (seamRailFill) {
-    let sectionBoundaries = [];
-    function computeSectionBoundaries() {
-      sectionBoundaries = Array.from(document.querySelectorAll("main > section")).map((s) => s.offsetTop);
-    }
-    computeSectionBoundaries();
-    window.addEventListener("load", computeSectionBoundaries);
-    window.addEventListener("resize", computeSectionBoundaries);
-    let crossingTimer = null;
-    function checkSeamCrossing() {
-      const y = window.scrollY + 90; // roughly where content starts below the sticky nav
-      const crossing = sectionBoundaries.some((b) => Math.abs(y - b) < 70);
-      if (crossing) {
-        seamRailFill.classList.add("is-crossing");
-        clearTimeout(crossingTimer);
-        crossingTimer = setTimeout(() => seamRailFill.classList.remove("is-crossing"), 500);
-      }
-    }
-    document.addEventListener("scroll", checkSeamCrossing, { passive: true });
-  }
-
   // Nav — solidifies (deeper background/shadow) once the page has scrolled a bit
   const siteNav = document.getElementById("siteNav");
   function updateNavScrolled() {
