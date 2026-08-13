@@ -516,21 +516,63 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 /* ---------- section transitions (test — index.html only for now) ----------
-   A generous color-gradient band inserted as a normal sibling BETWEEN two
-   sections — not an overlay, so it can never sit on top of either section's
-   own text (it occupies its own space in the document flow instead). 3-stop
-   gradient through --lagon-deep as a real hue bridge, at full strength (not
-   the faint kiss used elsewhere) so marine actually reads as lightening
-   toward the surface rather than stopping dead. */
-.section-transition {
+   Generous color-gradient bridging, built from PAIRS of elements that meet
+   exactly at the section boundary: one absolutely positioned at the bottom
+   of the earlier section (its own color -> --lagon-deep), one at the top of
+   the next section (--lagon-deep -> its own color). Together they read as
+   one continuous 3-stop gradient, but each half only ever has to fit inside
+   its OWN section's existing padding — no page-length added, no shared
+   element that would need to know about both sections' padding at once.
+   Heights are sized to a safety margin under each section's real padding
+   budget (measured per breakpoint, not assumed) so nothing ever reaches an
+   actual heading/paragraph/button. */
+.section-fade2 {
+  position: absolute;
+  left: 0;
   width: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
-.section-transition--marine-to-paper {
-  background: linear-gradient(to bottom, var(--marine) 0%, var(--lagon-deep) 50%, var(--paper) 100%);
+.section-fade2--bottom { bottom: 0; }
+.section-fade2--top { top: 0; }
+
+/* J1: hero -> #pourquoi. Hero's own bottom padding drops 60px -> 64px at the
+   existing 780px hero breakpoint; #pourquoi's top padding drops 96px -> 48px
+   at 640px. Each fade tracks its own section's breakpoint independently. */
+.fade-hero-out {
+  height: 45px; /* budget: 60px bottom padding, ~25% margin kept clear */
+  background: linear-gradient(to bottom, var(--marine) 0%, var(--lagon-deep) 100%);
 }
-.section-transition--paper-to-marine {
-  background: linear-gradient(to bottom, var(--paper) 0%, var(--lagon-deep) 50%, var(--marine) 100%);
+@media (max-width: 780px) {
+  .fade-hero-out { height: 48px; } /* budget: 64px */
 }
+.fade-pourquoi-in {
+  height: 75px; /* budget: 96px top padding */
+  background: linear-gradient(to bottom, var(--lagon-deep) 0%, var(--paper) 100%);
+}
+@media (max-width: 640px) {
+  .fade-pourquoi-in { height: 36px; } /* budget: 48px */
+}
+
+/* J2: #faq -> #devis. #faq's padding drops 64px -> 48px at 640px; #devis's
+   top padding drops 160px -> 96px at the same 640px breakpoint. */
+.fade-faq-out {
+  height: 48px; /* budget: 64px bottom padding */
+  background: linear-gradient(to bottom, var(--paper) 0%, var(--lagon-deep) 100%);
+}
+.fade-devis-in {
+  height: 120px; /* budget: 160px top padding */
+  background: linear-gradient(to bottom, var(--lagon-deep) 0%, var(--marine) 100%);
+}
+@media (max-width: 640px) {
+  .fade-faq-out { height: 36px; } /* budget: 48px */
+  .fade-devis-in { height: 72px; } /* budget: 96px */
+}
+
+/* #faq needs an explicit positioning context for .fade-faq-out — hero,
+   #pourquoi (via .section--mesh) and #devis (via .section--dark) already
+   have position:relative for other reasons. */
+#faq { position: relative; }
 
 /* ---------- sections ---------- */
 .section { padding: var(--space-8) 24px; }
