@@ -1166,6 +1166,11 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 /* ---------- footer ---------- */
 .footer { background: var(--marine-card); color: color-mix(in srgb, var(--paper) 70%, transparent); padding: var(--space-7) 24px var(--space-4); border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
+/* index/methode/realisations: footer sits directly under the dark
+   cta-band — marine into marine-card, no real colour change, so no
+   separator there. contact.html/legal pages keep the default .footer
+   border-top since their footer follows a light section. */
+.footer--seamless { border-top: none; }
 .footer-inner {
   max-width: var(--container);
   margin: 0 auto;
