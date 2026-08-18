@@ -30,10 +30,15 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "GeneralContractor",
+  "@id": "https://provencepvcarme.fr/#business",
   "name": "Provence PVC Armé",
   "url": "https://provencepvcarme.fr/",
-  "image": "https://provencepvcarme.fr/media/feature-1.jpg",
+  "image": [
+    "https://provencepvcarme.fr/media/feature-1.jpg",
+    "https://provencepvcarme.fr/media/after-1.jpg",
+    "https://provencepvcarme.fr/media/coulisses-1.jpg"
+  ],
   "description": "Spécialiste de la pose de membrane PVC armée par thermosoudage pour piscines. Construction, rénovation et étanchéité à Montélimar et dans ses environs (rayon de 2h).",
   "address": {
     "@type": "PostalAddress",
@@ -42,6 +47,11 @@
     "addressLocality": "Dieulefit",
     "addressRegion": "Auvergne-Rhône-Alpes",
     "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 44.5227298,
+    "longitude": 5.0327789
   },
   "areaServed": ["Montélimar", "Nyons", "Grignan", "Valréas", "Vaison-la-Romaine", "Orange", "Bollène", "Pierrelatte", "Donzère", "Suze-la-Rousse", "La Garde-Adhémar", "Buis-les-Baronnies", "Carpentras"],
   "openingHoursSpecification": [
@@ -53,7 +63,8 @@
     }
   ],
   "priceRange": "€€",
-  "telephone": "+33660871651"
+  "telephone": "+33660871651",
+  "email": "provencepvcarme@gmail.com"
 }
 </script>
 
@@ -126,8 +137,8 @@
     <div class="ba-grid">
       <figure class="ba-pair">
         <button class="ba-toggle" type="button" data-before="media/before-1.jpg" data-after="media/after-1.jpg" aria-label="Voir avant et après, La Motte-Chalancon, PVC Pierre de Bali">
-          <img class="ba-img-before" src="media/before-1.jpg" alt="Bassin avant mise en eau, La Motte-Chalancon" loading="lazy">
-          <img class="ba-img-after" src="media/after-1.jpg" alt="Bassin après mise en eau, La Motte-Chalancon, PVC Pierre de Bali" loading="lazy">
+          <picture><source srcset="media/before-1.webp" type="image/webp"><img class="ba-img-before" src="media/before-1.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, La Motte-Chalancon" loading="lazy"></picture>
+          <picture><source srcset="media/after-1.webp" type="image/webp"><img class="ba-img-after" src="media/after-1.jpg" width="1200" height="1600" alt="Bassin après mise en eau, La Motte-Chalancon, PVC Pierre de Bali" loading="lazy"></picture>
           <span class="ba-tag">Avant</span>
           <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
         </button>
@@ -136,8 +147,8 @@
 
       <figure class="ba-pair">
         <button class="ba-toggle" type="button" data-before="media/before-2.jpg" data-after="media/after-2.jpg" aria-label="Voir avant et après, Pont-de-Barret, PVC gris clair">
-          <img class="ba-img-before" src="media/before-2.jpg" alt="Bassin avant mise en eau, Pont-de-Barret" loading="lazy">
-          <img class="ba-img-after" src="media/after-2.jpg" alt="Bassin après mise en eau, Pont-de-Barret, PVC gris clair" loading="lazy">
+          <picture><source srcset="media/before-2.webp" type="image/webp"><img class="ba-img-before" src="media/before-2.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Pont-de-Barret" loading="lazy"></picture>
+          <picture><source srcset="media/after-2.webp" type="image/webp"><img class="ba-img-after" src="media/after-2.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Pont-de-Barret, PVC gris clair" loading="lazy"></picture>
           <span class="ba-tag">Avant</span>
           <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
         </button>
@@ -146,8 +157,8 @@
 
       <figure class="ba-pair">
         <button class="ba-toggle" type="button" data-before="media/before-3.jpg" data-after="media/after-3.jpg" aria-label="Voir avant et après, Avignon, PVC granit sable">
-          <img class="ba-img-before" src="media/before-3.jpg" alt="Bassin avant mise en eau, Avignon, PVC granit sable" loading="lazy">
-          <img class="ba-img-after" src="media/after-3.jpg" alt="Bassin après mise en eau, Avignon, PVC granit sable" loading="lazy">
+          <picture><source srcset="media/before-3.webp" type="image/webp"><img class="ba-img-before" src="media/before-3.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Avignon, PVC granit sable" loading="lazy"></picture>
+          <picture><source srcset="media/after-3.webp" type="image/webp"><img class="ba-img-after" src="media/after-3.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Avignon, PVC granit sable" loading="lazy"></picture>
           <span class="ba-tag">Avant</span>
           <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
         </button>
@@ -156,8 +167,8 @@
 
       <figure class="ba-pair">
         <button class="ba-toggle" type="button" data-before="media/before-4.jpg" data-after="media/after-4.jpg" aria-label="Voir avant et après, Poët-Laval, PVC vert olive">
-          <img class="ba-img-before" src="media/before-4.jpg" alt="Bassin avant mise en eau, Poët-Laval, PVC vert olive" loading="lazy">
-          <img class="ba-img-after" src="media/after-4.jpg" alt="Bassin après mise en eau, Poët-Laval, PVC vert olive" loading="lazy">
+          <picture><source srcset="media/before-4.webp" type="image/webp"><img class="ba-img-before" src="media/before-4.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Poët-Laval, PVC vert olive" loading="lazy"></picture>
+          <picture><source srcset="media/after-4.webp" type="image/webp"><img class="ba-img-after" src="media/after-4.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Poët-Laval, PVC vert olive" loading="lazy"></picture>
           <span class="ba-tag">Avant</span>
           <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
         </button>
@@ -177,25 +188,25 @@
 
     <div class="coulisses-grid">
       <figure class="coulisses-item coulisses-item--lg">
-        <img src="media/coulisses-1.jpg" alt="Bassin en cours de pose, membrane bleu clair, outillage sur la margelle" loading="lazy">
+        <picture><source srcset="media/coulisses-1.webp" type="image/webp"><img src="media/coulisses-1.jpg" width="1100" height="1466" alt="Bassin en cours de pose, membrane bleu clair, outillage sur la margelle" loading="lazy"></picture>
       </figure>
       <figure class="coulisses-item coulisses-item--wide">
-        <img src="media/coulisses-2.jpg" alt="Pose de membrane effet pierre avec vue sur les montagnes" loading="lazy">
+        <picture><source srcset="media/coulisses-2.webp" type="image/webp"><img src="media/coulisses-2.jpg" width="1100" height="1466" alt="Pose de membrane effet pierre avec vue sur les montagnes" loading="lazy"></picture>
       </figure>
       <figure class="coulisses-item coulisses-item--tall">
-        <img src="media/coulisses-3.jpg" alt="Escalier intégré en cours de soudure, membrane grise" loading="lazy">
+        <picture><source srcset="media/coulisses-3.webp" type="image/webp"><img src="media/coulisses-3.jpg" width="1100" height="1466" alt="Escalier intégré en cours de soudure, membrane grise" loading="lazy"></picture>
       </figure>
       <figure class="coulisses-item">
-        <img src="media/process-2.jpg" alt="Colle Renolit Alkorglue et outillage de pose" loading="lazy">
+        <picture><source srcset="media/process-2.webp" type="image/webp"><img src="media/process-2.jpg" width="1200" height="1600" alt="Colle Renolit Alkorglue et outillage de pose" loading="lazy"></picture>
       </figure>
       <figure class="coulisses-item">
-        <img src="media/process-3.jpg" alt="Géotextile de préparation avant pose de la membrane" loading="lazy">
+        <picture><source srcset="media/process-3.webp" type="image/webp"><img src="media/process-3.jpg" width="1200" height="1600" alt="Géotextile de préparation avant pose de la membrane" loading="lazy"></picture>
       </figure>
       <figure class="coulisses-item">
-        <img src="media/finish-detail-1.jpg" alt="Détail des escaliers en membrane PVC armée" loading="lazy">
+        <picture><source srcset="media/finish-detail-1.webp" type="image/webp"><img src="media/finish-detail-1.jpg" width="1000" height="1333" alt="Détail des escaliers en membrane PVC armée" loading="lazy"></picture>
       </figure>
       <figure class="coulisses-item">
-        <img src="media/gallery-extra-1.jpg" alt="Petit bassin avant mise en eau" loading="lazy">
+        <picture><source srcset="media/gallery-extra-1.webp" type="image/webp"><img src="media/gallery-extra-1.jpg" width="503" height="893" alt="Petit bassin avant mise en eau" loading="lazy"></picture>
       </figure>
     </div>
   </div>
@@ -249,9 +260,9 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
-<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
+<script src="js/script.js" defer></script>
 </body>
 </html>

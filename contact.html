@@ -30,10 +30,15 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "GeneralContractor",
+  "@id": "https://provencepvcarme.fr/#business",
   "name": "Provence PVC Armé",
   "url": "https://provencepvcarme.fr/",
-  "image": "https://provencepvcarme.fr/media/feature-1.jpg",
+  "image": [
+    "https://provencepvcarme.fr/media/feature-1.jpg",
+    "https://provencepvcarme.fr/media/after-1.jpg",
+    "https://provencepvcarme.fr/media/coulisses-1.jpg"
+  ],
   "description": "Spécialiste de la pose de membrane PVC armée par thermosoudage pour piscines. Construction, rénovation et étanchéité à Montélimar et dans ses environs (rayon de 2h).",
   "address": {
     "@type": "PostalAddress",
@@ -42,6 +47,11 @@
     "addressLocality": "Dieulefit",
     "addressRegion": "Auvergne-Rhône-Alpes",
     "addressCountry": "FR"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 44.5227298,
+    "longitude": 5.0327789
   },
   "areaServed": ["Montélimar", "Nyons", "Grignan", "Valréas", "Vaison-la-Romaine", "Orange", "Bollène", "Pierrelatte", "Donzère", "Suze-la-Rousse", "La Garde-Adhémar", "Buis-les-Baronnies", "Carpentras"],
   "openingHoursSpecification": [
@@ -53,7 +63,8 @@
     }
   ],
   "priceRange": "€€",
-  "telephone": "+33660871651"
+  "telephone": "+33660871651",
+  "email": "provencepvcarme@gmail.com"
 }
 </script>
 
@@ -261,9 +272,9 @@
   </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
-<script src="js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
+<script src="js/script.js" defer></script>
 </body>
 </html>
