@@ -1197,7 +1197,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .footer-brand .nav-logo-text { color: var(--paper); }
 /* image-based footer logo (index/methode/realisations/contact) — more
    generous than the header mark, dark-bg SVG already matches the footer */
-.footer-logo { height: 72px; width: auto; display: block; }
+.footer-logo { height: 72px; width: auto; display: block; align-self: flex-start; object-fit: contain; }
 .footer-brand p { font-size: 13.5px; line-height: 1.6; max-width: 34ch; margin: 8px 0 0; }
 .footer-col { display: flex; flex-direction: column; gap: 12px; }
 .footer-col h3 { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: color-mix(in srgb, var(--paper) 65%, transparent); margin: 0 0 4px; font-weight: 500; }
