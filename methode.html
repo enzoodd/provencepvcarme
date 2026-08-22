@@ -189,35 +189,41 @@
   </div>
 </section>
 
-<!-- ========== CHIFFRES CLES (matériau) ========== -->
-<section class="section section--tint keyfacts" id="chiffres">
+<!-- ========== LE MATERIAU (fusion chiffres clés + schéma 3D) ========== -->
+<section class="section keyfacts" id="chiffres">
   <div class="section-inner">
-    <p class="eyebrow">Chiffres clés</p>
+    <p class="eyebrow">Le matériau</p>
     <h2 class="section-title">Le matériau en quelques repères</h2>
-    <p class="section-lede">Touchez un repère pour en savoir plus.</p>
+    <p class="section-lede">Deux couches de PVC souple prennent en sandwich une armature en polyester tissé — <strong>150/100e d'épaisseur</strong> (deux fois plus qu'un liner classique) pour une résistance mécanique bien supérieure, et une <strong>durée de vie de 15 à 25 ans</strong>. Posé non pas agrafé mais soudé, chaque joint devient une pièce continue.</p>
 
-    <div class="stat-groups" role="tablist" aria-label="Chiffres clés du matériau">
-      <div class="stat-group">
-        <h3 class="stat-group-title">Caractéristiques techniques</h3>
-        <div class="stat-grid stat-grid--material">
-          <button class="tab-chip tab-chip--hero is-active" role="tab" aria-selected="true" data-tab="epaisseur" type="button">
-            <span class="tab-chip-value"><span class="stat-num" data-count-to="150">150</span><span class="stat-unit">/100e</span></span>
-            <span class="tab-chip-label">Épaisseur</span>
-          </button>
-          <button class="tab-chip" role="tab" aria-selected="false" data-tab="duree" type="button">
-            <span class="tab-chip-value">15–25 ans</span>
-            <span class="tab-chip-label">Durée de vie</span>
-          </button>
-        </div>
+    <div class="membrane-scene" id="membraneScene" aria-hidden="true">
+      <canvas id="membraneCanvas"></canvas>
+      <div class="membrane-labels" aria-hidden="true">
+        <span class="membrane-label" data-layer="top">PVC souple <em>côté eau</em></span>
+        <span class="membrane-label" data-layer="core">Armature polyester tissée</span>
+        <span class="membrane-label" data-layer="bottom">PVC souple <em>côté support</em></span>
       </div>
+      <p class="membrane-scene-hint" aria-hidden="true">Défilez pour voir la coupe s'ouvrir</p>
     </div>
 
-    <div class="tab-panels">
-      <div class="tab-panel is-active" data-panel="epaisseur" role="tabpanel">
-        <p><strong>150/100e (1,5 mm)</strong> — deux fois plus épais qu'un liner classique (75/100e). Deux couches de PVC souple prennent en sandwich une armature polyester tissée, pour une résistance mécanique bien supérieure aux chocs, à la pression de l'eau et aux mouvements du support.</p>
+    <div class="compare-grid">
+      <div class="compare-card compare-card--dim">
+        <p class="compare-label">Liner classique</p>
+        <ul>
+          <li>Agrafé sous margelle, tension mécanique</li>
+          <li>Épaisseur 75/100e en moyenne</li>
+          <li>Durée de vie 8 à 10 ans</li>
+          <li>Sensible au affaissement et au plissage</li>
+        </ul>
       </div>
-      <div class="tab-panel" data-panel="duree" role="tabpanel">
-        <p><strong>15 à 25 ans</strong> de durée de vie estimée, contre 8 à 10 ans pour un liner classique. La membrane est traitée anti-UV, anti-algues et résiste aux produits chimiques de traitement de l'eau.</p>
+      <div class="compare-card compare-card--lit">
+        <p class="compare-label compare-label--accent">Membrane PVC armée</p>
+        <ul>
+          <li>Soudée à l'air chaud, liaison moléculaire</li>
+          <li>Épaisseur 150/100e, armature polyester</li>
+          <li>Durée de vie 15 à 25 ans</li>
+          <li>Résistante aux UV, au gel et aux produits chimiques</li>
+        </ul>
       </div>
     </div>
 
@@ -262,46 +268,6 @@
         <p>Vérification finale de l'étanchéité, mise en eau progressive, votre bassin est prêt à l'usage.</p>
       </li>
     </ol>
-  </div>
-</section>
-
-<!-- ========== WHY PVC ARME ========== -->
-<section class="section" id="expertise">
-  <div class="section-inner">
-    <p class="eyebrow">Le matériau</p>
-    <h2 class="section-title">Pourquoi le PVC armé s'impose face au liner classique</h2>
-    <p class="section-lede">Deux couches de PVC souple prennent en sandwich une armature en polyester tissé. Le résultat : un revêtement deux fois plus épais qu'un liner traditionnel, posé non pas agrafé mais soudé — chaque joint devient une pièce continue.</p>
-
-    <div class="membrane-scene" id="membraneScene" aria-hidden="true">
-      <canvas id="membraneCanvas"></canvas>
-      <div class="membrane-labels" aria-hidden="true">
-        <span class="membrane-label" data-layer="top">PVC souple <em>côté eau</em></span>
-        <span class="membrane-label" data-layer="core">Armature polyester tissée</span>
-        <span class="membrane-label" data-layer="bottom">PVC souple <em>côté support</em></span>
-      </div>
-      <p class="membrane-scene-hint" aria-hidden="true">Défilez pour voir la coupe s'ouvrir</p>
-    </div>
-
-    <div class="compare-grid">
-      <div class="compare-card compare-card--dim">
-        <p class="compare-label">Liner classique</p>
-        <ul>
-          <li>Agrafé sous margelle, tension mécanique</li>
-          <li>Épaisseur 75/100e en moyenne</li>
-          <li>Durée de vie 8 à 10 ans</li>
-          <li>Sensible au affaissement et au plissage</li>
-        </ul>
-      </div>
-      <div class="compare-card compare-card--lit">
-        <p class="compare-label compare-label--accent">Membrane PVC armée</p>
-        <ul>
-          <li>Soudée à l'air chaud, liaison moléculaire</li>
-          <li>Épaisseur 150/100e, armature polyester</li>
-          <li>Durée de vie 15 à 25 ans</li>
-          <li>Résistante aux UV, au gel et aux produits chimiques</li>
-        </ul>
-      </div>
-    </div>
   </div>
 </section>
 

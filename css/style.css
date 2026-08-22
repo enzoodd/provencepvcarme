@@ -665,7 +665,6 @@ section[id] { scroll-margin-top: var(--nav-height); }
   display: grid;
   gap: var(--space-4);
 }
-.stat-grid--material { grid-template-columns: 1.5fr 1fr; }
 .stat-grid--practical { grid-template-columns: 1fr 1fr; }
 .tab-chip {
   position: relative;
@@ -747,7 +746,6 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 @media (max-width: 560px) {
-  .stat-grid--material,
   .stat-grid--practical { grid-template-columns: 1fr; }
 }
 
