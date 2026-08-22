@@ -1117,7 +1117,10 @@ section[id] { scroll-margin-top: var(--nav-height); }
    renders as a plain solid ring, same as before JS runs / under reduced motion. */
 .zmap-ring--inner { opacity: 0.55; stroke-dasharray: 282.7 282.7; }
 .zmap-ring--mid { opacity: 0.32; stroke-dasharray: 502.7 502.7; }
-.zmap-ring--outer { opacity: 0.16; stroke-dasharray: 722.6 722.6; }
+/* outer ring = the actual ~2h boundary (matches the caption below the
+   diagram) -- in red and bolder so it reads as the meaningful limit, not
+   just another faded distance guide like the two rings inside it */
+.zmap-ring--outer { opacity: 0.8; stroke: var(--error); stroke-width: 1.8; stroke-dasharray: 722.6 722.6; }
 .zmap-dot { r: 4; fill: var(--marine); stroke: var(--paper); stroke-width: 2.5; }
 .zmap-label {
   font-family: var(--font-mono);
