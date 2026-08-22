@@ -29,6 +29,26 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
   camera.position.set(0, 1.85, 4.1);
   camera.lookAt(0, -0.08, 0);
 
+  // The scene was framed for a wide desktop container (~1.9 aspect). On narrower/
+  // taller mobile containers the horizontal field of view shrinks a lot more than
+  // the vertical one, so the slab (and its edge-anchored labels) can project
+  // outside the frame. Pulling the camera back along its original viewing axis as
+  // the aspect ratio narrows keeps the whole object in frame; at the reference
+  // aspect (or wider) the distance is unchanged, so desktop framing is untouched.
+  const BASE_ASPECT = 1.9;
+  const BASE_DISTANCE = camera.position.length();
+  const camDir = camera.position.clone().normalize();
+  function fitCameraForAspect(aspect) {
+    if (aspect >= BASE_ASPECT) {
+      camera.position.copy(camDir).multiplyScalar(BASE_DISTANCE);
+      return;
+    }
+    const vFov = THREE.MathUtils.degToRad(camera.fov);
+    const halfHFovAt = (a) => Math.atan(Math.tan(vFov / 2) * a);
+    const scale = Math.tan(halfHFovAt(BASE_ASPECT)) / Math.tan(halfHFovAt(aspect));
+    camera.position.copy(camDir).multiplyScalar(BASE_DISTANCE * scale);
+  }
+
   // studio-style environment for soft, realistic PBR reflections on the PVC layers
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
@@ -210,8 +230,16 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
     anchorWorld.project(camera);
     const w = container.clientWidth;
     const h = container.clientHeight;
-    const x = (anchorWorld.x * 0.5 + 0.5) * w;
-    const y = (-anchorWorld.y * 0.5 + 0.5) * h;
+    let x = (anchorWorld.x * 0.5 + 0.5) * w;
+    let y = (-anchorWorld.y * 0.5 + 0.5) * h;
+    // Defensive clamp: whatever the 3D projection produces, never let a label
+    // render partly or fully outside the visible container (the failure mode
+    // this whole scene is prone to on narrow/tall mobile viewports).
+    const margin = 8;
+    const labelW = el.offsetWidth || 160;
+    const labelH = el.offsetHeight || 28;
+    x = Math.max(margin, Math.min(x, w - labelW - margin));
+    y = Math.max(margin, Math.min(y, h - labelH - margin));
     el.style.transform = "translate(" + x.toFixed(1) + "px, " + y.toFixed(1) + "px)";
     const fade = Math.max(0, Math.min(1, (displayProgress - 0.12) / 0.5));
     el.style.opacity = String(fade);
@@ -224,6 +252,7 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
     if (!w || !h) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
+    fitCameraForAspect(camera.aspect);
     camera.updateProjectionMatrix();
   }
   resize();
