@@ -314,12 +314,52 @@
 <!-- ========== ZONES D'INTERVENTION ========== -->
 <section class="section section--roomy" id="zones">
   <div class="section-inner">
-    <p class="eyebrow">Zone d'intervention</p>
-    <h2 class="section-title">Nos secteurs autour de Montélimar</h2>
-    <p class="section-lede">Nous sommes basés à Montélimar, mais nous nous déplaçons jusqu'à deux heures de route à la ronde pour vos projets de piscine : construction neuve, rénovation ou reprise d'étanchéité. Concrètement, cela couvre une bonne partie de la Drôme et de l'Ardèche, le nord du Vaucluse et du Gard, ainsi qu'une partie de l'Isère — de Nyons à Vaison-la-Romaine, d'Orange à Carpentras, en passant par Grignan ou Valréas.</p>
+    <div class="zones-layout">
+      <div class="zones-copy">
+        <p class="eyebrow">Zone d'intervention</p>
+        <h2 class="section-title">Nos secteurs autour de Montélimar</h2>
+        <p class="section-lede">Nous sommes basés à Montélimar, mais nous nous déplaçons jusqu'à deux heures de route à la ronde pour vos projets de piscine : construction neuve, rénovation ou reprise d'étanchéité. Concrètement, cela couvre une bonne partie de la Drôme et de l'Ardèche, le nord du Vaucluse et du Gard, ainsi qu'une partie de l'Isère — de Nyons à Vaison-la-Romaine, d'Orange à Carpentras, en passant par Grignan ou Valréas.</p>
 
-    <div class="zones-list">
-      <span>Drôme</span><span>Ardèche</span><span>Vaucluse</span><span>Gard</span><span>Isère</span>
+        <div class="zones-list">
+          <span>Drôme</span><span>Ardèche</span><span>Vaucluse</span><span>Gard</span><span>Isère</span>
+        </div>
+      </div>
+
+      <div class="zones-visual">
+        <svg class="zones-radius-map" viewBox="0 0 340 340" role="img" aria-labelledby="zonesMapTitle zonesMapDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="zonesMapTitle">Rayon d'intervention autour de Montélimar</title>
+          <desc id="zonesMapDesc">Schéma stylisé, non géographique, illustrant notre zone d'intervention d'environ deux heures de route autour de Montélimar, couvrant la Drôme, l'Ardèche, le Vaucluse, le Gard et l'Isère.</desc>
+
+          <circle class="zmap-ring zmap-ring--outer" cx="170" cy="170" r="115"></circle>
+          <circle class="zmap-ring zmap-ring--mid" cx="170" cy="170" r="80"></circle>
+          <circle class="zmap-ring zmap-ring--inner" cx="170" cy="170" r="45"></circle>
+
+          <g class="zmap-point">
+            <circle class="zmap-dot" cx="170" cy="70"></circle>
+            <text class="zmap-label" x="170" y="56" text-anchor="middle">Drôme</text>
+          </g>
+          <g class="zmap-point">
+            <circle class="zmap-dot" cx="265" cy="139"></circle>
+            <text class="zmap-label" x="276" y="143" text-anchor="start">Ardèche</text>
+          </g>
+          <g class="zmap-point">
+            <circle class="zmap-dot" cx="229" cy="251"></circle>
+            <text class="zmap-label" x="240" y="255" text-anchor="start">Vaucluse</text>
+          </g>
+          <g class="zmap-point">
+            <circle class="zmap-dot" cx="111" cy="251"></circle>
+            <text class="zmap-label" x="100" y="255" text-anchor="end">Gard</text>
+          </g>
+          <g class="zmap-point">
+            <circle class="zmap-dot" cx="75" cy="139"></circle>
+            <text class="zmap-label" x="64" y="143" text-anchor="end">Isère</text>
+          </g>
+
+          <circle class="zmap-pin" cx="170" cy="170" r="8"></circle>
+          <text class="zmap-pin-label" x="170" y="197" text-anchor="middle">Montélimar</text>
+        </svg>
+        <p class="zones-visual-caption">Rayon d'intervention &middot; environ 2h autour de Montélimar</p>
+      </div>
     </div>
   </div>
 </section>
