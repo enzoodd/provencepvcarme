@@ -236,24 +236,49 @@
     });
   });
 
-  // Devis form — placeholder submit handling (no backend wired yet)
+  // Devis form — soumission AJAX vers Formspree, sans rechargement de page
   const form = document.getElementById("devisForm");
   const formStatus = document.getElementById("formStatus");
+  function setFormStatus(message, kind) {
+    if (!formStatus) return;
+    formStatus.textContent = message;
+    formStatus.classList.remove("visually-hidden", "form-status--visible", "form-status--success", "form-status--error");
+    if (message) {
+      formStatus.classList.add("form-status--visible");
+      if (kind) formStatus.classList.add("form-status--" + kind);
+    } else {
+      formStatus.classList.add("visually-hidden");
+    }
+  }
   if (form) {
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit", async function (e) {
       e.preventDefault();
       const btn = form.querySelector("button[type=submit]");
       const original = btn.textContent;
-      btn.textContent = "Demande envoyée ✓";
+      btn.textContent = "Envoi en cours…";
       btn.disabled = true;
-      if (formStatus) formStatus.textContent = "Votre demande a bien été envoyée. Nous vous recontactons sous 24h.";
-      setTimeout(function () {
+      setFormStatus("", null);
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+        if (!response.ok) throw new Error("Formspree a répondu avec le statut " + response.status);
+
+        btn.textContent = "Demande envoyée ✓";
+        setFormStatus("Merci, votre demande a bien été envoyée, nous vous recontactons sous 24h.", "success");
+        form.reset();
+        setTimeout(function () {
+          btn.textContent = original;
+          btn.disabled = false;
+        }, 4000);
+      } catch (err) {
         btn.textContent = original;
         btn.disabled = false;
-        form.reset();
-        if (formStatus) formStatus.textContent = "";
-      }, 3000);
-      // TODO: brancher un vrai endpoint (Formspree, Netlify Forms, etc.)
+        setFormStatus("Une erreur est survenue lors de l'envoi de votre demande. Merci de réessayer, ou appelez-nous directement au 06 60 87 16 51.", "error");
+      }
     });
   }
 

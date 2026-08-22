@@ -18,6 +18,7 @@
   --lagon-deep: #0F6169;
   --gold: #C9A876;
   --gold-light: #E0C99A;
+  --error: #E8776B;
   --paper: #F5F3ED;
   --ink: #1A2B2F;
   --ink-soft: #4A5A5C;
@@ -1212,6 +1213,21 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .form-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
 @media (min-width: 640px) { .form-actions { flex-direction: row; } }
 .form-note { font-size: 12.5px; color: color-mix(in srgb, var(--paper) 60%, transparent); text-align: center; margin: 4px 0 0; }
+.form-status--visible {
+  position: static;
+  width: auto; height: auto;
+  padding: 14px 16px;
+  margin: 4px 0 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  border-radius: var(--radius-s);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--paper);
+}
+.form-status--success { background: color-mix(in srgb, var(--lagon-light) 18%, transparent); border: 1px solid color-mix(in srgb, var(--lagon-light) 45%, transparent); }
+.form-status--error { background: color-mix(in srgb, var(--error) 16%, transparent); border: 1px solid color-mix(in srgb, var(--error) 45%, transparent); }
 
 /* ---------- footer ---------- */
 .footer { background: var(--marine-card); color: color-mix(in srgb, var(--paper) 70%, transparent); padding: var(--space-7) 24px var(--space-4); border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
