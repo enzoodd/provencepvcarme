@@ -174,25 +174,6 @@
     });
   }
 
-  // generic water-drop ripple on any button tagged .ripple-btn
-  document.querySelectorAll(".ripple-btn").forEach((btn) => {
-    btn.addEventListener("click", function (e) {
-      const rect = btn.getBoundingClientRect();
-      const x = (e.clientX || rect.width / 2) - rect.left;
-      const y = (e.clientY || rect.height / 2) - rect.top;
-      const size = Math.max(rect.width, rect.height) * 1.6;
-
-      const ripple = document.createElement("span");
-      ripple.className = "btn-ripple";
-      ripple.style.left = x + "px";
-      ripple.style.top = y + "px";
-      ripple.style.width = size + "px";
-      ripple.style.height = size + "px";
-      btn.appendChild(ripple);
-      ripple.addEventListener("animationend", () => ripple.remove());
-    });
-  });
-
   // Before/after toggle — both photos sit stacked in the same box and simply
   // crossfade via CSS opacity (the .is-after class flips them together, no
   // separate wipe/clip-path layered on top — that used to fight the crossfade
@@ -470,6 +451,59 @@
           "-=0.4"
         );
       }
+    });
+
+    // "Zone d'intervention" radius map — Montélimar pin fades/scales in
+    // first, then the three rings draw themselves from the inside out
+    // (same stroke-dashoffset technique as the diff-card rings above), then
+    // each department point (dot + its label) appears with a short stagger.
+    document.querySelectorAll(".zones-radius-map").forEach((svg) => {
+      const pin = svg.querySelector(".zmap-pin");
+      const pinLabel = svg.querySelector(".zmap-pin-label");
+      const rings = [".zmap-ring--inner", ".zmap-ring--mid", ".zmap-ring--outer"]
+        .map((sel) => svg.querySelector(sel))
+        .filter(Boolean);
+      const points = gsap.utils.toArray(svg.querySelectorAll(".zmap-point"));
+      if (!pin || !rings.length) return;
+
+      const tl = gsap.timeline({ scrollTrigger: { trigger: svg, start: "top 85%", once: true } });
+
+      tl.from(pin, {
+        opacity: 0,
+        scale: 0.3,
+        svgOrigin: pin.getAttribute("cx") + " " + pin.getAttribute("cy"),
+        duration: 0.45,
+        ease: "back.out(2)",
+      });
+      if (pinLabel) tl.from(pinLabel, { opacity: 0, y: 6, duration: 0.3, ease: "power2.out" }, "-=0.15");
+
+      rings.forEach((ring, i) => {
+        const circumference = 2 * Math.PI * parseFloat(ring.getAttribute("r"));
+        tl.fromTo(
+          ring,
+          { strokeDashoffset: circumference },
+          { strokeDashoffset: 0, duration: 0.65, ease: "power2.out" },
+          i === 0 ? "+=0.05" : "-=0.4"
+        );
+      });
+
+      points.forEach((point, i) => {
+        const dot = point.querySelector(".zmap-dot");
+        const label = point.querySelector(".zmap-label");
+        if (!dot) return;
+        tl.from(
+          dot,
+          {
+            opacity: 0,
+            scale: 0,
+            svgOrigin: dot.getAttribute("cx") + " " + dot.getAttribute("cy"),
+            duration: 0.3,
+            ease: "back.out(2.2)",
+          },
+          i === 0 ? "-=0.1" : "+=0.12"
+        );
+        if (label) tl.from(label, { opacity: 0, duration: 0.25, ease: "power1.out" }, "-=0.12");
+      });
     });
 
     // Finish folders — the fan-out is scrubbed to scroll position (mirrors the

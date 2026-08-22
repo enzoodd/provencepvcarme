@@ -297,39 +297,6 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .btn-lg { padding: var(--space-3) var(--space-5); font-size: 15px; }
 .btn-full { width: 100%; padding: 16px; font-size: 16px; }
 
-/* generic water-drop ripple, usable on any button via JS */
-.ripple-btn {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  outline: 2px solid transparent;
-  outline-offset: 0px;
-  transition: outline-color 0.3s var(--ease), outline-offset 0.3s var(--ease);
-}
-.ripple-btn:hover {
-  outline-color: var(--gold);
-  outline-offset: 4px;
-}
-.ripple-btn:focus-visible {
-  outline-color: var(--lagon);
-  outline-offset: 3px;
-}
-.ripple-btn:active {
-  transform: scale(0.97);
-}
-.btn-ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--paper) 55%, transparent) 0%, color-mix(in srgb, var(--paper) 18%, transparent) 45%, transparent 70%);
-  transform: translate(-50%, -50%) scale(0);
-  pointer-events: none;
-  z-index: 0;
-  animation: ripple-drop 0.6s var(--ease) forwards;
-}
-.btn-outline .btn-ripple, .btn-call .btn-ripple, .btn-secondary-nav .btn-ripple {
-  background: radial-gradient(circle, color-mix(in srgb, var(--lagon) 35%, transparent) 0%, color-mix(in srgb, var(--lagon) 10%, transparent) 45%, transparent 70%);
-}
-
 .btn-outline {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   background: transparent;
@@ -1142,11 +1109,15 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 .zones-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-8); align-items: center; }
 .zones-visual { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.zones-radius-map { width: 100%; max-width: 300px; height: auto; }
-.zmap-ring { fill: none; stroke: var(--lagon); stroke-width: 1.3; }
-.zmap-ring--inner { opacity: 0.55; }
-.zmap-ring--mid { opacity: 0.32; }
-.zmap-ring--outer { opacity: 0.16; stroke-dasharray: 3 5; }
+.zones-radius-map { width: 100%; max-width: 430px; height: auto; }
+.zmap-ring { fill: none; stroke: var(--lagon); stroke-width: 1.3; stroke-dashoffset: 0; }
+/* dasharray set to each ring's own circumference (2*pi*r, r=45/80/115) so a
+   single dash exactly traces the full circle -- lets the reveal animation
+   "draw" it via stroke-dashoffset (see js/script.js). Resting state (offset 0)
+   renders as a plain solid ring, same as before JS runs / under reduced motion. */
+.zmap-ring--inner { opacity: 0.55; stroke-dasharray: 282.7 282.7; }
+.zmap-ring--mid { opacity: 0.32; stroke-dasharray: 502.7 502.7; }
+.zmap-ring--outer { opacity: 0.16; stroke-dasharray: 722.6 722.6; }
 .zmap-dot { r: 4; fill: var(--marine); stroke: var(--paper); stroke-width: 2.5; }
 .zmap-label {
   font-family: var(--font-mono);
@@ -1415,7 +1386,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   .phone-cta { flex-direction: column; align-items: flex-start; }
   .zones-layout { grid-template-columns: 1fr; gap: var(--space-6); }
   .zones-visual { order: 2; margin-top: 4px; }
-  .zones-radius-map { max-width: 220px; }
+  .zones-radius-map { max-width: 320px; }
 }
 
 /* ---------- responsive ---------- */
