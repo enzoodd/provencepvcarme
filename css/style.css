@@ -1376,6 +1376,67 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .phone-cta-text p { margin: 6px 0 0; color: color-mix(in srgb, var(--paper) 80%, transparent); font-size: 15px; line-height: 1.55; }
 .phone-cta-text strong { color: var(--gold-light); }
 
+/* ---------- brands marquee ("Nos marques") ---------- */
+.brands-section .section-inner { text-align: center; }
+.brands-section .eyebrow, .brands-section .section-title { margin-left: auto; margin-right: auto; }
+
+.brands-marquee {
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: var(--space-6) 0;
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.brands-track {
+  display: flex;
+  width: fit-content;
+  animation: brands-scroll 42s linear infinite;
+}
+.brands-marquee:hover .brands-track { animation-play-state: paused; }
+.brands-group { display: flex; align-items: center; flex-shrink: 0; }
+@keyframes brands-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-33.3334%); }
+}
+
+.brand-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-6);
+}
+.brand-logo-item--dark {
+  margin: 0 var(--space-5);
+  padding: 14px 22px;
+  background: var(--marine);
+  border-radius: var(--radius-m);
+}
+.brand-logo {
+  height: 46px;
+  width: auto;
+  max-width: 200px;
+  object-fit: contain;
+}
+
+.brands-grid {
+  display: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5) var(--space-2);
+  margin-top: var(--space-5);
+}
+@media (prefers-reduced-motion: reduce) {
+  .brands-marquee { display: none; }
+  .brands-grid { display: flex; }
+}
+@media (max-width: 640px) {
+  .brand-logo-item { padding: 0 var(--space-4); }
+  .brand-logo { height: 36px; }
+  .brands-track { animation-duration: 30s; }
+}
+
 /* ---------- CTA band (final section, centered) ---------- */
 .cta-band { text-align: center; }
 .cta-band .section-inner { display: flex; flex-direction: column; align-items: center; }
