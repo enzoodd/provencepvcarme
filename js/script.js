@@ -432,6 +432,7 @@
     revealGroup(".faq-item", { y: 16, opacity: 0 }, { stagger: 0.06, ease: "power2.out", duration: 0.6 });
     revealGroup(".coulisses-item", { y: 30, opacity: 0, scale: 0.95 }, { stagger: 0.08, ease: "power3.out", duration: 0.8 });
     revealGroup(".zones-list span", { y: 8, opacity: 0 }, { stagger: 0.04, ease: "power1.out", duration: 0.45, mod: 8 });
+    revealGroup(".trust-badge", { y: 20, opacity: 0, scale: 0.85 }, { stagger: 0.12, ease: "back.out(1.6)", duration: 0.7 });
 
     // "Pourquoi nous choisir" cards — staggered lift-in, each icon's ring
     // draws itself in right after the card settles.
