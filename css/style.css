@@ -1326,37 +1326,81 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .breadcrumb--light { color: color-mix(in srgb, var(--paper) 50%, transparent); }
 .breadcrumb--light a { color: var(--lagon-light); }
 
-/* ---------- journey-visual (methode.html intro): decorative route from
-   diagnostic (maison) à mise en eau (goutte), purely illustrative ---------- */
-.journey-visual {
-  margin-top: var(--space-6);
+/* ---------- journey-rail (methode.html intro): 4-step horizontal rail,
+   diagnostic -> mise en eau, purely illustrative ---------- */
+.journey-rail {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  max-width: 720px;
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
   animation: journey-fade-in 0.9s var(--ease) 0.15s both;
 }
-.journey-visual svg { display: block; width: 100%; height: auto; max-height: 84px; }
-.journey-path {
-  stroke: var(--lagon-light);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-dasharray: 0.5 11;
-  opacity: 0.7;
+.journey-rail::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 27px;
+  height: 2px;
+  background: var(--gold);
+  z-index: 0;
 }
-.journey-dot { r: 4; fill: var(--gold); }
-.journey-icon path {
-  stroke: var(--marine);
-  stroke-width: 2;
+.journey-rail-step {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
-.journey-icon--end path { fill: color-mix(in srgb, var(--lagon) 16%, transparent); }
+.journey-rail-num,
+.journey-rail-marker { flex-shrink: 0; }
+.journey-rail-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  color: var(--lagon);
+  margin-bottom: 10px;
+}
+.journey-rail-marker {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  background: var(--marine);
+  transform: rotate(45deg);
+  margin-bottom: 10px;
+}
+.journey-rail-label {
+  align-self: stretch;
+  width: 100%;
+  max-width: 140px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12.5px;
+  line-height: 1.35;
+  color: var(--marine);
+}
 
 @keyframes journey-fade-in {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .journey-visual { animation: none; }
+  .journey-rail { animation: none; }
 }
 @media (max-width: 640px) {
-  .journey-visual { margin-top: var(--space-5); }
-  .journey-visual svg { max-height: 64px; }
+  .journey-rail { margin-top: var(--space-5); gap: 2px; }
+  .journey-rail::before { left: 4px; right: 4px; top: 25px; }
+  .journey-rail-num { font-size: 11px; margin-bottom: 8px; }
+  .journey-rail-marker { width: 8px; height: 8px; margin-bottom: 8px; }
+  .journey-rail-label { font-size: 11px; }
 }
 
 /* ---------- section--mesh: subtle tinted gradient, used behind "pourquoi nous" ---------- */
