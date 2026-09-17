@@ -1186,24 +1186,21 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .zones-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-8); align-items: center; }
 .zones-visual { display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .zones-radius-map { width: 100%; max-width: 430px; height: auto; }
-.zmap-ring { fill: none; stroke: var(--lagon); stroke-width: 1.3; stroke-dashoffset: 0; }
-/* dasharray set to each ring's own circumference (2*pi*r, r=45/80/115) so a
-   single dash exactly traces the full circle -- lets the reveal animation
-   "draw" it via stroke-dashoffset (see js/script.js). Resting state (offset 0)
-   renders as a plain solid ring, same as before JS runs / under reduced motion. */
-.zmap-ring--inner { opacity: 0.55; stroke-dasharray: 282.7 282.7; }
-.zmap-ring--mid { opacity: 0.32; stroke-dasharray: 502.7 502.7; }
-/* outer ring = the actual ~2h boundary (matches the caption below the
-   diagram) -- in red and bolder so it reads as the meaningful limit, not
-   just another faded distance guide like the two rings inside it */
-.zmap-ring--outer { opacity: 0.8; stroke: var(--error); stroke-width: 1.8; stroke-dasharray: 722.6 722.6; }
-.zmap-dot { r: 4; fill: var(--marine); stroke: var(--paper); stroke-width: 2.5; }
-.zmap-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  fill: var(--marine);
+.zmap-france {
+  fill: color-mix(in srgb, var(--marine) 6%, transparent);
+  stroke: var(--marine);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+/* dasharray/offset posés dynamiquement en JS (getTotalLength()) pour l'effet
+   de tracé au scroll -- au repos (avant JS, ou sous prefers-reduced-motion,
+   qui saute ce bloc entièrement) le contour s'affiche plein, sans dasharray. */
+
+.zmap-circle {
+  fill: color-mix(in srgb, var(--error) 8%, transparent);
+  stroke: var(--error);
+  stroke-width: 1.8;
 }
 .zmap-pin { fill: var(--marine); stroke: var(--gold); stroke-width: 2.5; }
 .zmap-pin-label {
