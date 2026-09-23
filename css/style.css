@@ -1183,6 +1183,26 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .zones-list span:hover { border-color: var(--lagon); color: var(--lagon-deep); background: color-mix(in srgb, var(--lagon) 6%, transparent); }
 
+.zones-list--villes { margin-top: 12px; }
+.zones-list--villes a {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 10px 18px;
+  border-radius: 100px;
+  border: 1px solid color-mix(in srgb, var(--marine) 15%, transparent);
+  color: var(--marine);
+  text-decoration: none;
+  transition: border-color 0.25s var(--ease), color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.zones-list--villes a:hover,
+.zones-list--villes a:focus-visible {
+  border-color: var(--lagon);
+  color: var(--lagon-deep);
+  background: color-mix(in srgb, var(--lagon) 6%, transparent);
+}
+.zones-list--villes a:focus-visible { outline-offset: 3px; }
+
 .zones-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-8); align-items: center; }
 .zones-visual { display: flex; flex-direction: column; align-items: center; gap: 14px; }
 .zones-radius-map { width: 100%; max-width: 430px; height: auto; }
@@ -1274,7 +1294,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   max-width: var(--container);
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   gap: 40px;
   padding-bottom: var(--space-5);
   border-bottom: 1px solid color-mix(in srgb, var(--paper) 10%, transparent);
@@ -1306,6 +1326,17 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .legal-content li { font-size: 15.5px; line-height: 1.7; color: var(--ink); margin-bottom: 6px; }
 .legal-content a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
 .legal-content a:hover { color: var(--lagon); }
+
+/* ---------- zone-content (pages de zone : Avignon/Orange/Marseille) — plain readable
+   paragraphs, same metrics as .legal-content for visual consistency ---------- */
+.zone-content p { margin: 0 0 var(--space-4); font-size: 16px; line-height: 1.7; color: var(--ink); }
+.zone-content p:last-child { margin-bottom: 0; }
+.zone-content a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
+.zone-content a:hover { color: var(--lagon); }
+
+.zone-see-also p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+.zone-see-also a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
+.zone-see-also a:hover { color: var(--lagon); }
 
 /* ---------- breadcrumb (sub-pages) ---------- */
 .breadcrumb {
