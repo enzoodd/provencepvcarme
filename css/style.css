@@ -1334,6 +1334,36 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .zone-content a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
 .zone-content a:hover { color: var(--lagon); }
 
+/* Texte justifié + césure. Vérifié visuellement à 390px (mobile) avant
+   application : avec lang="fr" sur <html>, la césure Chromium/WebKit
+   évite l'écueil classique des grands espaces blancs entre les mots --
+   pas besoin de limiter à un @media (min-width) ici. */
+.zone-content p,
+.zone-lede {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+/* ---------- zone-content-grid (page Avignon : photo de chantier réelle + texte) ---------- */
+.zone-content-grid { display: grid; grid-template-columns: 2fr 3fr; gap: var(--space-6); align-items: start; }
+.zone-content-grid p { margin: 0; }
+.zone-photo { margin: 0; }
+.zone-photo picture {
+  display: block;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.zone-photo img { display: block; width: 100%; height: auto; object-fit: cover; }
+.zone-photo figcaption { margin-top: 14px; font-size: 13.5px; color: var(--ink-soft); letter-spacing: 0.01em; }
+.zone-photo figcaption a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
+.zone-photo figcaption a:hover { color: var(--lagon); }
+
+@media (max-width: 720px) {
+  .zone-content-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+
 .zone-see-also p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
 .zone-see-also a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
 .zone-see-also a:hover { color: var(--lagon); }
