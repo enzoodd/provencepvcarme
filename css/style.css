@@ -1055,9 +1055,13 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 /* ---------- trust badges (norme / garantie / expérience) ---------- */
-.trust-badges-section { padding-block: var(--space-6); }
-.trust-badges-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: var(--space-6) var(--space-7); }
-.trust-badge-svg { width: 112px; height: 112px; overflow: visible; }
+.diff-trust-strip {
+  margin-top: var(--space-5);
+  padding-top: var(--space-5);
+  border-top: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+}
+.trust-badges-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: var(--space-5) var(--space-6); }
+.trust-badge-svg { width: 96px; height: 96px; overflow: visible; }
 .badge-disc { fill: var(--marine); }
 .badge-ring-outer { fill: none; stroke: var(--gold); stroke-width: 1.2; }
 .badge-ring-inner { fill: none; stroke: color-mix(in srgb, var(--gold) 85%, transparent); stroke-width: 1.5; }
@@ -1077,8 +1081,8 @@ section[id] { scroll-margin-top: var(--nav-height); }
   fill: var(--gold-light);
 }
 @media (max-width: 560px) {
-  .trust-badges-row { gap: var(--space-5) var(--space-6); }
-  .trust-badge-svg { width: 92px; height: 92px; }
+  .trust-badges-row { gap: var(--space-4) var(--space-5); }
+  .trust-badge-svg { width: 80px; height: 80px; }
 }
 
 /* ---------- finitions — sample folders, fan-out on click ---------- */
@@ -1388,6 +1392,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 /* ---------- section--mesh: subtle tinted gradient, used behind "pourquoi nous" ---------- */
 .section--mesh {
   position: relative;
+  padding: var(--space-7) 24px;
   background:
     radial-gradient(ellipse 60% 50% at 12% 15%, color-mix(in srgb, var(--lagon) 7%, transparent), transparent 60%),
     radial-gradient(ellipse 55% 60% at 88% 10%, color-mix(in srgb, var(--gold) 9%, transparent), transparent 55%),
@@ -1413,7 +1418,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .diff-card {
   position: relative;
   overflow: hidden;
-  padding: var(--space-6) var(--space-5);
+  padding: var(--space-5) var(--space-4);
   border-radius: var(--radius-xl);
   background: var(--paper);
   border: 1px solid color-mix(in srgb, var(--marine) 8%, transparent);
@@ -1435,26 +1440,17 @@ section[id] { scroll-margin-top: var(--nav-height); }
   z-index: 0;
 }
 .diff-card > * { position: relative; z-index: 1; }
-.diff-icon-wrap { position: relative; width: 56px; height: 56px; margin-bottom: 20px; }
-.diff-icon-ring { position: absolute; inset: 0; width: 56px; height: 56px; }
-.diff-icon-ring circle {
-  fill: none;
-  stroke: var(--lagon);
-  stroke-width: 1.5;
-  stroke-dasharray: 163.4;
-  stroke-dashoffset: 0;
-}
+.diff-icon-wrap { width: 68px; height: 68px; margin-bottom: 18px; }
 .diff-icon {
-  position: absolute;
-  top: 6px; left: 6px;
-  width: 44px; height: 44px;
+  width: 68px; height: 68px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  background: color-mix(in srgb, var(--lagon) 10%, transparent);
-  color: var(--lagon);
 }
-.diff-card h3 { font-size: 19px; color: var(--marine); margin-bottom: 10px; letter-spacing: -0.01em; }
-.diff-card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
+.diff-icon-wrap--lagon .diff-icon { background: var(--lagon); color: var(--paper); }
+.diff-icon-wrap--gold .diff-icon { background: var(--gold); color: var(--marine); }
+.diff-icon-wrap--marine .diff-icon { background: var(--marine); color: var(--gold-light); }
+.diff-card h3 { font-size: 19px; color: var(--marine); margin-bottom: 8px; letter-spacing: -0.01em; }
+.diff-card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
 
 /* ---------- teaser grids (homepage réalisations preview) ---------- */
 .teaser-grid {
