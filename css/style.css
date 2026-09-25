@@ -1056,12 +1056,10 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 /* ---------- trust badges (norme / garantie / expérience) ---------- */
 .diff-trust-strip {
-  margin-top: var(--space-5);
-  padding-top: var(--space-5);
-  border-top: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  margin-top: var(--space-4);
 }
-.trust-badges-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: var(--space-5) var(--space-6); }
-.trust-badge-svg { width: 96px; height: 96px; overflow: visible; }
+.trust-badges-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: var(--space-4) var(--space-5); }
+.trust-badge-svg { width: 80px; height: 80px; overflow: visible; }
 .badge-disc { fill: var(--marine); }
 .badge-ring-outer { fill: none; stroke: var(--gold); stroke-width: 1.2; }
 .badge-ring-inner { fill: none; stroke: color-mix(in srgb, var(--gold) 85%, transparent); stroke-width: 1.5; }
@@ -1081,8 +1079,8 @@ section[id] { scroll-margin-top: var(--nav-height); }
   fill: var(--gold-light);
 }
 @media (max-width: 560px) {
-  .trust-badges-row { gap: var(--space-4) var(--space-5); }
-  .trust-badge-svg { width: 80px; height: 80px; }
+  .trust-badges-row { gap: var(--space-3) var(--space-4); }
+  .trust-badge-svg { width: 68px; height: 68px; }
 }
 
 /* ---------- finitions — sample folders, fan-out on click ---------- */
@@ -1392,34 +1390,26 @@ section[id] { scroll-margin-top: var(--nav-height); }
 /* ---------- section--mesh: subtle tinted gradient, used behind "pourquoi nous" ---------- */
 .section--mesh {
   position: relative;
-  padding: var(--space-7) 24px;
+  padding: var(--space-6) 24px;
   background:
     radial-gradient(ellipse 60% 50% at 12% 15%, color-mix(in srgb, var(--lagon) 7%, transparent), transparent 60%),
     radial-gradient(ellipse 55% 60% at 88% 10%, color-mix(in srgb, var(--gold) 9%, transparent), transparent 55%),
     radial-gradient(ellipse 70% 55% at 50% 105%, color-mix(in srgb, var(--sand-deep) 50%, transparent), transparent 65%),
     var(--paper);
 }
-.section--mesh::after {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: var(--grain);
-  opacity: 0.025;
-  mix-blend-mode: multiply;
-  pointer-events: none;
-}
 
 /* ---------- differentiation cards (homepage "pourquoi nous") ---------- */
 .diff-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-4);
+  gap: var(--space-3);
   counter-reset: diffnum;
 }
 .diff-card {
   position: relative;
   overflow: hidden;
-  padding: var(--space-5) var(--space-4);
-  border-radius: var(--radius-xl);
+  padding: var(--space-4) var(--space-3);
+  border-radius: var(--radius-l);
   background: var(--paper);
   border: 1px solid color-mix(in srgb, var(--marine) 8%, transparent);
   box-shadow: var(--shadow-sm);
@@ -1430,9 +1420,9 @@ section[id] { scroll-margin-top: var(--nav-height); }
   content: counter(diffnum, decimal-leading-zero);
   counter-increment: diffnum;
   position: absolute;
-  top: 6px; right: 20px;
+  top: 4px; right: 14px;
   font-family: var(--font-display);
-  font-size: 44px;
+  font-size: 30px;
   font-weight: 700;
   color: color-mix(in srgb, var(--marine) 5%, transparent);
   line-height: 1;
@@ -1440,17 +1430,17 @@ section[id] { scroll-margin-top: var(--nav-height); }
   z-index: 0;
 }
 .diff-card > * { position: relative; z-index: 1; }
-.diff-icon-wrap { width: 68px; height: 68px; margin-bottom: 18px; }
+.diff-icon-wrap { width: 52px; height: 52px; margin-bottom: 14px; }
 .diff-icon {
-  width: 68px; height: 68px;
+  width: 52px; height: 52px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
 }
 .diff-icon-wrap--lagon .diff-icon { background: var(--lagon); color: var(--paper); }
 .diff-icon-wrap--gold .diff-icon { background: var(--gold); color: var(--marine); }
 .diff-icon-wrap--marine .diff-icon { background: var(--marine); color: var(--gold-light); }
-.diff-card h3 { font-size: 19px; color: var(--marine); margin-bottom: 8px; letter-spacing: -0.01em; }
-.diff-card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
+.diff-card h3 { font-size: 16.5px; color: var(--marine); margin-bottom: 6px; letter-spacing: -0.01em; }
+.diff-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.45; margin: 0; }
 
 /* ---------- teaser grids (homepage réalisations preview) ---------- */
 .teaser-grid {
