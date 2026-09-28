@@ -1054,24 +1054,22 @@ section[id] { scroll-margin-top: var(--nav-height); }
   color: var(--lagon-light);
 }
 
-/* ---------- pourquoi head: titre + carte photo (badges en overlay) ---------- */
-.pourquoi-head {
+/* ---------- pourquoi head: titre pleine largeur, puis photo + cartes en bloc ---------- */
+.pourquoi-head-copy {
+  max-width: 680px;
+  margin-bottom: 28px;
+}
+.pourquoi-body {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
-  gap: 28px 48px;
-  margin-bottom: 28px;
-}
-.pourquoi-head-copy {
-  flex: 1 1 420px;
-  max-width: 620px;
-  min-width: 0;
+  gap: 20px 28px;
 }
 .pourquoi-photo {
   position: relative;
-  flex: 0 1 280px;
-  width: 280px;
+  flex: 0 1 320px;
+  width: 320px;
   max-width: 100%;
   aspect-ratio: 2 / 3;
   border-radius: var(--radius-l);
@@ -1462,8 +1460,10 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 /* ---------- differentiation cards (homepage "pourquoi nous") ---------- */
 .diff-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 380px;
+  max-width: 460px;
   gap: var(--space-3);
   counter-reset: diffnum;
 }
@@ -1628,7 +1628,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .cta-band-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-top: var(--space-2); }
 
 @media (max-width: 780px) {
-  .diff-grid { grid-template-columns: 1fr; }
+  .diff-grid { max-width: 100%; }
   .teaser-grid { grid-template-columns: 1fr 1fr; }
   .phone-cta { flex-direction: column; align-items: flex-start; }
   .zones-layout { grid-template-columns: 1fr; gap: var(--space-6); }
