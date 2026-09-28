@@ -1,0 +1,450 @@
+{
+  "home-desktop": {
+    "console_errors": [],
+    "scrollWidth_vs_clientWidth": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    "tel_links": [
+      {
+        "text": "Appeler",
+        "href": "tel:+33660871651",
+        "top": 16,
+        "left": 1112.984375,
+        "width": 105.4375,
+        "height": 43,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 4668.125,
+        "left": 743.765625,
+        "width": 215.796875,
+        "height": 52.5,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 4978.625,
+        "left": 846,
+        "width": 212,
+        "height": 21,
+        "visible": true,
+        "display": "block",
+        "visibility": "visible"
+      }
+    ],
+    "ba_toggle_count": 4,
+    "h1": {
+      "text": "Donnez à votre piscineune finition d'exception.",
+      "top": 280.015625,
+      "bottom": 621.078125,
+      "height": 341.0625
+    },
+    "viewport_height": 900,
+    "noscript_present": false
+  },
+  "methode-desktop": {
+    "console_errors": [],
+    "scrollWidth_vs_clientWidth": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    "tel_links": [
+      {
+        "text": "Appeler",
+        "href": "tel:+33660871651",
+        "top": 16,
+        "left": 1112.984375,
+        "width": 105.4375,
+        "height": 43,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 5409.875,
+        "left": 743.765625,
+        "width": 215.796875,
+        "height": 52.5,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 5720.375,
+        "left": 846,
+        "width": 212,
+        "height": 21,
+        "visible": true,
+        "display": "block",
+        "visibility": "visible"
+      }
+    ],
+    "ba_toggle_count": 0,
+    "h1": {
+      "text": "De la visite sur site au premier bain",
+      "top": 222,
+      "bottom": 342.625,
+      "height": 120.625
+    },
+    "viewport_height": 900,
+    "noscript_present": false
+  },
+  "realisations-desktop": {
+    "console_errors": [],
+    "scrollWidth_vs_clientWidth": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    "tel_links": [
+      {
+        "text": "Appeler",
+        "href": "tel:+33660871651",
+        "top": 16,
+        "left": 1112.984375,
+        "width": 105.4375,
+        "height": 43,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 3202.625,
+        "left": 743.765625,
+        "width": 215.796875,
+        "height": 52.5,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 3513.125,
+        "left": 846,
+        "width": 212,
+        "height": 21,
+        "visible": true,
+        "display": "block",
+        "visibility": "visible"
+      }
+    ],
+    "ba_toggle_count": 4,
+    "h1": {
+      "text": "Avant / Après",
+      "top": 222,
+      "bottom": 282.3125,
+      "height": 60.3125
+    },
+    "viewport_height": 900,
+    "noscript_present": false
+  },
+  "contact-desktop": {
+    "console_errors": [],
+    "scrollWidth_vs_clientWidth": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440
+    },
+    "tel_links": [
+      {
+        "text": "Appeler",
+        "href": "tel:+33660871651",
+        "top": 16,
+        "left": 1112.984375,
+        "width": 105.4375,
+        "height": 43,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 0,
+        "left": 0,
+        "width": 0,
+        "height": 0,
+        "visible": false,
+        "display": "none",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 695.5,
+        "left": 409,
+        "width": 175.8125,
+        "height": 52.5,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 1392.75,
+        "left": 719.984375,
+        "width": 311.015625,
+        "height": 51.75,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 2658.6875,
+        "left": 846,
+        "width": 212,
+        "height": 21,
+        "visible": true,
+        "display": "block",
+        "visibility": "visible"
+      }
+    ],
+    "ba_toggle_count": 0,
+    "h1": {
+      "text": "Demandez votre devis gratuit",
+      "top": 318,
+      "bottom": 438.625,
+      "height": 120.625
+    },
+    "viewport_height": 900,
+    "noscript_present": false
+  },
+  "home-mobile": {
+    "console_errors": [],
+    "scrollWidth_vs_clientWidth": {
+      "scrollWidth": 474,
+      "clientWidth": 390
+    },
+    "tel_links": [
+      {
+        "text": "Appeler",
+        "href": "tel:+33660871651",
+        "top": 18.5,
+        "left": 230.78125,
+        "width": 46,
+        "height": 38,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 5473,
+        "left": 87.09375,
+        "width": 215.796875,
+        "height": 51.75,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 6131.125,
+        "left": 24,
+        "width": 342,
+        "height": 21,
+        "visible": true,
+        "display": "block",
+        "visibility": "visible"
+      }
+    ],
+    "ba_toggle_count": 4,
+    "h1": {
+      "text": "Donnez à votre piscineune finition d'exception.",
+      "top": 276.28125,
+      "bottom": 471.78125,
+      "height": 195.5
+    },
+    "viewport_height": 844
+  },
+  "methode-mobile": {
+    "console_errors": [],
+    "scrollWidth_vs_clientWidth": {
+      "scrollWidth": 474,
+      "clientWidth": 390
+    },
+    "tel_links": [
+      {
+        "text": "Appeler",
+        "href": "tel:+33660871651",
+        "top": 18.5,
+        "left": 230.78125,
+        "width": 46,
+        "height": 38,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 7427.859375,
+        "left": 87.09375,
+        "width": 215.796875,
+        "height": 51.75,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 8085.984375,
+        "left": 24,
+        "width": 342,
+        "height": 21,
+        "visible": true,
+        "display": "block",
+        "visibility": "visible"
+      }
+    ],
+    "ba_toggle_count": 0,
+    "h1": {
+      "text": "De la visite sur site au premier bain",
+      "top": 206,
+      "bottom": 272.53125,
+      "height": 66.53125
+    },
+    "viewport_height": 844
+  },
+  "realisations-mobile": {
+    "console_errors": [],
+    "scrollWidth_vs_clientWidth": {
+      "scrollWidth": 474,
+      "clientWidth": 390
+    },
+    "tel_links": [
+      {
+        "text": "Appeler",
+        "href": "tel:+33660871651",
+        "top": 18.5,
+        "left": 230.78125,
+        "width": 46,
+        "height": 38,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 4397.0625,
+        "left": 87.09375,
+        "width": 215.796875,
+        "height": 51.75,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 5055.1875,
+        "left": 24,
+        "width": 342,
+        "height": 21,
+        "visible": true,
+        "display": "block",
+        "visibility": "visible"
+      }
+    ],
+    "ba_toggle_count": 4,
+    "h1": {
+      "text": "Avant / Après",
+      "top": 206,
+      "bottom": 239.265625,
+      "height": 33.265625
+    },
+    "viewport_height": 844
+  },
+  "contact-mobile": {
+    "console_errors": [],
+    "scrollWidth_vs_clientWidth": {
+      "scrollWidth": 474,
+      "clientWidth": 390
+    },
+    "tel_links": [
+      {
+        "text": "Appeler",
+        "href": "tel:+33660871651",
+        "top": 18.5,
+        "left": 230.78125,
+        "width": 46,
+        "height": 38,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 971.5,
+        "left": 0,
+        "width": 474,
+        "height": 54.5,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 623.90625,
+        "left": 69,
+        "width": 175.8125,
+        "height": 52.5,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "Appeler maintenant",
+        "href": "tel:+33660871651",
+        "top": 1660.40625,
+        "left": 69,
+        "width": 252,
+        "height": 51.75,
+        "visible": true,
+        "display": "flex",
+        "visibility": "visible"
+      },
+      {
+        "text": "06 60 87 16 51",
+        "href": "tel:+33660871651",
+        "top": 3532.78125,
+        "left": 24,
+        "width": 342,
+        "height": 21,
+        "visible": true,
+        "display": "block",
+        "visibility": "visible"
+      }
+    ],
+    "ba_toggle_count": 0,
+    "h1": {
+      "text": "Demandez votre devis gratuit",
+      "top": 254,
+      "bottom": 320.53125,
+      "height": 66.53125
+    },
+    "viewport_height": 844
+  }
+}

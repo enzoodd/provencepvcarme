@@ -1,0 +1,1067 @@
+{
+  "index": {
+    "desktop": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflowAmount": 0,
+      "offenders": [],
+      "totalImgs": 20,
+      "brokenImgs": [],
+      "pictures": 0,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "",
+          "cls": "nav-logo nav-logo--image",
+          "w": 159,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 82,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 102,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 49,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Voir la méthode",
+          "cls": "btn-ghost btn-ghost--light",
+          "w": 146,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "06 60 87 16 51",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "provencepvcarme@gmail.com",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Mentions légales",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Politique de confidentialité",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        }
+      ],
+      "smallTargetsCount": 13,
+      "h1Visible": true,
+      "h1Rect": {
+        "top": 277,
+        "bottom": 622
+      },
+      "ctaInfo": {
+        "selector": "a[href^=\"tel:\"]",
+        "top": 14,
+        "bottom": 61,
+        "visible": true,
+        "w": 109,
+        "h": 47
+      },
+      "viewportHeight": 900,
+      "screenshot": "C:\\Users\\oddon\\Desktop\\provencepvcarme\\provencepvcarme.fr-audit\\screenshots\\index-desktop.png"
+    },
+    "mobile": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflowAmount": 0,
+      "offenders": [],
+      "totalImgs": 20,
+      "brokenImgs": [
+        {
+          "src": "https://provencepvcarme.fr/media/before-3.jpg",
+          "alt": "Bassin avant mise en eau, Avignon, PVC granit sable"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/after-3.jpg",
+          "alt": "Bassin après mise en eau, Avignon, PVC granit sable"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/before-4.jpg",
+          "alt": "Bassin avant mise en eau, Poët-Laval, PVC vert olive"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/after-4.jpg",
+          "alt": "Bassin après mise en eau, Poët-Laval, PVC vert olive"
+        }
+      ],
+      "pictures": 0,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "",
+          "cls": "nav-logo nav-logo--image",
+          "w": 159,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Voir la méthode",
+          "cls": "btn-ghost btn-ghost--light",
+          "w": 146,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "06 60 87 16 51",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "provencepvcarme@gmail.com",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Mentions légales",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Politique de confidentialité",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        }
+      ],
+      "smallTargetsCount": 10,
+      "h1Visible": true,
+      "h1Rect": {
+        "top": 278,
+        "bottom": 474
+      },
+      "ctaInfo": {
+        "selector": "a[href^=\"tel:\"]",
+        "top": 16,
+        "bottom": 60,
+        "visible": true,
+        "w": 50,
+        "h": 44
+      },
+      "viewportHeight": 844,
+      "screenshot": "C:\\Users\\oddon\\Desktop\\provencepvcarme\\provencepvcarme.fr-audit\\screenshots\\index-mobile.png"
+    }
+  },
+  "methode": {
+    "desktop": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflowAmount": 0,
+      "offenders": [
+        {
+          "tag": "SPAN",
+          "cls": "membrane-label",
+          "id": "",
+          "left": -9550,
+          "right": -9361,
+          "width": 190
+        },
+        {
+          "tag": "SPAN",
+          "cls": "membrane-label",
+          "id": "",
+          "left": -9550,
+          "right": -9363,
+          "width": 187
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "id": "",
+          "left": -9452,
+          "right": -9378,
+          "width": 75
+        },
+        {
+          "tag": "SPAN",
+          "cls": "membrane-label",
+          "id": "",
+          "left": -9550,
+          "right": -9387,
+          "width": 163
+        },
+        {
+          "tag": "EM",
+          "cls": "",
+          "id": "",
+          "left": -9452,
+          "right": -9402,
+          "width": 50
+        }
+      ],
+      "totalImgs": 16,
+      "brokenImgs": [
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/bali-gris.jpg",
+          "alt": "Membrane effet Pierre de Bali, teinte gris"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/bali-sable.jpg",
+          "alt": "Membrane effet Pierre de Bali, teinte sable"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/bali-basalte.jpg",
+          "alt": "Membrane effet Pierre de Bali, teinte basalte"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/naturelle-sable.jpg",
+          "alt": "Membrane effet Pierre naturelle, teinte sable"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/naturelle-gris.jpg",
+          "alt": "Membrane effet Pierre naturelle, teinte gris"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/naturelle-ardoise.jpg",
+          "alt": "Membrane effet Pierre naturelle, teinte ardoise"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/uni-gris-clair.jpg",
+          "alt": "Membrane unie, teinte gris clair"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/uni-sable.jpg",
+          "alt": "Membrane unie, teinte sable"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/uni-bleu.jpg",
+          "alt": "Membrane unie, teinte bleu"
+        }
+      ],
+      "pictures": 0,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "",
+          "cls": "nav-logo nav-logo--image",
+          "w": 159,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 82,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 102,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 49,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Accueil",
+          "cls": "",
+          "w": 42,
+          "h": 18
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "06 60 87 16 51",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "provencepvcarme@gmail.com",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Mentions légales",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Politique de confidentialité",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        }
+      ],
+      "smallTargetsCount": 13,
+      "h1Visible": true,
+      "h1Rect": {
+        "top": 223,
+        "bottom": 344
+      },
+      "ctaInfo": {
+        "selector": "a[href^=\"tel:\"]",
+        "top": 14,
+        "bottom": 61,
+        "visible": true,
+        "w": 109,
+        "h": 47
+      },
+      "viewportHeight": 900,
+      "screenshot": "C:\\Users\\oddon\\Desktop\\provencepvcarme\\provencepvcarme.fr-audit\\screenshots\\methode-desktop.png"
+    },
+    "mobile": {
+      "scrollWidth": 430,
+      "clientWidth": 390,
+      "overflowAmount": 40,
+      "offenders": [
+        {
+          "tag": "DIV",
+          "cls": "compare-card compare-card--lit",
+          "id": "",
+          "left": 80,
+          "right": 430,
+          "width": 350
+        },
+        {
+          "tag": "P",
+          "cls": "compare-label compare-label--accent",
+          "id": "",
+          "left": 113,
+          "right": 397,
+          "width": 284
+        },
+        {
+          "tag": "UL",
+          "cls": "",
+          "id": "",
+          "left": 113,
+          "right": 397,
+          "width": 284
+        },
+        {
+          "tag": "LI",
+          "cls": "",
+          "id": "",
+          "left": 113,
+          "right": 397,
+          "width": 284
+        },
+        {
+          "tag": "LI",
+          "cls": "",
+          "id": "",
+          "left": 113,
+          "right": 397,
+          "width": 284
+        },
+        {
+          "tag": "LI",
+          "cls": "",
+          "id": "",
+          "left": 113,
+          "right": 397,
+          "width": 284
+        },
+        {
+          "tag": "LI",
+          "cls": "",
+          "id": "",
+          "left": 113,
+          "right": 397,
+          "width": 284
+        },
+        {
+          "tag": "DIV",
+          "cls": "compare-card compare-card--dim",
+          "id": "",
+          "left": -40,
+          "right": 310,
+          "width": 350
+        }
+      ],
+      "totalImgs": 16,
+      "brokenImgs": [
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/bali-gris.jpg",
+          "alt": "Membrane effet Pierre de Bali, teinte gris"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/bali-sable.jpg",
+          "alt": "Membrane effet Pierre de Bali, teinte sable"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/bali-basalte.jpg",
+          "alt": "Membrane effet Pierre de Bali, teinte basalte"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/naturelle-sable.jpg",
+          "alt": "Membrane effet Pierre naturelle, teinte sable"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/naturelle-gris.jpg",
+          "alt": "Membrane effet Pierre naturelle, teinte gris"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/naturelle-ardoise.jpg",
+          "alt": "Membrane effet Pierre naturelle, teinte ardoise"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/uni-gris-clair.jpg",
+          "alt": "Membrane unie, teinte gris clair"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/uni-sable.jpg",
+          "alt": "Membrane unie, teinte sable"
+        },
+        {
+          "src": "https://provencepvcarme.fr/media/finitions/uni-bleu.jpg",
+          "alt": "Membrane unie, teinte bleu"
+        }
+      ],
+      "pictures": 0,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "",
+          "cls": "nav-logo nav-logo--image",
+          "w": 159,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Accueil",
+          "cls": "",
+          "w": 42,
+          "h": 18
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "06 60 87 16 51",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "provencepvcarme@gmail.com",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Mentions légales",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Politique de confidentialité",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        }
+      ],
+      "smallTargetsCount": 10,
+      "h1Visible": true,
+      "h1Rect": {
+        "top": 207,
+        "bottom": 274
+      },
+      "ctaInfo": {
+        "selector": "a[href^=\"tel:\"]",
+        "top": 16,
+        "bottom": 60,
+        "visible": true,
+        "w": 50,
+        "h": 44
+      },
+      "viewportHeight": 844,
+      "screenshot": "C:\\Users\\oddon\\Desktop\\provencepvcarme\\provencepvcarme.fr-audit\\screenshots\\methode-mobile.png"
+    }
+  },
+  "realisations": {
+    "desktop": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflowAmount": 0,
+      "offenders": [],
+      "totalImgs": 18,
+      "brokenImgs": [],
+      "pictures": 0,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "",
+          "cls": "nav-logo nav-logo--image",
+          "w": 159,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 82,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 104,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 49,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Accueil",
+          "cls": "",
+          "w": 42,
+          "h": 18
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "06 60 87 16 51",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "provencepvcarme@gmail.com",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Mentions légales",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Politique de confidentialité",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        }
+      ],
+      "smallTargetsCount": 13,
+      "h1Visible": true,
+      "h1Rect": {
+        "top": 223,
+        "bottom": 283
+      },
+      "ctaInfo": {
+        "selector": "a[href^=\"tel:\"]",
+        "top": 14,
+        "bottom": 61,
+        "visible": true,
+        "w": 109,
+        "h": 47
+      },
+      "viewportHeight": 900,
+      "screenshot": "C:\\Users\\oddon\\Desktop\\provencepvcarme\\provencepvcarme.fr-audit\\screenshots\\realisations-desktop.png"
+    },
+    "mobile": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflowAmount": 0,
+      "offenders": [],
+      "totalImgs": 18,
+      "brokenImgs": [],
+      "pictures": 0,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "",
+          "cls": "nav-logo nav-logo--image",
+          "w": 159,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Accueil",
+          "cls": "",
+          "w": 42,
+          "h": 18
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "06 60 87 16 51",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "provencepvcarme@gmail.com",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Mentions légales",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Politique de confidentialité",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        }
+      ],
+      "smallTargetsCount": 10,
+      "h1Visible": true,
+      "h1Rect": {
+        "top": 207,
+        "bottom": 240
+      },
+      "ctaInfo": {
+        "selector": "a[href^=\"tel:\"]",
+        "top": 16,
+        "bottom": 60,
+        "visible": true,
+        "w": 50,
+        "h": 44
+      },
+      "viewportHeight": 844,
+      "screenshot": "C:\\Users\\oddon\\Desktop\\provencepvcarme\\provencepvcarme.fr-audit\\screenshots\\realisations-mobile.png"
+    }
+  },
+  "contact": {
+    "desktop": {
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "overflowAmount": 0,
+      "offenders": [],
+      "totalImgs": 3,
+      "brokenImgs": [],
+      "pictures": 0,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "",
+          "cls": "nav-logo nav-logo--image",
+          "w": 159,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 82,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 102,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 49,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Accueil",
+          "cls": "",
+          "w": 42,
+          "h": 18
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "06 60 87 16 51",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "provencepvcarme@gmail.com",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Mentions légales",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Politique de confidentialité",
+          "cls": "",
+          "w": 212,
+          "h": 21
+        }
+      ],
+      "smallTargetsCount": 13,
+      "h1Visible": true,
+      "h1Rect": {
+        "top": 319,
+        "bottom": 440
+      },
+      "ctaInfo": {
+        "selector": "a[href^=\"tel:\"]",
+        "top": 14,
+        "bottom": 61,
+        "visible": true,
+        "w": 109,
+        "h": 47
+      },
+      "viewportHeight": 900,
+      "screenshot": "C:\\Users\\oddon\\Desktop\\provencepvcarme\\provencepvcarme.fr-audit\\screenshots\\contact-desktop.png"
+    },
+    "mobile": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "overflowAmount": 0,
+      "offenders": [],
+      "totalImgs": 3,
+      "brokenImgs": [],
+      "pictures": 0,
+      "smallTargets": [
+        {
+          "tag": "A",
+          "text": "",
+          "cls": "nav-logo nav-logo--image",
+          "w": 159,
+          "h": 37
+        },
+        {
+          "tag": "A",
+          "text": "Accueil",
+          "cls": "",
+          "w": 42,
+          "h": 18
+        },
+        {
+          "tag": "A",
+          "text": "Méthode",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Réalisations",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "FAQ",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Contact",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "06 60 87 16 51",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "provencepvcarme@gmail.com",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Mentions légales",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        },
+        {
+          "tag": "A",
+          "text": "Politique de confidentialité",
+          "cls": "",
+          "w": 342,
+          "h": 21
+        }
+      ],
+      "smallTargetsCount": 10,
+      "h1Visible": true,
+      "h1Rect": {
+        "top": 255,
+        "bottom": 322
+      },
+      "ctaInfo": {
+        "selector": "a[href^=\"tel:\"]",
+        "top": 16,
+        "bottom": 60,
+        "visible": true,
+        "w": 50,
+        "h": 44
+      },
+      "viewportHeight": 844,
+      "screenshot": "C:\\Users\\oddon\\Desktop\\provencepvcarme\\provencepvcarme.fr-audit\\screenshots\\contact-mobile.png"
+    }
+  }
+}

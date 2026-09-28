@@ -1,0 +1,281 @@
+{
+  "summary": {
+    "health_score": 60,
+    "business_type": "Local service / brick-and-mortar-hybrid — spécialiste pose de membrane PVC armée par thermosoudage pour piscines (construction, rénovation, étanchéité), Dieulefit (26220) / zone Montélimar et 8 départements",
+    "top_findings": [
+      "Site non déployé publiquement : provencepvcarme.fr renvoie NXDOMAIN (DNS non résolu) au 2026-08-11 — bloque 100% de l'indexation tant que ce n'est pas corrigé.",
+      "Menu mobile cassé sur toutes les pages : le header déborde de 84px en 390px, le bouton hamburger est poussé entièrement hors écran et devient inatteignable.",
+      "Aucune mention de SIRET, assurance décennale ou certification nulle part sur le site, et les liens 'Mentions légales' / 'Politique de confidentialité' sont des placeholders href=\"#\" alors qu'un formulaire collecte nom, téléphone, email et photos du domicile.",
+      "Incohérence NAP dupliquée sur les 4 pages : le schema LocalBusiness indique addressLocality \"Montélimar\" avec le code postal 26220 (qui est celui de Dieulefit), contredisant le footer visible ; la zone de service annoncée (\"rayon d'1h autour de Montélimar\") contredit aussi la liste de 8 départements de la page contact.",
+      "LCP mesuré \"Poor\" à 4.19s (Lighthouse mobile) : hero-poster.jpg fait 1,16 Mo en résolution portrait 1920x2560 inadaptée, et la vidéo hero-bg.mp4 (3,5 Mo) n'est pas différée malgré ce qu'indiquait l'audit précédent."
+    ],
+    "quick_wins": [
+      "Corriger le CSS `.nav-inner` (wrap sous 900px) pour réparer le menu mobile — un seul fichier CSS à modifier, impact critique.",
+      "Remplacer `addressLocality: \"Montélimar\"` par \"Dieulefit\" dans le JSON-LD des 4 pages (ou l'inverse si Montélimar est réellement l'adresse légale) — correction d'une ligne x4.",
+      "Réexporter hero-poster.jpg en résolution paysage (~1920x1080) et format WebP/AVIF, qualité 75-80 — plus gros levier LCP disponible.",
+      "Mettre la valeur réelle dans le HTML des compteurs statistiques (actuellement \"0\" en dur, animé par JS) au lieu d'un placeholder.",
+      "Ajouter un schema BreadcrumbList correspondant aux fils d'Ariane déjà visibles sur méthode/réalisations/contact — aucun nouveau contenu requis."
+    ]
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 71,
+      "what_works": [
+        "Site statique multi-pages, contenu complet sans dépendance au rendu JS",
+        "robots.txt et sitemap.xml corrects et cohérents entre eux",
+        "Canonical, viewport, hreflang (absence justifiée), OG/Twitter présents et corrects sur les 4 pages",
+        "CSS de reveal respecte prefers-reduced-motion, aspect-ratio réservé pour limiter le CLS",
+        "Navigation entièrement crawlable en liens <a> classiques"
+      ],
+      "findings": [
+        {"title": "Site non déployé — DNS ne résout pas", "severity": "Critical", "description": "provencepvcarme.fr est référencé dans tous les canonicals/OG/JSON-LD/robots/sitemap mais retourne NXDOMAIN au 2026-08-11.", "recommendation": "Pointer le DNS vers l'hébergeur, vérifier le certificat HTTPS, puis relancer un crawl complet avant soumission GSC/Bing."},
+        {"title": "Incohérence NAP dans le schema (Montélimar / CP 26220)", "severity": "High", "description": "Les 4 blocs LocalBusiness JSON-LD indiquent addressLocality \"Montélimar\" avec postalCode \"26220\" (code de Dieulefit), contredisant le footer visible.", "recommendation": "Aligner addressLocality avec l'adresse légale réelle (probablement Dieulefit) sur les 4 pages, en cohérence avec la fiche Google Business Profile."},
+        {"title": "hero-poster.jpg surdimensionné, candidat LCP", "severity": "High", "description": "1,16 Mo, 1920x2560 portrait — résolution inadaptée pour un hero paysage, contend avec la vidéo 3,5 Mo au chargement.", "recommendation": "Réexporter en résolution paysage ~1920x1080-1280, compresser en WebP/AVIF qualité 75-80, cible <250 Ko, ajouter un preload."},
+        {"title": "Compteurs statistiques affichent \"0\" sans JS", "severity": "Medium", "description": "data-count-to=\"24\" etc. mais le HTML brut contient \"0\", animé uniquement via JS/IntersectionObserver.", "recommendation": "Mettre la valeur finale réelle dans le HTML, animer depuis 0 uniquement après confirmation que le JS s'exécute."},
+        {"title": "H1 hero retardé par une animation opacity", "severity": "Medium", "description": ".reveal-2 ajoute un délai ~0.32s + 0.8s d'animation avant opacity:1, pouvant repousser le LCP au-delà de 2.5s si le H1 est l'élément LCP.", "recommendation": "Démarrer le texte LCP à opacity:1 et ne garder que l'animation de translation, ou raccourcir fortement le délai."},
+        {"title": "En-têtes de sécurité indéterminés (pré-lancement)", "severity": "Medium", "description": "Aucun fichier de config hébergeur (_headers, vercel.json, etc.) ne définit HSTS/CSP/X-Content-Type-Options.", "recommendation": "Définir ces en-têtes au moment du choix d'hébergeur, avant mise en ligne."},
+        {"title": "Liens footer \"Mentions légales\"/\"Confidentialité\" = href=\"#\"", "severity": "Medium", "description": "Identique sur les 4 pages, aucune vraie page derrière ces liens.", "recommendation": "Créer les pages légales réelles (obligation LCEN) et les lier depuis le footer + sitemap."},
+        {"title": "Scripts CDN non épinglés, sans SRI", "severity": "Low", "description": "GSAP/ScrollTrigger/Lenis chargés en version majeure flottante (@3, @1), sans integrity/crossorigin, contrairement à Three.js qui est épinglé en version exacte.", "recommendation": "Épingler les versions exactes et ajouter les attributs SRI."},
+        {"title": "Pas de page 404 personnalisée", "severity": "Low", "description": "Aucun 404.html dans le projet.", "recommendation": "Ajouter une 404 de marque avec lien retour accueil/contact."},
+        {"title": "11 photos galerie 300-490 Ko non compressées", "severity": "Low", "description": "media/ pèse ~12 Mo au total, confirmé par ls -la.", "recommendation": "Conversion WebP par lot, qualité 75-80."},
+        {"title": "geo/openingHours toujours absents du schema", "severity": "Low", "description": "Inchangé depuis l'audit manuel précédent — nécessite des données réelles du propriétaire.", "recommendation": "Ajouter dès que les coordonnées GPS et horaires réels sont fournis."},
+        {"title": "Pas de BreadcrumbList malgré un fil d'Ariane visible", "severity": "Low", "description": "méthode/réalisations/contact affichent un breadcrumb visuel non accompagné de schema.", "recommendation": "Ajouter le JSON-LD BreadcrumbList correspondant."},
+        {"title": "Pas de favicon.ico/apple-touch-icon/manifest", "severity": "Low", "description": "Seule une icône SVG est déclarée.", "recommendation": "Ajouter les fallbacks pour compatibilité élargie."},
+        {"title": "Pas de clé IndexNow", "severity": "Info", "description": "Pas urgent avant mise en ligne.", "recommendation": "Générer une clé IndexNow au lancement."}
+      ]
+    },
+    {
+      "name": "Content Quality",
+      "score": 43,
+      "what_works": [
+        "Photos de chantier réelles et spécifiques, liées à des villages nommés (La Motte-Chalancon, Pont-de-Barret, Avignon, Poët-Laval)",
+        "Copy technique précis et non générique (épaisseur 150/100e vs 75/100e, durée de vie 15-25 ans, process de soudure détaillé)",
+        "FAQPage JSON-LD identique mot pour mot au contenu visible",
+        "Bonne scannabilité : paragraphes courts, tableau comparatif, liste de process numérotée",
+        "Positionnement prix honnête et assumé (pas de prix générique affiché)"
+      ],
+      "findings": [
+        {"title": "Aucune mention SIRET / assurance décennale / certification", "severity": "Critical", "description": "Grep sur SIRET/RGE/Qualibat/assurance/décennale/certifi ne retourne aucun contenu pertinent sur les 4 pages ; la garantie étanchéité n'a ni durée ni base légale précisée.", "recommendation": "Afficher SIRET, préciser la garantie décennale ou la garantie produit avec durée exacte, mentionner le statut d'installateur certifié (ex. Renolit/Alkorplan)."},
+        {"title": "Liens légaux morts + formulaire collectant PII/photos sans politique de confidentialité", "severity": "Critical", "description": "href=\"#\" sur mentions légales et confidentialité sur les 4 pages ; le formulaire contact.html collecte nom/téléphone/email/ville/photos du domicile sans policy liée.", "recommendation": "Publier de vraies pages légales avant le lancement (obligation légale + RGPD)."},
+        {"title": "Contenu léger sur chaque page vs seuils par type de page", "severity": "High", "description": "index 378 mots (seuil 500), méthode 463 mots (seuil 800), réalisations 103 mots (légendes seules), contact 166 mots.", "recommendation": "Étoffer méthode.html (entretien, FAQ process) et transformer réalisations.html en véritables études de cas."},
+        {"title": "Incohérence NAP schema/contenu visible", "severity": "High", "description": "Footer dit Dieulefit (26220) sur les 4 pages ; JSON-LD dit Montélimar avec le même code postal.", "recommendation": "Corriger addressLocality dans le JSON-LD, fix d'une ligne x4 fichiers."},
+        {"title": "Aucune preuve sociale", "severity": "High", "description": "Aucun avis, témoignage, note, ou schema Review/AggregateRating.", "recommendation": "Ajouter 3-5 témoignages courts avec prénom+ville, ou intégrer de vrais avis Google une fois disponibles."},
+        {"title": "Portfolio sans profondeur narrative", "severity": "High", "description": "11+ projets réduits à des légendes de 3-6 mots, aucune étude de cas.", "recommendation": "Ajouter 2-3 phrases par projet phare (dimensions, choix technique, délai)."},
+        {"title": "FAQ trop superficielle (3 questions)", "severity": "Medium", "description": "Ne couvre ni le coût, ni la saisonnalité, ni la compatibilité par type de piscine (pourtant proposés dans le formulaire), ni la gestion d'une fuite après pose.", "recommendation": "Étoffer à 8-10 questions en gardant le mirroring exact avec le schema FAQPage."},
+        {"title": "Pas de repère tarifaire même indicatif", "severity": "Medium", "description": "priceRange \"€€\" dans le schema est un placeholder ; aucune fourchette n'est donnée nulle part, y compris pour les assistants IA.", "recommendation": "Ajouter une fourchette indicative (ex. \"à partir de X €/m²\") sans s'engager sur un prix ferme."},
+        {"title": "Contenu zone de service = liste de tags sans texte", "severity": "Medium", "description": "8 départements listés en <span> sans phrase descriptive, alors que la zone de service est un argument central.", "recommendation": "Ajouter 2-3 phrases décrivant la zone et la politique de déplacement."},
+        {"title": "Schémas manquants malgré contenu déjà structuré", "severity": "Medium", "description": "Le process en 4 étapes de méthode.html est un candidat HowTo naturel ; les breadcrumbs visibles n'ont pas de BreadcrumbList.", "recommendation": "Ajouter HowTo + BreadcrumbList, aucun nouveau texte requis."},
+        {"title": "Bloc \"Finitions\" dupliqué accueil/méthode", "severity": "Low", "description": "Mêmes images et alt text répétés intégralement sur les deux pages.", "recommendation": "Réduire l'accueil à 1-2 vignettes avec lien vers méthode.html#finitions."},
+        {"title": "H1 faible sur la page réalisations", "severity": "Low", "description": "H1 = \"Avant / Après\", sans mention de PVC armé/piscine/lieu.", "recommendation": "Reformuler en \"Réalisations PVC armé : avant / après\"."},
+        {"title": "Terme technique \"lé\" utilisé avant d'être défini", "severity": "Low", "description": "Titre de section utilise le terme avant son explication deux phrases plus loin.", "recommendation": "Ajouter une courte glose à la première occurrence."},
+        {"title": "lastmod du sitemap mis à jour sans changement de contenu proportionnel", "severity": "Info", "description": "Pattern à surveiller pour ne pas éroder le signal de fraîcheur.", "recommendation": "Réserver les bumps de lastmod aux vrais changements de contenu."}
+      ]
+    },
+    {
+      "name": "On-Page SEO",
+      "score": 72,
+      "what_works": [
+        "Title tags uniques, ~50-65 caractères, formule cohérente 'Page | Provence PVC Armé'",
+        "Meta descriptions uniques entre 130 et 175 caractères sur les 4 pages",
+        "Un seul H1 par page, hiérarchie de titres globalement cohérente",
+        "Maillage interne complet, aucun lien cassé détecté vers les 4 pages ou leurs ancres"
+      ],
+      "findings": [
+        {"title": "H1 générique sur la page réalisations", "severity": "Low", "description": "\"Avant / Après\" sans mot-clé topique, désaligné avec le title tag de la page.", "recommendation": "Aligner le H1 sur le title tag."},
+        {"title": "Bloc de contenu dupliqué entre deux pages", "severity": "Low", "description": "Section finitions identique sur index.html et methode.html.", "recommendation": "Garder le détail complet sur une seule page, lien depuis l'autre."},
+        {"title": "Contenu factuel des compteurs absent du HTML statique", "severity": "Medium", "description": "Valeurs affichées comme \"0\" avant exécution JS — risque de contenu trompeur pour tout agent n'exécutant pas JS.", "recommendation": "Mettre la valeur réelle dans le HTML par défaut."}
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 60,
+      "what_works": [
+        "LocalBusiness JSON-LD valide et présent sur les 4 pages",
+        "FAQPage JSON-LD sur l'accueil, contenu identique à la FAQ visible",
+        "Structure JSON-LD techniquement bien formée"
+      ],
+      "findings": [
+        {"title": "Incohérence NAP confirmée dans le JSON-LD (pire que ce que l'audit manuel indiquait)", "severity": "Critical", "description": "addressLocality \"Montélimar\" + postalCode \"26220\" sur les 4 pages, contredisant le footer visible \"417 Chemin de la Françoise, 26220 Dieulefit\" présent sur les mêmes pages.", "recommendation": "Choisir l'adresse légale réelle et aligner schema + footer partout."},
+        {"title": "geo et openingHours toujours absents", "severity": "Medium", "description": "Confirmé absent sur les 4 pages ; nécessite des données réelles du propriétaire (pas d'invention de coordonnées).", "recommendation": "Ajouter dès réception des données réelles ; snippets prêts à l'emploi fournis par l'agent schema."},
+        {"title": "@type générique 'LocalBusiness'", "severity": "Medium", "description": "Un type plus spécifique existe pour ce métier.", "recommendation": "Utiliser 'HomeAndConstructionBusiness' (type le plus proche valide pour la piscine/étanchéité)."},
+        {"title": "BreadcrumbList absent malgré une UI de fil d'Ariane déjà présente", "severity": "Medium", "description": "Visible sur méthode/réalisations/contact sans JSON-LD correspondant.", "recommendation": "Ajout à coût quasi nul, snippets fournis."},
+        {"title": "Un seul 'image', pas de 'sameAs', pas de '@id'", "severity": "Low", "description": "sameAs nécessite de vraies URLs (réseaux sociaux/Google Business) fournies par le propriétaire.", "recommendation": "Compléter une fois les URLs sociales disponibles."},
+        {"title": "Pas de schema Service sur methode.html", "severity": "Low", "description": "La page décrit l'offre sans schema Service dédié.", "recommendation": "Ajouter un schema Service décrivant la prestation."},
+        {"title": "FAQPage sans bénéfice SERP direct actuellement", "severity": "Info", "description": "Google a retiré les rich results FAQ pour tous les sites le 7 mai 2026 ; le schema reste structurellement correct et utile pour l'extraction IA/E-E-A-T, sans gain SERP à attendre.", "recommendation": "Conserver le schema pour sa valeur GEO/E-E-A-T, ne pas en attendre un rich result Google."},
+        {"title": "Pas de Review/AggregateRating", "severity": "Info", "description": "Absence correcte tant qu'il n'existe pas de vrais avis.", "recommendation": "Ajouter une fois des avis Google réels existent."}
+      ]
+    },
+    {
+      "name": "Sitemap",
+      "score": 96,
+      "what_works": [
+        "XML bien formé, namespace sitemaps.org correct, URLs absolues en HTTPS",
+        "Parité parfaite 1:1 entre les 4 entrées du sitemap et les 4 pages HTML réelles/leurs canonicals",
+        "Ancres internes correctement exclues du sitemap",
+        "robots.txt référence le sitemap avec une URL absolue",
+        "Sitemap index non nécessaire à cette échelle (confirmé)"
+      ],
+      "findings": [
+        {"title": "Statut HTTP live invérifiable (pré-lancement)", "severity": "High", "description": "Domaine NXDOMAIN au moment de l'audit — dépendance de lancement, pas une erreur d'auteur.", "recommendation": "Revalider après mise en ligne."},
+        {"title": "priority/changefreq ignorés par Google", "severity": "Info", "description": "Présents mais sans effet sur le ranking Google.", "recommendation": "Aucune action requise, informatif."},
+        {"title": "lastmod identique sur les 4 URLs", "severity": "Low", "description": "Exact actuellement mais pattern à éviter à l'avenir.", "recommendation": "Ne mettre à jour que les URLs réellement modifiées."},
+        {"title": "26 photos + 1 vidéo sans couverture image sitemap", "severity": "Low", "description": "Opportunité, pas un défaut.", "recommendation": "Envisager un sitemap image si la galerie continue de grandir."}
+      ]
+    },
+    {
+      "name": "Performance (Core Web Vitals)",
+      "score": 50,
+      "what_works": [
+        "CLS mesuré excellent (0.002) en Lighthouse mobile réel",
+        "DOM léger (293 éléments), TTFB quasi nul",
+        "font-display: swap correctement utilisé avec preconnect Google Fonts",
+        "Lazy loading appliqué sur la quasi-totalité des images de galerie"
+      ],
+      "findings": [
+        {"title": "LCP mesuré \"Poor\" à 4.19s (Lighthouse mobile réel, page d'accueil)", "severity": "Critical", "description": "L'élément LCP est la vidéo hero avec poster hero-poster.jpg (1,11 Mo, 1920x2560). Contrairement à l'hypothèse de l'audit précédent, hero-bg.mp4 (3,48 Mo) n'est PAS différé par JS — c'est une vidéo autoplay classique sans preload gating, confirmée en lisant js/script.js.", "recommendation": "Recompresser/redimensionner hero-poster.jpg, envisager preload='none' ou un déclenchement JS différé pour la vidéo, et un preload prioritaire sur le poster."},
+        {"title": "Chaîne de rendu bloquante Google Fonts (3 sauts, ~106 Ko)", "severity": "High", "description": "5 fichiers woff2 chargés sans self-hosting ni preload.", "recommendation": "Auto-héberger les polices ou ajouter un preload sur les fichiers critiques."},
+        {"title": "16 photos galerie non optimisées (5,88 Mo) + finitions (932 Ko)", "severity": "High", "description": "Confirmé par tailles de fichiers exactes, moyenne 367 Ko/photo.", "recommendation": "Conversion WebP par lot : ~52-55% de réduction de poids estimée, ~4,6 Mo économisés (ne pas convertir le fichier og:image)."},
+        {"title": "Scripts GSAP/ScrollTrigger/Lenis/script.js sans defer/async", "severity": "Medium", "description": "Contribue à un TBT mesuré de 441ms.", "recommendation": "Ajouter defer sur les scripts non critiques au premier rendu."},
+        {"title": "Animation reveal retarde la visibilité perçue du contenu", "severity": "Low", "description": "Recoupe le finding technique sur le délai d'opacité du H1.", "recommendation": "Voir recommandation technique correspondante."},
+        {"title": "3 pages non mesurées en lab cette session (méthode/réalisations/contact)", "severity": "Info", "description": "Analyse statique uniquement pour ces pages ; methode.html a une dépendance Three.js propre à vérifier séparément.", "recommendation": "Lancer un audit Lighthouse dédié sur ces 3 pages une fois le site en ligne."}
+      ]
+    },
+    {
+      "name": "Images",
+      "score": 55,
+      "what_works": [
+        "Alt text descriptif et spécifique sur les images de finitions et de galerie",
+        "loading=\"lazy\" appliqué sur la quasi-totalité des images",
+        "aspect-ratio CSS réservé pour limiter le CLS même sans attributs width/height HTML"
+      ],
+      "findings": [
+        {"title": "hero-poster.jpg surdimensionné et mal orienté (1,16 Mo, portrait 1920x2560)", "severity": "High", "description": "Principal contributeur au LCP \"Poor\" mesuré.", "recommendation": "Réexporter en paysage, compresser en WebP/AVIF."},
+        {"title": "16 photos de galerie/process non compressées pour le web (~5,9 Mo cumulés)", "severity": "High", "description": "Photos de chantier probablement directement issues du téléphone, 300-490 Ko chacune.", "recommendation": "Conversion WebP par lot qualité 75-80, fallback JPEG si nécessaire."},
+        {"title": "Marque fournisseur visible uniquement en alt text", "severity": "Low", "description": "\"Renolit\" n'apparaît que dans un attribut alt, invisible pour une extraction de texte classique.", "recommendation": "Mentionner la marque dans le texte visible si pertinent pour la confiance."}
+      ]
+    },
+    {
+      "name": "AI Search Readiness (GEO)",
+      "score": 63,
+      "what_works": [
+        "HTML entièrement rendu côté serveur, aucune dépendance CSR",
+        "robots.txt permissif, aucun blocage des crawlers IA",
+        "FAQ en <details> natif, mirroring exact avec le JSON-LD FAQPage",
+        "Plusieurs faits courts et autonomes citables tels quels (épaisseur, durée de vie, délai de réponse, zone de service)",
+        "Tableau comparatif liner vs PVC armé, coupe 3D de la membrane avec texte DOM réel"
+      ],
+      "findings": [
+        {"title": "Incohérence NAP dans le JSON-LD (Montélimar / CP 26220)", "severity": "High", "description": "Contradiction factuelle répétée sur les 4 pages — un point de friction direct pour la fiabilité des données structurées consommées par les moteurs IA.", "recommendation": "Corriger l'adresse dans le schema, cf. finding technique/schema correspondant."},
+        {"title": "\"PVC armé\" est un terme ambigu sans ancrage de désambiguïsation", "severity": "High", "description": "En français, \"PVC armé\" est plus couramment associé aux menuiseries (fenêtres/portes) qu'aux piscines ; le site n'a aucun ancrage externe (Wikipedia, avis, réseaux) permettant à une IA de lever l'ambiguïté sur ce petit acteur pré-lancement.", "recommendation": "Renforcer la désambiguïsation explicite dès la home (déjà fait partiellement via le title/description) et développer une présence externe (Google Business Profile, réseaux) une fois en ligne."},
+        {"title": "Pas de llms.txt ; passages 3-5x plus courts que la fenêtre de citation IA optimale (134-167 mots)", "severity": "Medium", "description": "Recoupe le finding de contenu léger.", "recommendation": "Étoffer le contenu par section pour atteindre des passages auto-suffisants de longueur citable."},
+        {"title": "Aucun signal auteur/expérience/certification", "severity": "Medium", "description": "Recoupe le finding critique sur l'absence de SIRET/certifications.", "recommendation": "Voir recommandation contenu correspondante."},
+        {"title": "Étapes du process non marquées en HowTo", "severity": "Low", "description": "methode.html a un process en 4 étapes prêt pour un balisage HowTo.", "recommendation": "Ajouter le schema HowTo."},
+        {"title": "Crawlers IA non explicitement nommés dans robots.txt", "severity": "Low", "description": "Le wildcard actuel les autorise déjà implicitement.", "recommendation": "Optionnel : lister explicitement GPTBot/PerplexityBot/ClaudeBot/Google-Extended pour plus de clarté."},
+        {"title": "GEO Health Score détaillé : Citabilité 65, Lisibilité structurelle 78, Multi-modal 45, Signaux d'autorité/marque 40, Accessibilité technique 80", "severity": "Info", "description": "Pondération interne du sous-score GEO. Aucune donnée de citation live disponible (site pré-lancement).", "recommendation": "Revalider une fois le site en ligne et indexé."}
+      ]
+    },
+    {
+      "name": "Local SEO",
+      "score": 37,
+      "what_works": [
+        "Adresse et téléphone visibles et cohérents dans le footer de toutes les pages",
+        "Zone de service mentionnée à plusieurs endroits (hero, footer, page contact)"
+      ],
+      "findings": [
+        {"title": "NAP contredit sur les 4 pages : schema (Montélimar) vs adresse visible (Dieulefit, CP 26220)", "severity": "Critical", "description": "Contradiction identique dupliquée dans le JSON-LD des 4 pages.", "recommendation": "Trancher l'adresse légale réelle et l'aligner partout, y compris sur la future fiche Google Business Profile."},
+        {"title": "La zone de service se contredit elle-même", "severity": "High", "description": "\"Rayon d'1h autour de Montélimar\" (title/meta/hero/footer) contredit le schema areaServed et la liste de 8 départements de la page contact, dont certains sont à plus de 2h.", "recommendation": "Clarifier une seule définition de la zone de service et l'utiliser partout de façon cohérente."},
+        {"title": "Zéro signal Google Business Profile", "severity": "High", "description": "Aucune carte intégrée, aucun lien 'itinéraire', aucun lien réseau social.", "recommendation": "Créer/optimiser la fiche GBP avec la bonne catégorie (\"Swimming pool contractor\"/\"Swimming pool repair service\", pas menuiserie) et l'intégrer sur le site."},
+        {"title": "Zéro avis/témoignage/aggregateRating", "severity": "High", "description": "Recoupe le finding contenu correspondant.", "recommendation": "Ajouter des avis réels une fois disponibles."},
+        {"title": "Type de schema générique pour ce métier", "severity": "Medium", "description": "'LocalBusiness' plutôt qu'un sous-type plus précis.", "recommendation": "Passer à HomeAndConstructionBusiness/GeneralContractor."},
+        {"title": "geo et openingHoursSpecification absents", "severity": "Medium", "description": "Nécessite des données réelles du propriétaire.", "recommendation": "Ajouter dès réception des données."},
+        {"title": "Lien 'Mentions légales' mort, pas d'email dans le schema", "severity": "Medium", "description": "Recoupe les findings techniques/contenu.", "recommendation": "Corriger en même temps que les autres pages légales."}
+      ]
+    },
+    {
+      "name": "Visual / Mobile UX",
+      "score": 62,
+      "what_works": [
+        "Vidéo hero et scènes canvas (membrane/eau) s'affichent correctement, aucune erreur console",
+        "Contenu essentiel (H1, lien tel) survit avec JavaScript entièrement désactivé — bon signal pour les crawlers",
+        "Toggle avant/après fonctionne correctement au clic sur réalisations.html"
+      ],
+      "findings": [
+        {"title": "Menu mobile complètement inatteignable sur toutes les pages", "severity": "Critical", "description": "À 390px de large, le header déborde de 84px ; le bouton \"Devis gratuit\" est tronqué et le bouton hamburger est positionné à left:438px, entièrement hors du viewport. Cause identifiée dans css/style.css : .nav-inner utilise justify-content:space-between sans wrap sous 900px, et .nav-cta a flex-shrink:0.", "recommendation": "Ajouter un point de rupture flex-wrap ou un menu mobile dédié en dessous de 900px dans .nav-inner."},
+        {"title": "Cible tactile \"Appeler\" sous-dimensionnée", "severity": "Medium", "description": "46x38px, sous le seuil recommandé de 44-48px.", "recommendation": "Agrandir la zone cliquable du bouton d'appel mobile."},
+        {"title": "Numéro de téléphone non visible en clair sur le header mobile", "severity": "Low", "description": "Icône seule, acceptable mais moins immédiat.", "recommendation": "Envisager d'afficher le numéro en clair à côté de l'icône sur mobile."}
+      ]
+    },
+    {
+      "name": "Search Experience (SXO)",
+      "score": 59,
+      "what_works": [
+        "Format de page correspond globalement à l'intent recherché (page service, portfolio, contact) pour le cluster de requêtes locales-transactionnelles",
+        "Structure hero + process + portfolio + contact bien découpée sur 4 pages"
+      ],
+      "findings": [
+        {"title": "Zéro information de prix", "severity": "Critical", "description": "Dans un espace de mots-clés (\"prix membrane PVC armée piscine\") dominé par des pages affichant des €/m² explicites.", "recommendation": "Ajouter une fourchette indicative, cf. finding contenu correspondant."},
+        {"title": "Zéro témoignage/avis", "severity": "High", "description": "Pour un achat de plusieurs milliers d'euros, l'absence totale de preuve sociale pèse lourd.", "recommendation": "Voir recommandation contenu/local correspondante."},
+        {"title": "Aucune mention d'assurance décennale/certifications", "severity": "High", "description": "Achat à considération élevée sans réassurance légale/technique visible.", "recommendation": "Voir recommandation contenu correspondante."},
+        {"title": "Persona 'décideur averse au risque' : score 43/100", "severity": "Medium", "description": "Le plus faible des 5 personas testés, tiré vers le bas par le déficit de confiance partagé par toutes les pages.", "recommendation": "Prioriser les corrections de confiance (légal, preuve sociale, certifications) avant tout travail de contenu additionnel."},
+        {"title": "Pas de carte intégrée malgré une couverture de 8 départements revendiquée", "severity": "Medium", "description": "Recoupe le finding local correspondant.", "recommendation": "Intégrer une carte de zone de service."},
+        {"title": "Score SXO global : 59/100 (Type de page 12/15, Profondeur contenu 9/15, Signaux UX 11/15, Schema 7/15, Média 13/15, Autorité 3/15, Fraîcheur 4/10)", "severity": "Info", "description": "La dimension Autorité (3/15) est de loin la plus faible du modèle à 7 dimensions.", "recommendation": "Concentrer l'effort sur l'autorité/confiance avant d'optimiser davantage la structure ou le média, déjà solides."}
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Corrections critiques",
+        "timeframe": "Semaine 1",
+        "items": [
+          "Corriger le CSS du header mobile (.nav-inner) pour rendre le menu mobile à nouveau accessible sur toutes les pages",
+          "Publier de vraies pages Mentions légales et Politique de confidentialité (obligation légale LCEN + RGPD, le formulaire collecte des données personnelles et des photos) et les lier depuis le footer",
+          "Corriger addressLocality dans le JSON-LD des 4 pages pour qu'il corresponde à l'adresse légale réelle (probablement Dieulefit) et cohérence avec le footer visible",
+          "Clarifier et unifier la définition de la zone de service (rayon 1h vs 8 départements) sur toutes les pages et dans le schema",
+          "Planifier le déploiement effectif du site (DNS + hébergement + certificat HTTPS) — bloque toute indexation tant que non fait"
+        ]
+      },
+      {
+        "name": "Phase 2: Améliorations à fort impact",
+        "timeframe": "Semaines 2-3",
+        "items": [
+          "Réexporter hero-poster.jpg en résolution paysage + WebP/AVIF, ajouter un preload — principal levier LCP",
+          "Convertir la galerie de 16+ photos en WebP (qualité 75-80), garder un fallback JPEG",
+          "Mettre les valeurs réelles des compteurs statistiques dans le HTML statique au lieu de \"0\"",
+          "Ajouter mention SIRET, garantie décennale/produit avec durée précise, et certification installateur (ex. Renolit/Alkorplan)",
+          "Ajouter defer/async sur les scripts non critiques (GSAP/ScrollTrigger/Lenis) et épingler leurs versions exactes",
+          "Auto-héberger ou précharger les polices Google Fonts pour réduire la chaîne de rendu bloquante"
+        ]
+      },
+      {
+        "name": "Phase 3: Contenu et autorité",
+        "timeframe": "Mois 2",
+        "items": [
+          "Étoffer methode.html (entretien, FAQ process) pour atteindre ~800 mots",
+          "Transformer realisations.html en véritables études de cas (2-3 phrases par projet phare : dimensions, choix technique, délai)",
+          "Ajouter 3-5 témoignages clients réels ou intégrer des avis Google dès qu'ils existent",
+          "Étoffer la FAQ à 8-10 questions (coût, saisonnalité, compatibilité par type de piscine, gestion d'une fuite après pose)",
+          "Ajouter une fourchette de prix indicative pour donner un ancrage factuel aux utilisateurs et aux assistants IA",
+          "Ajouter les schemas BreadcrumbList et HowTo (contenu déjà existant, coût d'implémentation quasi nul)",
+          "Corriger le H1 de realisations.html et dédupliquer le bloc finitions entre index.html et methode.html"
+        ]
+      },
+      {
+        "name": "Phase 4: Suivi et itération",
+        "timeframe": "Continu",
+        "items": [
+          "Une fois en ligne : soumettre le sitemap dans Google Search Console et Bing Webmaster Tools, configurer les en-têtes de sécurité (HSTS, CSP, X-Content-Type-Options)",
+          "Géocoder l'adresse validée pour ajouter geo (lat/long) et renseigner openingHours dans le schema",
+          "Créer/optimiser la fiche Google Business Profile avec la bonne catégorie et surveiller les avis",
+          "Revalider Core Web Vitals et GEO/citations IA une fois le site indexé et en ligne",
+          "Éviter de mettre à jour lastmod du sitemap sans changement de contenu proportionnel"
+        ]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "screenshots_dir": "screenshots/"
+  }
+}
