@@ -1060,8 +1060,8 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .pourquoi-body {
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: stretch;
   flex-wrap: wrap;
   gap: 20px 28px;
 }
@@ -1075,6 +1075,9 @@ section[id] { scroll-margin-top: var(--nav-height); }
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid color-mix(in srgb, var(--marine) 8%, transparent);
+}
+@media (min-width: 561px) {
+  .pourquoi-photo { aspect-ratio: auto; }
 }
 .pourquoi-photo picture,
 .pourquoi-photo img {
