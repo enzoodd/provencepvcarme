@@ -1055,11 +1055,23 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 /* ---------- trust badges (norme / garantie / expérience) ---------- */
-.diff-trust-strip {
-  margin-top: var(--space-4);
+.pourquoi-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 24px 40px;
+  margin-bottom: 28px;
 }
-.trust-badges-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: center; gap: var(--space-4) var(--space-5); }
-.trust-badge-svg { width: 80px; height: 80px; overflow: visible; }
+.pourquoi-head-copy {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+.pourquoi-head .trust-badges-row {
+  flex: 0 0 auto;
+}
+.trust-badges-row { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: flex-start; gap: 14px; }
+.trust-badge-svg { width: 64px; height: 64px; overflow: visible; }
 .badge-disc { fill: var(--marine); }
 .badge-ring-outer { fill: none; stroke: var(--gold); stroke-width: 1.2; }
 .badge-ring-inner { fill: none; stroke: color-mix(in srgb, var(--gold) 85%, transparent); stroke-width: 1.5; }
@@ -1079,8 +1091,8 @@ section[id] { scroll-margin-top: var(--nav-height); }
   fill: var(--gold-light);
 }
 @media (max-width: 560px) {
-  .trust-badges-row { gap: var(--space-3) var(--space-4); }
-  .trust-badge-svg { width: 68px; height: 68px; }
+  .trust-badges-row { gap: 10px; }
+  .trust-badge-svg { width: 52px; height: 52px; }
 }
 
 /* ---------- finitions — sample folders, fan-out on click ---------- */
