@@ -571,6 +571,44 @@ section[id] { scroll-margin-top: var(--nav-height); }
   pointer-events: none;
 }
 
+/* Page hero with a photo background instead of flat marine — same dark,
+   textured feel as .section--dark, but for intro sections that want a
+   real chantier photo behind the breadcrumb/title/lede. */
+.section--photo {
+  position: relative;
+  overflow: hidden;
+  border-top: none;
+  padding-block: var(--space-9);
+}
+.page-hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.page-hero-media picture,
+.page-hero-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.page-hero-media img {
+  object-fit: cover;
+  object-position: center 70%;
+}
+.page-hero-media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(100deg, color-mix(in srgb, var(--marine) 92%, transparent) 0%, color-mix(in srgb, var(--marine) 55%, transparent) 55%, color-mix(in srgb, var(--marine) 15%, transparent) 100%),
+    radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--gold) 22%, transparent), transparent 50%),
+    var(--grain);
+  background-blend-mode: normal, normal, overlay;
+}
+@media (max-width: 640px) {
+  .section--photo { padding-block: var(--space-7); }
+  .page-hero-media img { object-position: center 60%; }
+}
+
 /* Three.js water-ripple shader — discreet, sits behind the content, above the base gradient */
 .water-canvas {
   position: absolute;
