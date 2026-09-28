@@ -411,11 +411,7 @@
     revealGroup(".process-step", { y: 40, opacity: 0, scale: 0.97 }, { stagger: 0.12, ease: "power3.out", duration: 0.9 });
     revealGroup(".finish-folder", { y: 28, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "expo.out", duration: 0.8 });
     revealGroup(".membrane-scene", { y: 30, opacity: 0, scale: 0.97 }, { stagger: 0, ease: "power3.out", duration: 1 });
-    revealGroup(
-      ".compare-card",
-      (el, i) => ({ x: i % 2 === 0 ? -60 : 60, opacity: 0 }),
-      { stagger: 0.15, ease: "power3.out", duration: 0.9, mod: 2 }
-    );
+    revealGroup(".compare-table", { y: 24, opacity: 0 }, { stagger: 0, ease: "power3.out", duration: 0.8 });
     revealGroup(".tab-chip", { y: 24, opacity: 0, scale: 0.94 }, { stagger: 0.08, ease: "back.out(1.6)", duration: 0.8 });
     revealGroup(
       ".ba-pair:not(.ba-pair--teaser)",
@@ -542,7 +538,7 @@
         ".process-step",
         ".diff-card",
         ".finish-folder",
-        ".compare-card",
+        ".compare-table",
         ".tab-chip",
         ".ba-pair",
         ".faq-item",
