@@ -64,6 +64,32 @@
   document.addEventListener("scroll", updateNavScrolled, { passive: true });
   updateNavScrolled();
 
+  // Hero video — pause/play control (WCAG 2.2.2: Pause, Stop, Hide — the video
+  // autoplays and loops indefinitely, so a visible control is required). Also
+  // starts paused under prefers-reduced-motion rather than relying only on the
+  // user finding the button.
+  const heroVideoToggle = document.getElementById("heroVideoToggle");
+  const heroVideoEl = document.getElementById("heroVideo");
+  if (heroVideoToggle && heroVideoEl) {
+    if (prefersReducedMotion) {
+      heroVideoEl.pause();
+      heroVideoToggle.setAttribute("aria-pressed", "true");
+      heroVideoToggle.setAttribute("aria-label", "Lire la vidéo");
+    }
+    heroVideoToggle.addEventListener("click", function () {
+      const isPaused = heroVideoEl.paused;
+      if (isPaused) {
+        heroVideoEl.play();
+        heroVideoToggle.setAttribute("aria-pressed", "false");
+        heroVideoToggle.setAttribute("aria-label", "Mettre la vidéo en pause");
+      } else {
+        heroVideoEl.pause();
+        heroVideoToggle.setAttribute("aria-pressed", "true");
+        heroVideoToggle.setAttribute("aria-label", "Lire la vidéo");
+      }
+    });
+  }
+
   // Hero video — subtle parallax drift while the hero is in view (never on text)
   const heroVideo = document.querySelector(".hero-video");
   const heroSection = document.querySelector(".hero--video");
@@ -209,6 +235,10 @@
       toggle.addEventListener("mouseleave", function () { paused = false; });
       toggle.addEventListener("touchstart", function () { paused = true; }, { passive: true });
       toggle.addEventListener("touchend", function () { paused = false; }, { passive: true });
+      // WCAG 2.2.2 (Pause, Stop, Hide) — a keyboard user tabbing onto the button
+      // needs the same pause the mouse/touch listeners above already give.
+      toggle.addEventListener("focus", function () { paused = true; });
+      toggle.addEventListener("blur", function () { paused = false; });
     }
 
     toggle.addEventListener("click", function () {

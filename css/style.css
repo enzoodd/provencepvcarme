@@ -283,6 +283,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   align-items: center;
   gap: 6px;
   position: relative;
+  padding: 11px 0;
   transition: color 0.2s var(--ease);
 }
 .nav-links a svg { color: var(--lagon); flex-shrink: 0; transition: transform 0.2s var(--ease); }
@@ -290,7 +291,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   content: "";
   position: absolute;
   left: 0; right: 100%;
-  bottom: -4px;
+  bottom: 7px;
   height: 2px;
   background: var(--lagon);
   border-radius: 2px;
@@ -429,6 +430,36 @@ section[id] { scroll-margin-top: var(--nav-height); }
   background-image: var(--grain);
   opacity: 0.05;
   mix-blend-mode: overlay;
+}
+/* WCAG 2.2.2 (Pause, Stop, Hide) — the hero video autoplays/loops indefinitely,
+   so a visible control to pause/resume it is required. */
+.hero-video-toggle {
+  position: absolute;
+  z-index: 3;
+  right: 20px;
+  bottom: 20px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--paper) 35%, transparent);
+  background: color-mix(in srgb, var(--marine) 55%, transparent);
+  backdrop-filter: blur(4px);
+  color: var(--paper);
+  cursor: pointer;
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.hero-video-toggle:hover, .hero-video-toggle:focus-visible {
+  background: color-mix(in srgb, var(--marine) 80%, transparent);
+  border-color: var(--gold);
+}
+.hero-video-toggle .icon-play { display: none; }
+.hero-video-toggle[aria-pressed="true"] .icon-pause { display: none; }
+.hero-video-toggle[aria-pressed="true"] .icon-play { display: block; }
+@media (max-width: 780px) {
+  .hero-video-toggle { right: 14px; bottom: 14px; width: 34px; height: 34px; }
 }
 .hero-inner--video {
   position: relative;
@@ -1445,9 +1476,11 @@ section[id] { scroll-margin-top: var(--nav-height); }
    generous than the header mark, dark-bg SVG already matches the footer */
 .footer-logo { height: 72px; width: auto; display: block; align-self: flex-start; object-fit: contain; }
 .footer-brand p { font-size: 13.5px; line-height: 1.6; max-width: 34ch; margin: 8px 0 0; }
-.footer-col { display: flex; flex-direction: column; gap: 12px; }
+.footer-col { display: flex; flex-direction: column; }
 .footer-col h3 { font-family: var(--font-mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: color-mix(in srgb, var(--paper) 65%, transparent); margin: 0 0 4px; font-weight: 500; }
 .footer-col a, .footer-col span { font-size: 14px; }
+.footer-col a { display: inline-block; padding: 9px 0; }
+.footer-col span { padding: 9px 0; }
 .footer-col a:hover { color: var(--lagon-light); }
 .footer-bottom {
   max-width: var(--container);
