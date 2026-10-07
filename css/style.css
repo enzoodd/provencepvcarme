@@ -520,23 +520,14 @@ section[id] { scroll-margin-top: var(--nav-height); }
   width: 1px;
   height: 34px;
   background: linear-gradient(180deg, currentColor, transparent);
-  position: relative;
-  overflow: hidden;
+  animation: scroll-cue-pulse 2.2s var(--ease) infinite;
 }
-.hero-scroll-cue-line::after {
-  content: "";
-  position: absolute;
-  left: 0; top: -100%;
-  width: 100%; height: 100%;
-  background: linear-gradient(180deg, transparent, var(--lagon-light) 60%, transparent);
-  animation: scroll-cue-drip 2.2s var(--ease) infinite;
-}
-@keyframes scroll-cue-drip {
-  0% { top: -100%; }
-  70%, 100% { top: 100%; }
+@keyframes scroll-cue-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-scroll-cue-line::after { animation: none; display: none; }
+  .hero-scroll-cue-line { animation: none; opacity: 0.7; }
 }
 
 @media (max-width: 780px) {
@@ -607,18 +598,6 @@ section[id] { scroll-margin-top: var(--nav-height); }
 @media (max-width: 640px) {
   .section--photo { padding-block: var(--space-7); }
   .page-hero-media img { object-position: center 60%; }
-}
-
-/* Three.js water-ripple shader — discreet, sits behind the content, above the base gradient */
-.water-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-  opacity: 0.7;
 }
 
 .section-inner { position: relative; z-index: 1; max-width: var(--container); margin: 0 auto; }
@@ -971,6 +950,23 @@ section[id] { scroll-margin-top: var(--nav-height); }
 @media (max-width: 480px) {
   .coulisses-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
   .coulisses-item--lg, .coulisses-item--wide, .coulisses-item--tall { grid-column: span 1; grid-row: span 1; }
+}
+
+/* ---------- keyfacts (materiau) — 3D visual + facts side by side, fits one screen on desktop ---------- */
+.keyfacts-head { max-width: 760px; margin-bottom: var(--space-6); }
+.keyfacts-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+.keyfacts-side { display: flex; flex-direction: column; gap: var(--space-5); }
+.keyfacts-side .callout { margin-top: 0; }
+@media (max-width: 900px) {
+  .keyfacts-grid { grid-template-columns: 1fr; }
+}
+@media (min-width: 901px) {
+  .keyfacts-grid .membrane-scene { height: 480px; margin-bottom: 0; }
 }
 
 /* ---------- membrane 3D cross-section (Three.js, exploded view on scroll) ---------- */
@@ -1348,7 +1344,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 .zones-layout { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--space-8); align-items: center; }
 .zones-visual { display: flex; flex-direction: column; align-items: center; gap: 14px; }
-.zones-radius-map { width: 100%; max-width: 430px; height: auto; }
+.zones-radius-map { width: 100%; max-width: 520px; height: auto; }
 .zmap-france {
   fill: color-mix(in srgb, var(--marine) 6%, transparent);
   stroke: var(--marine);
@@ -1715,7 +1711,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   .phone-cta { flex-direction: column; align-items: flex-start; }
   .zones-layout { grid-template-columns: 1fr; gap: var(--space-6); }
   .zones-visual { order: 2; margin-top: 4px; }
-  .zones-radius-map { max-width: 320px; }
+  .zones-radius-map { max-width: 380px; }
 }
 
 /* ---------- responsive ---------- */

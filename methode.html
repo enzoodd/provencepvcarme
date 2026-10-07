@@ -183,7 +183,6 @@
 
 <!-- ========== METHODE / THERMOSOUDAGE ========== -->
 <section class="section section--dark section--roomy" id="etapes">
-  <canvas class="water-canvas" id="waterCanvas" aria-hidden="true"></canvas>
   <div class="section-inner">
     <p class="breadcrumb breadcrumb--light"><a href="index.html">Accueil</a> / <span>Méthode</span></p>
     <p class="eyebrow eyebrow--light">Notre méthode</p>
@@ -217,15 +216,23 @@
       </li>
     </ol>
   </div>
+
+  <a href="#chiffres" class="hero-scroll-cue">
+    <span>Jusqu'au premier bain</span>
+    <span class="hero-scroll-cue-line" aria-hidden="true"></span>
+  </a>
 </section>
 
 <!-- ========== LE MATERIAU (fusion chiffres clés + schéma 3D) ========== -->
 <section class="section keyfacts" id="chiffres">
   <div class="section-inner">
-    <p class="eyebrow">Le matériau</p>
-    <h2 class="section-title">Le matériau en quelques repères</h2>
-    <p class="section-lede">Deux couches de PVC souple prennent en sandwich une armature en polyester tissé — c'est ce qu'on appelle aussi la pose de liner armé. <strong>150/100e d'épaisseur</strong> (deux fois plus qu'un liner classique) pour une résistance mécanique bien supérieure, et une <strong>durée de vie de 15 à 25 ans</strong>. Posé et soudé à l'air chaud, chaque joint devient une pièce continue.</p>
+    <div class="keyfacts-head">
+      <p class="eyebrow">Le matériau</p>
+      <h2 class="section-title">Le matériau en quelques repères</h2>
+      <p class="section-lede">Deux couches de PVC souple prennent en sandwich une armature en polyester tissé — c'est ce qu'on appelle aussi la pose de liner armé. Posé et soudé à l'air chaud, chaque joint devient une pièce continue.</p>
+    </div>
 
+    <div class="keyfacts-grid">
     <div class="membrane-scene" id="membraneScene" aria-hidden="true">
       <canvas id="membraneCanvas"></canvas>
       <div class="membrane-labels" aria-hidden="true">
@@ -236,6 +243,7 @@
       <p class="membrane-scene-hint" aria-hidden="true">Défilez pour voir la coupe s'ouvrir</p>
     </div>
 
+    <div class="keyfacts-side">
     <div class="compare-table" role="table">
       <div class="compare-table-head" role="row">
         <span class="compare-table-attr" role="columnheader">Critère</span>
@@ -272,6 +280,8 @@
     <div class="callout">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
       <p><strong>Chantier réalisé en moyenne en 1 jour</strong> pour une pose standard, hors mise en eau. Un délai précis vous est communiqué lors du diagnostic sur site.</p>
+    </div>
+    </div>
     </div>
   </div>
 </section>
@@ -379,7 +389,5 @@
 <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js" defer></script>
 <script src="js/script.js" defer></script>
-<script type="module" src="js/membrane-scene.js"></script>
-<script type="module" src="js/water-scene.js"></script>
-</body>
+<script type="module" src="js/membrane-scene.js"></script></body>
 </html>
