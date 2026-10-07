@@ -147,22 +147,22 @@
       <input type="hidden" name="_subject" value="Nouvelle demande de devis - Provence PVC Armé">
       <div class="form-row">
         <label>
-          <span>Nom</span>
-          <input type="text" name="nom" required autocomplete="name">
+          <span>Nom <span class="form-required" aria-hidden="true">*</span></span>
+          <input type="text" name="nom" required aria-required="true" autocomplete="name">
         </label>
         <label>
-          <span>Téléphone</span>
-          <input type="tel" name="telephone" required autocomplete="tel">
+          <span>Téléphone <span class="form-required" aria-hidden="true">*</span></span>
+          <input type="tel" name="telephone" required aria-required="true" autocomplete="tel">
         </label>
       </div>
       <div class="form-row">
         <label>
-          <span>E-mail</span>
-          <input type="email" name="email" required autocomplete="email">
+          <span>E-mail <span class="form-required" aria-hidden="true">*</span></span>
+          <input type="email" name="email" required aria-required="true" autocomplete="email">
         </label>
         <label>
-          <span>Ville</span>
-          <input type="text" name="ville" required autocomplete="address-level2">
+          <span>Ville <span class="form-required" aria-hidden="true">*</span></span>
+          <input type="text" name="ville" required aria-required="true" autocomplete="address-level2">
         </label>
       </div>
       <div class="form-row">
@@ -199,7 +199,7 @@
           <span>Appeler maintenant</span>
         </a>
       </div>
-      <p class="form-note">En envoyant ce formulaire, vous acceptez d'être recontacté au sujet de votre projet.</p>
+      <p class="form-note">* Champs obligatoires. En envoyant ce formulaire, vous acceptez d'être recontacté au sujet de votre projet.</p>
       <p class="visually-hidden" id="formStatus" role="status" aria-live="polite"></p>
     </form>
   </div>

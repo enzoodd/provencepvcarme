@@ -157,20 +157,37 @@
   // (simple border/background state change only, no ripple/scale effects)
   const tabChips = document.querySelectorAll(".tab-chip");
   const tabPanels = document.querySelectorAll(".tab-panel");
-  tabChips.forEach((chip) => {
-    chip.addEventListener("click", function () {
-      const target = chip.getAttribute("data-tab");
+  function activateTab(chip) {
+    const target = chip.getAttribute("data-tab");
+    tabChips.forEach((c) => {
+      c.classList.remove("is-active");
+      c.setAttribute("aria-selected", "false");
+      c.setAttribute("tabindex", "-1");
+    });
+    chip.classList.add("is-active");
+    chip.setAttribute("aria-selected", "true");
+    chip.setAttribute("tabindex", "0");
 
-      tabChips.forEach((c) => {
-        c.classList.remove("is-active");
-        c.setAttribute("aria-selected", "false");
-      });
-      chip.classList.add("is-active");
-      chip.setAttribute("aria-selected", "true");
-
-      tabPanels.forEach((p) => {
-        p.classList.toggle("is-active", p.getAttribute("data-panel") === target);
-      });
+    tabPanels.forEach((p) => {
+      p.classList.toggle("is-active", p.getAttribute("data-panel") === target);
+    });
+  }
+  tabChips.forEach((chip, i) => {
+    chip.setAttribute("tabindex", chip.classList.contains("is-active") ? "0" : "-1");
+    chip.addEventListener("click", function () { activateTab(chip); });
+    // ARIA Authoring Practices tablist pattern: arrow keys move focus + selection
+    // between tabs, Home/End jump to the first/last one.
+    chip.addEventListener("keydown", function (e) {
+      let targetChip = null;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") targetChip = tabChips[(i + 1) % tabChips.length];
+      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") targetChip = tabChips[(i - 1 + tabChips.length) % tabChips.length];
+      else if (e.key === "Home") targetChip = tabChips[0];
+      else if (e.key === "End") targetChip = tabChips[tabChips.length - 1];
+      if (targetChip) {
+        e.preventDefault();
+        activateTab(targetChip);
+        targetChip.focus();
+      }
     });
   });
 

@@ -1298,6 +1298,16 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .finish-folder-sub { font-family: var(--font-mono); font-weight: 600; font-variant-numeric: tabular-nums; font-size: 12px; color: var(--ink-soft); margin: 0; letter-spacing: 0.02em; }
 .finish-note { margin-top: var(--space-5); font-size: 13px; color: var(--ink-soft); font-style: italic; }
 
+/* ---------- finitions preview (accueil) — static 1-image-per-famille, pas d'animation : la version complète/animée reste sur methode.html ---------- */
+.finish-preview-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); }
+.finish-preview-item { margin: 0; }
+.finish-preview-item picture, .finish-preview-item img { display: block; width: 100%; height: 220px; object-fit: cover; border-radius: var(--radius-l); box-shadow: var(--shadow-sm); }
+.finish-preview-item figcaption { margin-top: 10px; font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--marine); text-align: center; }
+@media (max-width: 640px) {
+  .finish-preview-row { grid-template-columns: 1fr; }
+  .finish-preview-item img { height: 180px; }
+}
+
 @media (max-width: 900px) {
   .finish-stage { height: 220px; }
   .finish-chip { width: 102px; height: 142px; }
@@ -1416,6 +1426,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 .devis-form label { display: flex; flex-direction: column; gap: 8px; }
 .devis-form label span { font-size: 12.5px; font-weight: 600; letter-spacing: 0.03em; color: color-mix(in srgb, var(--paper) 70%, transparent); font-family: var(--font-mono); }
+.form-required { color: var(--gold-light); }
 .devis-form input, .devis-form select, .devis-form textarea {
   font-family: var(--font-body);
   font-size: 15px;
