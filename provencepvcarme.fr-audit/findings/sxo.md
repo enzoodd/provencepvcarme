@@ -1,102 +1,153 @@
-# Audit SXO — provencepvcarme.fr
+# Audit SXO — provencepvcarme.fr (site live, 13 pages)
 
-**SXO Gap Score : 69/100** (distinct du SEO Health Score)
+**SXO Gap Score : 77/100** (distinct du SEO Health Score) — précédent audit (20260928, 4 pages via localhost, DNS non résolu à l'époque) : **69/100**.
 
-| Dimension | Score | Max |
-|---|---|---|
-| Adéquation type de page (Page Type) | 13 | 15 |
-| Profondeur de contenu | 9 | 15 |
-| Signaux UX | 11 | 15 |
-| Schema.org | 12 | 15 |
-| Média | 12 | 15 |
-| Autorité / preuve sociale | 6 | 15 |
-| Fraîcheur | 6 | 10 |
+| Dimension | Score | Max | Δ vs précédent |
+|---|---|---|---|
+| Adéquation type de page (Page Type) | 14 | 15 | +1 |
+| Profondeur de contenu | 11 | 15 | +2 |
+| Signaux UX | 12 | 15 | +1 |
+| Schema.org | 13 | 15 | +1 |
+| Média | 14 | 15 | +2 |
+| Autorité / preuve sociale | 5 | 15 | -1 |
+| Fraîcheur | 8 | 10 | +2 |
 
-Pages auditées : `index.html`, `methode.html`, `realisations.html`, `contact.html` (via `http://localhost:8804`).
-Activité réelle du site : pose de **membrane PVC armée pour piscines** (thermosoudage), basée à Dieulefit/Montélimar (26), rayon 2h — pas de la menuiserie PVC malgré le nom de domaine.
+Pages auditées (13/13 du sitemap, en live via `https://provencepvcarme.fr`) : `index.html`, `methode.html`, `realisations.html`, `contact.html`, `mentions-legales.html`, `confidentialite.html`, et les 7 pages de zone (`pose-membrane-pvc-arme-{avignon,orange,marseille,pierrelatte,valence,montpellier,aix-en-provence}.html`). Le site est désormais résolu en HTTP 200 (hébergé sur GitHub Pages, `Last-Modified` du jour), ce qui permet pour la première fois un audit SXO complet sur l'ensemble du périmètre plutôt que sur 4 pages locales.
+
+---
+
+## Vue d'ensemble : corrigé / toujours ouvert / nouveau
+
+### Corrigé depuis le dernier audit
+- **FAQ courte → FAQ approfondie (7 questions)** : `index.html#faq` est passée de 3 à 7 questions (définition, durée de vie, rénovation, norme NF T54-804, justification de l'absence de prix, délai de devis, durée de chantier), avec schema `FAQPage` complet. *(ancien Finding 7, LOW)*
+- **"Contenu local en accordéon" promis mais absent → remplacé par une solution supérieure** : au lieu d'un accordéon départemental, le site a livré **7 pages de zone dédiées** (Avignon, Orange, Pierrelatte, Valence, Marseille, Montpellier, Aix-en-Provence), chacune avec H1 unique, lede localisée, schema `Service` (`areaServed` = la ville), `BreadcrumbList`, mini-FAQ locale (2 questions par ville, différentes d'une ville à l'autre) et maillage "voir aussi" vers les villes voisines. C'est un meilleur pattern SXO qu'un accordéon : il crée de vraies pages indexables par ville plutôt qu'un contenu replié en JS. *(ancien Finding 3, HIGH — largement dépassé)*
+
+### Toujours ouvert
+- **Aucune preuve sociale tierce (avis, notes Google, témoignages)** — *(ancien Finding 1, HIGH → maintenu HIGH)*
+- **Aucune mention d'assurance décennale** sur aucune des 13 pages, alors que la couverture décennale est **légalement obligatoire** pour tout chantier de piscine (construction/rénovation) en France — *(ancien Finding 2, HIGH → maintenu HIGH, voir aussi le nouveau Finding ci-dessous qui aggrave ce point)*
+- **Aucune fourchette de prix, même indicative** — la nouvelle FAQ "Pourquoi n'y a-t-il pas de prix affiché ?" explique honnêtement la logique (bassins tous différents, refus du prix d'appel trompeur), ce qui réduit la frustration par rapport à un silence pur et simple, mais ne donne toujours aucun repère chiffré alors que le SERP informationnel ("prix liner armé", "guide-piscine.fr", "prix-pose.com") répond frontalement à cette requête — *(ancien Finding 4, MEDIUM → maintenu MEDIUM, sévérité perçue légèrement adoucie par la transparence de la FAQ)*
+- **`realisations.html` reste pauvre en récit de chantier** : 124 mots au total, 4 paires avant/après avec légende d'une ligne (ville + finition), galerie "coulisses" de 7 photos sans texte. Aucune donnée de contexte (surface du bassin, durée réelle, problème initial) malgré le nouveau hero photo — *(ancien Finding 5, MEDIUM → maintenu MEDIUM)*
+- **Pas de carte interactive ni de lien "itinéraire" sur `contact.html`** — la page la plus proche de la conversion n'a toujours qu'un bloc texte ("infos pratiques" en onglets), pas de `<iframe>` Google Maps ni de lien "voir l'itinéraire". Une carte de France stylisée (SVG, non géolocalisée précisément) a bien été ajoutée sur `index.html#zones`, ce qui est un bon complément visuel mais ne remplace pas un outil fonctionnel sur la page Contact — *(ancien Finding 6, MEDIUM → maintenu MEDIUM, partiellement compensé)*
+
+### Nouveau problème
+- **CRITICAL — Numéro SIRET non renseigné, placeholder visible en production** : `mentions-legales.html` ligne 85 affiche littéralement `Numéro SIRET : [SIRET À COMPLÉTER]` (avec un commentaire HTML `<!-- TODO: ajouter SIRET -->` juste au-dessus), sur une page datée "Dernière mise à jour : 24 août 2026" — donc restée en l'état pendant plus d'un mois de développement actif du site (multiples commits sur les autres pages entre-temps). Pour un persona "Décideur averse au risque" qui vérifie la légitimité de l'entreprise avant un engagement de plusieurs milliers d'euros — comportement typique avant un chantier de piscine — tomber sur un placeholder non complété sur la page légale est le pire signal possible : cela suggère un site inachevé ou une entreprise peu rigoureuse, à l'exact moment où l'utilisateur cherche à se rassurer. C'est aussi une non-conformité légale (le SIRET est obligatoire dans les mentions légales d'un auto-entrepreneur en France). Ce problème n'existait pas dans le scope du précédent audit (qui ne couvrait pas `mentions-legales.html`).
+  **Recommandation :** corriger en urgence — ajouter le vrai numéro SIRET. Priorité plus haute que n'importe quel autre chantier SXO de cette liste : c'est un correctif de quelques minutes avec un risque de dissuasion élevé s'il reste en l'état.
+- **LOW — Copy du hero `realisations.html` suppose une interaction tactile** : "Touchez une photo pour voir le résultat" — formulation orientée mobile/tactile alors qu'une partie du trafic desktop utilisera la souris (le bouton fonctionne au clic, mais le mot "touchez" peut créer une légère confusion ou donner une impression moins universelle). Correctif simple : "Cliquez sur une photo..." ou une formulation neutre ("Sélectionnez une photo...").
+- **INFO (positif) — Bonne gestion de la dissonance distance/faisabilité sur les villes hors rayon** : les pages Marseille, Montpellier et Aix-en-Provence assument explicitement d'être "à la limite" ou "au-delà" du rayon d'intervention, avec un CTA adapté au stade de parcours ("Vérifier la faisabilité de votre projet à Marseille" plutôt que "Demander un devis gratuit"). C'est un signal de transparence qui sert la confiance plutôt que de la desservir — bonne pratique à ne pas casser en généralisant un CTA unique sur toutes les pages de zone.
 
 ---
 
 ## 1. Analyse SERP et adéquation du type de page
 
-Recherche : *"PVC armé piscine Montélimar rénovation membrane"*. Le SERP mélange deux types de pages :
-- **Service Page locale** (piscine-o-jardin.fr, piscine-eo.fr, moodpiscine.fr, danslo-piscine.com, mhpool.be) : entreprises régionales, méthodologie, zone d'intervention.
-- **Guides/Blog informationnels** (guide-piscine.fr, tse-etancheite.fr, id-piscine.com "guide complet") : contenu définitionnel long format répondant aux questions "qu'est-ce que", "durée de vie", "prix au m²".
+Recherches effectuées : *"PVC armé Montélimar piscine"*, *"pose membrane PVC armé Avignon piscine"*, *"liner armé piscine prix"*, *"PVC armé / liner armé piscine avis clients"*.
 
-**Type dominant SERP : Service Page + signaux Local (NAP, zone d'intervention), avec sous-intention informationnelle forte.**
+Le SERP pour ce secteur (pose de membrane PVC armée / liner armé pour piscines, Sud-Est France) confirme la même structure qu'au précédent audit, avec un signal supplémentaire important :
 
-**Classification de la cible (taxonomie) :** Hybrid Service Page + Local Page — hero/CTA (traits Landing), méthodologie détaillée avec schema HowTo (traits Service Page), zone de chalandise + NAP + GeneralContractor schema (traits Local Page).
+- **Service/Local Pages d'entreprises régionales** : piscine-o-jardin.fr, fusionpiscine.fr, betex-piscine-vaucluse.fr, aquapro-piscine.fr, provencepiscines.com, jean-pierre-piscine.fr, pvc-arme.com. Signal notable : **fusionpiscine.fr utilise exactement le pattern que Provence PVC Armé vient d'adopter** — une page dédiée par ville/commune ("Membrane piscine Avignon", "Membrane piscine Villeneuve-lès-Avignon", "Membrane piscine Morières-lès-Avignon"...). Cela confirme que la stratégie de pages de zone est alignée sur ce que Google récompense déjà pour ce cluster de requêtes locales.
+- **Guides informationnels** répondant en priorité au prix et à la comparaison ("Prix d'un liner armé pour piscine : tarifs au m²" — guide-piscine.fr ; "Prix pose liner armé piscine" — lamipose-liner-arme.fr ; "Différence de prix entre liner et PVC armé" — manouvellepiscine.com). Ces pages captent une intention amont ("combien ça coûte avant même d'appeler quelqu'un") que le site cible ne capte que partiellement (justification de l'absence de prix, sans fourchette).
+- **Confirmation d'un cluster de confiance légale distinct** : la recherche "rénovation piscine assurance décennale obligatoire" retourne exclusivement des pages juridiques/assurance (village-justice.com, april.fr, reassurez-moi.fr) confirmant que c'est une requête à part entière, à fort enjeu ("interdiction de démarrer un chantier sans décennale", sanctions pénales) — un signal PAA/informationnel clair que le site ne couvre sur aucune page.
 
-**Verdict de correspondance : ALIGNÉ (pas de mismatch critique).** Le site est structurellement du bon type. Le problème n'est pas le type de page mais la **profondeur et l'autorité perçue** face à des guides informationnels concurrents et des sites locaux avec plus de preuve sociale.
+**Type dominant SERP : Service Page + Local Page (NAP, zone de chalandise, pages par ville), avec sous-intention informationnelle forte sur le prix et la confiance légale (décennale, avis).**
 
----
+**Classification de la cible (taxonomie) :** Hybrid Service Page + Local Page — hero/CTA (traits Landing), méthodologie avec schema `HowTo` et tableau comparatif (traits Service Page), 7 pages `Service` géolocalisées par ville + `GeneralContractor` schema + carte schématique (traits Local Page).
 
-## 2. Findings
-
-### FINDING 1 — Aucune preuve sociale client (avis, témoignages, note) — sévérité HIGH
-**Description :** Aucune des 4 pages ne contient d'avis client, de note Google, de témoignage nommé, ni de schema `Review`/`AggregateRating`. Le contexte annonce des "badges de confiance" (norme NF T54-804, garantie fabricant 10 ans, 5+ ans d'expérience) mais ce sont des affirmations de l'entreprise elle-même, pas des preuves tierces. Pour un achat à fort enjeu (rénovation de piscine, plusieurs milliers d'euros), l'absence totale de tiers de confiance (avis Google, Trustpilot, témoignages clients avec ville) est un manque majeur — d'autant que le persona "Décideur averse au risque" est un signal SERP classique pour ce type de requête (achat cher, peu fréquent).
-**Recommandation :** Ajouter un bloc "Avis clients" sur `index.html` (3-5 témoignages avec prénom + ville + type de projet) et intégrer un lien/widget vers les avis Google de la fiche établissement, avec schema `AggregateRating`/`Review` lié à l'entité `GeneralContractor`.
-
-### FINDING 2 — Aucune mention d'assurance décennale — sévérité HIGH
-**Description :** Sur un site de gros œuvre/étanchéité de piscine en France, l'absence de toute mention d'**assurance décennale** ou de garantie décennale (obligatoire légalement pour ce type de travaux) est un manque de réassurance majeur, et une requête PAA fréquente ("assurance décennale piscine PVC armé"). Les 3 badges actuels couvrent norme/garantie fabricant/expérience mais pas la couverture légale du chantier.
-**Recommandation :** Ajouter un 4e badge "Assurance décennale" (ou intégrer la mention dans la section badges + mentions légales), avec numéro de police si disponible. Fort gain de confiance pour un coût de mise en œuvre faible.
-
-### FINDING 3 — "Contenu local en accordéon départemental" annoncé mais absent du HTML livré — sévérité HIGH
-**Description :** Le contexte de la tâche mentionne un "contenu local en accordéon départemental" comme amélioration récente. Vérification par grep sur les 4 pages : le seul `<details>` présent est la FAQ (3 questions, `index.html`). La section "Zones d'intervention" (`index.html` #zones et `contact.html` #infos-pratiques) affiche une simple liste de tags plats (Drôme, Ardèche, Vaucluse, Gard, Isère / villes) sans accordéon ni contenu unique par département. Il n'y a donc aucune différenciation de contenu local par zone (pas de texte spécifique "PVC armé piscine en Ardèche" vs "...dans le Vaucluse"), alors que le SERP montre des concurrents avec du contenu local ciblé par ville/secteur.
-**Recommandation :** Implémenter réellement l'accordéon départemental prévu, avec un paragraphe unique par département (villes desservies, spécificités locales, délai d'intervention) — cela crée de la profondeur de contenu local et des ancrages pour les recherches "PVC armé piscine [département/ville]".
-
-### FINDING 4 — Aucune indication de prix, même indicative — sévérité MEDIUM
-**Description :** `contact.html` justifie explicitement l'absence de prix ("nous préférons un chiffrage juste plutôt qu'un prix générique affiché"), et aucune des 4 pages ne donne de fourchette de prix au m² ou par type de projet. Or le SERP informationnel (guides concurrents) répond frontalement à "prix membrane PVC armée piscine". Le persona sensible au prix (Budget-Conscious) arrivant depuis une recherche informationnelle n'a aucun repère et doit appeler pour la moindre estimation — friction élevée pour un visiteur en phase de découverte.
-**Recommandation :** Ajouter une fourchette indicative ("à partir de X €/m²" ou par taille de bassin type) sur `methode.html` ou dans une nouvelle section FAQ, tout en gardant l'argument du devis personnalisé pour le chiffrage final.
-
-### FINDING 5 — Page Réalisations sans récit ni données de chantier — sévérité MEDIUM
-**Description :** `realisations.html` propose 4 paires avant/après + une galerie "coulisses", mais chaque chantier n'a qu'une légende d'une ligne (ville + finition). Aucune donnée de contexte (surface du bassin, durée du chantier, problème initial résolu, type de piscine) qui permettrait à un persona "Évaluateur technique/Comparateur" de se projeter — ce type de contenu correspond pourtant aux "case studies" attendues par la taxonomie Service Page.
-**Recommandation :** Ajouter 2-3 lignes de récit par chantier (contexte, durée réelle du chantier, résultat), ou a minima enrichir les `figcaption` avec durée + type de bassin.
-
-### FINDING 6 — Pas de carte / itinéraire sur la page Contact — sévérité MEDIUM
-**Description :** `contact.html` a le schema `GeneralContractor` avec adresse et geo-coordonnées, mais aucune carte Google Maps embarquée ni lien "itinéraire". La taxonomie Local Page exige une carte intégrée comme élément requis, et les recherches locales ("PVC armé piscine près de Montélimar") s'attendent à visualiser rapidement la zone couverte, au-delà du schéma stylisé non géographique déjà présent sur `index.html`.
-**Recommandation :** Intégrer une carte Google Maps (ou lien "Voir l'itinéraire") sur `contact.html`, avec le rayon d'intervention réel si possible.
-
-### FINDING 7 — FAQ très courte face à des guides concurrents approfondis — sévérité LOW
-**Description :** La FAQ (schema `FAQPage`) ne compte que 3 questions génériques, alors que les concurrents informationnels du SERP (guide-piscine.fr, id-piscine.com) couvrent des dizaines de sous-questions (entretien, hivernage, compatibilité forme de bassin, coût, comparatif liner/coque/carrelage). Ce contenu court limite les chances de capter du trafic informationnel top-of-funnel et de gagner des featured snippets/PAA.
-**Recommandation :** Étendre la FAQ à 6-8 questions (entretien, hivernage, délai de séchage, compatibilité formes de bassin) en s'appuyant sur `methode.html` qui a déjà la profondeur technique nécessaire.
-
-### FINDING 8 — Points positifs à noter (ALIGNÉ, aucune action requise)
-**Description :** Le formulaire de contact fonctionnel en AJAX (Formspree, `contact.html` #devisForm avec `formStatus` `aria-live`), les badges de confiance, le bandeau de marques partenaires, le schema riche (`GeneralContractor`, `Service`, `HowTo`, `FAQPage`, `BreadcrumbList`), la page Méthode avec comparatif liner/membrane et étapes illustrées par vrais chantiers (Saint-Restitut, Dieulefit, Grignan) sont des signaux de qualité forts et correctement exécutés, alignés avec les attentes SERP "Service Page".
+**Verdict de correspondance : ALIGNÉ, renforcé par rapport au précédent audit.** Le passage d'une simple liste de villes en tags plats à 7 pages de zone dédiées avec schema `Service`/`areaServed` par ville comble exactement l'écart structurel identifié précédemment, et reproduit le pattern gagnant observé chez un concurrent direct (fusionpiscine.fr). Il n'y a donc **aucun mismatch de type de page à corriger** — le problème central reste, comme avant, un déficit d'**autorité perçue / preuve tierce**, aggravé cette fois par un défaut de forme (placeholder SIRET) qui mine directement la confiance sur la page légale.
 
 ---
 
-## 3. User stories dérivées du SERP
+## 2. "PVC armé" vs "liner armé" dans les balises `<title>` — verdict SXO
 
-1. **En tant que** propriétaire de piscine dégradée cherchant une solution durable, **je veux** comprendre pourquoi le PVC armé dure plus longtemps qu'un liner classique, **parce que** je ne veux pas refaire les travaux dans 8 ans, **mais je suis bloqué par** l'absence de comparaison chiffrée facilement trouvable — *(source : `methode.html` a bien ce comparatif, mais il n'est pas repris/teasé sur `index.html` ni en FAQ)*.
-2. **En tant qu'**acheteur sensible au prix, **je veux** une fourchette de budget avant d'appeler, **parce que** je qualifie plusieurs prestataires avant de m'engager, **mais je suis bloqué par** l'absence totale de prix indicatif sur le site — *(source : Finding 4, guides SERP concurrents répondent à "prix membrane PVC armée")*.
-3. **En tant que** décideur averse au risque (gros montant, chantier irréversible), **je veux** voir des avis d'autres clients de la région, **parce que** je veux vérifier le sérieux avant de laisser mes coordonnées, **mais je suis bloqué par** l'absence d'avis tiers/notes Google — *(source : Finding 1, requête à fort enjeu financier typique du secteur BTP/piscine)*.
-4. **En tant qu'**habitant d'un département périphérique (Ardèche, Gard, Isère), **je veux** savoir si l'entreprise intervient vraiment chez moi et sous quel délai, **parce que** je ne veux pas perdre de temps à demander un devis hors zone, **mais je suis bloqué par** l'absence de contenu local différencié par département — *(source : Finding 3, liste de tags plate sans contenu par zone)*.
+**Décision validée par les données SERP.** Les concurrents directs sur ce marché régional utilisent tous "PVC armé" en priorité dans leurs pages/titres — confirmé à nouveau cette session avec **jean-pierre-piscine.fr** ("Spécialistes de la pose PVC Armé — Vaucluse") et **pvc-arme.com** ("Pose LINER PVC armé piscines en région PACA") qui met "PVC armé" en position dominante malgré son propre nom de domaine contenant "pvc-arme". Le choix de titrer en "PVC armé" et de conserver "liner armé" comme synonyme en meta description et dans le corps de texte est donc cohérent avec l'intention de recherche dominante identifiée sur le marché régional, sans sacrifier la requête secondaire :
+- `methode.html` : "c'est ce qu'on appelle aussi la pose de liner armé" (glissé naturellement dans le texte du H2 "Le matériau en quelques repères")
+- `pose-membrane-pvc-arme-avignon.html` : "membranes PVC armées — aussi appelées liner armé" dans le lede du H1
+- Toutes les meta descriptions des pages de zone incluent "(liner armé)" entre parenthèses juste après "PVC armée"
+
+**Aucune cannibalisation détectée** entre les deux formulations : un seul jeu de balises `<title>` par page, la variante "liner armé" n'apparaît jamais en H1 ni en title, uniquement en synonyme contextuel. Ce point est **INFO / bonne pratique**, pas une action requise.
 
 ---
 
-## 4. Personas (échantillon, dérivés des signaux SERP)
+## 3. Les pages villes répondent-elles à l'intention locale ?
+
+**Oui, globalement bien — avec un gradient de qualité selon la proximité.**
+
+- **Villes proches (Avignon, Orange, Pierrelatte, Valence)** : contenu unique et crédible — Avignon référence un vrai chantier documenté (photo réelle "après-3.jpg", finition "Authentic" identifiable), la lede indique un temps de trajet précis (~1h), le mini-FAQ pose des questions spécifiques au secteur. Bon niveau de spécificité pour l'intention locale "pose membrane PVC armé [ville]".
+- **Villes en limite/hors rayon (Marseille, Montpellier, Aix-en-Provence)** : contenu honnête sur la limite de couverture ("étudié au cas par cas"), CTA ajusté au stade de parcours (vérification de faisabilité plutôt que devis ferme), argument technique adapté au contexte local (résistance aux UV du "littoral méditerranéen" pour Marseille). C'est un bon exemple d'alignement persona/stade de parcours — voir Finding INFO positif ci-dessus.
+- **Limite commune à toutes les pages de zone** : aucune n'intègre de carte, d'avis clients localisés, ni de schema `LocalBusiness`/`ProfessionalService` dédié à la ville (elles pointent toutes vers `Service` + `#business` générique) — cohérent avec le gap Autorité identifié plus haut, simplement décliné ville par ville.
+- **Risque de contenu proche-dupliqué à surveiller** : la structure (intro > photo/texte > CTA > mini-FAQ > "voir aussi") est identique sur les 7 pages, avec un delta de contenu réel d'environ 250-400 mots uniques par page — suffisant pour être indexable sans pénalité de duplication mais à surveiller si de nouvelles villes sont ajoutées sans renforcer la spécificité (ex. mentionner des quartiers, copropriétés avec piscine collective, salinité de l'eau locale, etc.).
+
+---
+
+## 4. Le nouveau hero photo de `realisations.html` sert-il l'intention de la page ?
+
+**Partiellement.** La page est passée d'un hero probablement textuel (non observé, hors scope de l'audit précédent) à un hero plein écran avec une vraie photo "après" (Poët-Laval, finition PVC vert olive), overlay de lecture, breadcrumb et lede orientée interaction ("Touchez une photo pour voir le résultat"). C'est cohérent avec l'intention de la page — preuve visuelle avant conversion, page de type "case studies" attendue par la taxonomie Service Page — et une nette amélioration esthétique par rapport à un hero purement textuel.
+
+**Ce qui manque pour que le hero serve pleinement la conversion :**
+- **Aucun chiffre de preuve sociale en overlay** (ex. "40+ piscines rénovées", "5 ans d'expérience" — repris des badges de `index.html`) : le hero est une belle photo, mais une photo seule ne raconte pas l'ampleur de l'activité.
+- **Le pattern d'interaction "avant/après tactile" n'est pas teasé dans le hero lui-même** : il apparaît seulement dans la section qui suit. Un slider avant/après directement dans le hero (au lieu d'une photo "après" statique) aurait immédiatement démontré la mécanique de preuve visuelle dès le premier écran, plutôt que de la découvrir après un scroll.
+- Le copy "Touchez" suppose une interaction tactile — voir Finding LOW ci-dessus.
+
+Verdict : bon choix directionnel, exécution correcte mais encore générique — voir Finding 5 (récit de chantier) et le point ci-dessus pour les prochaines itérations.
+
+---
+
+## 5. User stories dérivées du SERP
+
+1. **En tant que** décideur averse au risque (chantier à plusieurs milliers d'euros, irréversible), **je veux** vérifier que l'entreprise est légalement en règle et couverte par une assurance décennale avant de laisser mes coordonnées, **parce que** je sais que ce chantier peut légalement engager ma responsabilité si le prestataire n'est pas couvert, **mais je suis bloqué par** l'absence totale de mention "assurance décennale" sur les 13 pages **et** par un placeholder `[SIRET À COMPLÉTER]` visible sur la page légale que je consulte justement pour vérifier le sérieux de l'entreprise — *(source : recherche "assurance décennale piscine obligatoire" confirmant un cluster de requêtes légales à fort enjeu ; finding nouveau CRITICAL sur `mentions-legales.html`)*.
+2. **En tant qu'**acheteur sensible au prix qui compare plusieurs prestataires avant d'appeler, **je veux** une fourchette de budget même large, **parce que** je veux éliminer les devis hors budget sans perdre de temps au téléphone, **mais je suis bloqué par** l'absence de tout repère chiffré, malgré une FAQ qui explique honnêtement pourquoi — *(source : guide-piscine.fr, prix-pose.com, lamipose-liner-arme.fr dominent le SERP informationnel sur "prix liner armé")*.
+3. **En tant qu'**habitant de Marseille, Montpellier ou Aix-en-Provence, **je veux** savoir rapidement si l'entreprise se déplace vraiment chez moi avant de remplir un formulaire, **parce que** je ne veux pas perdre de temps sur une demande hors zone, **et cette fois je ne suis PAS bloqué** : la page dédiée répond immédiatement et honnêtement ("étudié au cas par cas"), avec un CTA adapté — *(source : Finding "Corrigé", ex-Finding 3 ; bon exemple à documenter)*.
+4. **En tant que** propriétaire de piscine dégradée comparant liner classique et PVC armé, **je veux** un comparatif chiffré clair (durée de vie, épaisseur, résistance), **parce que** je ne veux pas refaire les travaux dans 8 ans, **et je suis globalement bien servi** par le tableau comparatif de `methode.html`, même s'il n'est pas teasé sur `index.html` en dehors de la FAQ — *(source : tableau `compare-table` sur `methode.html`, articles "avantages/inconvénients" bien classés sur le SERP)*.
+5. **En tant que** propriétaire proche (Avignon, Orange, Pierrelatte) prêt à démarrer rapidement, **je veux** voir un exemple concret réalisé près de chez moi et pouvoir appeler en un geste, **parce que** je suis déjà en phase de décision, **et je suis bien servi** : page dédiée, vraie photo de chantier local, CTA double (appel + formulaire), bandeau CTA mobile sticky — *(source : `pose-membrane-pvc-arme-avignon.html`, mobile-cta-bar présente sur toutes les pages)*.
+
+Ces 5 user stories couvrent 3 stades de parcours : *awareness* (story 1, vérification légitimité), *consideration* (stories 2 et 4, comparaison prix/matériau), *decision* (stories 3 et 5, passage à l'action).
+
+---
+
+## 6. Personas (dérivés des signaux SERP)
 
 | Persona | Relevance | Clarity | Trust | Action | Total | Rating |
 |---|---|---|---|---|---|---|
-| Décideur averse au risque (gros budget) | 18/25 | 16/25 | 8/25 | 18/25 | 60/100 | Bon mais fragile (trust) |
-| Acheteur sensible au prix | 14/25 | 12/25 | 14/25 | 16/25 | 56/100 | À travailler |
-| Habitant hors Montélimar (Ardèche/Gard/Isère) | 15/25 | 13/25 | 14/25 | 17/25 | 59/100 | À travailler |
-| Chercheur informationnel ("qu'est-ce que le PVC armé") | 20/25 | 20/25 | 15/25 | 15/25 | 70/100 | Bon |
+| Chercheur "assurance décennale / légitimité légale" | 6/25 | 5/25 | 5/25 | 10/25 | 26/100 | Mismatch critique |
+| Décideur averse au risque (gros budget) | 16/25 | 18/25 | 8/25 | 17/25 | 59/100 | À travailler |
+| Acheteur sensible au prix | 18/25 | 14/25 | 15/25 | 18/25 | 65/100 | Bon mais fragile |
+| Comparateur technique (liner vs PVC armé) | 23/25 | 21/25 | 17/25 | 17/25 | 78/100 | Bon |
+| Habitant hors rayon (Marseille/Montpellier/Aix) | 22/25 | 22/25 | 19/25 | 22/25 | 85/100 | Excellent |
+| Chercheur local proche prêt à agir (Avignon/Orange/Pierrelatte) | 23/25 | 22/25 | 17/25 | 23/25 | 85/100 | Excellent |
 
-**Persona le plus faible : Acheteur sensible au prix (56/100).**
-**Problème principal :** aucun repère de prix nulle part sur le site.
-**Correctif recommandé :** ajouter une fourchette indicative sur `methode.html` ou en FAQ (voir Finding 4).
+### Persona le plus faible : Chercheur "assurance décennale / légitimité légale" (26/100)
+**Problème principal :** aucune des 13 pages ne mentionne l'assurance décennale, et la page légale que ce persona consulte précisément pour vérifier la légitimité affiche un placeholder SIRET non complété.
+**Correctif recommandé :** (1) compléter le SIRET immédiatement sur `mentions-legales.html` — correctif prioritaire, quelques minutes ; (2) ajouter un badge "Assuré décennale" (avec numéro de police si disponible) dans la rangée `trust-badges-row` d'`index.html`, aux côtés de la norme NF T54-804 et de la garantie fabricant ; (3) ajouter une question FAQ dédiée ("Êtes-vous couvert par une assurance décennale ?").
+
+### Persona secondaire le plus faible : Décideur averse au risque (59/100)
+**Problème principal :** badges de confiance présents mais 100% auto-déclarés par l'entreprise, aucun tiers de confiance (avis Google, témoignage nommé, schema `Review`/`AggregateRating`).
+**Correctif recommandé :** ajouter un bloc "Avis clients" sur `index.html` avec 3-5 témoignages nommés (prénom + ville + type de projet) et un lien vers la fiche Google Business Profile si elle existe, avec schema `AggregateRating` lié à l'entité `GeneralContractor` (`@id": "https://provencepvcarme.fr/#business"`).
+
+### Problèmes systémiques
+- **Dimension Trust** : c'est la dimension la plus faible sur presque tous les personas (5 à 19/25) — le déficit d'autorité tierce touche transversalement le décideur à risque, le chercheur décennale et, dans une moindre mesure, le comparateur technique.
+- **Dimension Clarity** pour le persona prix : l'info existe (FAQ) mais n'est pas visible dès le premier écran ni reprise ailleurs (pas de teaser "voir la fourchette de prix" depuis le hero ou le CTA final).
+
+### Actions prioritaires (triées par persona le plus faible)
+1. Compléter le SIRET sur `mentions-legales.html` (persona "chercheur décennale/légitimité" — correctif immédiat, risque de dissuasion élevé).
+2. Ajouter une mention d'assurance décennale visible (badge + FAQ) sur `index.html`, `methode.html`, `contact.html` (persona "chercheur décennale" + "décideur averse au risque").
+3. Ajouter 3-5 avis clients nommés + schema `Review`/`AggregateRating` sur `index.html` (persona "décideur averse au risque").
+4. Ajouter une fourchette de prix indicative (ex. "à partir de X €/m²") en complément de la FAQ existante (persona "acheteur sensible au prix").
+5. Enrichir `realisations.html` avec 2-3 lignes de contexte par chantier (surface, durée réelle, problème initial résolu) et envisager un slider avant/après dans le hero (persona "comparateur technique" + qualité générale de la page Réalisations).
 
 ---
 
-## 5. Limitations
+## 7. Limitations
 
-- SERP réel non consulté depuis la position géographique de l'entreprise (résultats Google via WebSearch générique, pas de vérification du pack local / Google Business Profile).
-- Analyse basée sur lecture directe du code source des 4 fichiers HTML (pas de rendu Playwright), donc pas de vérification du comportement JS réel du formulaire (AJAX vs fallback) ni du rendu final de l'accordéon FAQ / animations.
-- Pas de vérification des Core Web Vitals ni de l'expérience mobile réelle (hors périmètre SXO, voir audit performance séparé).
-- Score /100 basé sur la grille interne à 7 dimensions du skill SXO, distinct de tout score SEO technique.
+- SERP consulté via WebSearch générique (résultats non géolocalisés depuis la position exacte de l'entreprise), sans accès direct au pack local Google ni à la fiche Google Business Profile — impossible de confirmer si une fiche GBP existe et si elle contient déjà des avis (ce qui changerait le diagnostic du Finding "aucune preuve sociale").
+- Analyse basée sur le rendu HTML brut (`render_page.py --mode auto`, aucune page détectée comme SPA) et lecture directe du code source des 13 fichiers HTML du dépôt local — cohérent avec le contenu servi en production (vérifié via `parse_html.py` sur les URLs live), mais sans vérification du comportement JS runtime (formulaire AJAX Formspree, animations GSAP/Lenis, scène 3D `membrane-scene.js`) ni de capture d'écran visuelle du rendu final.
+- `confidentialite.html` n'a pas été analysée en détail (hors périmètre SXO prioritaire, contenu principalement juridique).
+- Pas de vérification des Core Web Vitals ni de l'expérience mobile réelle (hors périmètre SXO, voir audit performance séparé si disponible).
+- Le score de positionnement réel "1ère position sur PVC armé Montélimar" rapporté par le propriétaire n'a pas pu être vérifié indépendamment (recherches WebSearch non géolocalisées) ; il est pris comme acquis pour ce cadrage.
+- Score /100 basé sur la grille interne à 7 dimensions du skill SXO, distincte de tout score SEO technique.
 
 ---
 
-Prochaine étape suggérée : `/seo content` pour combler les gaps E-E-A-T (avis, décennale) et `/seo schema` pour ajouter `Review`/`AggregateRating`.
+Prochaines étapes suggérées :
+- `/seo content` pour combler le gap E-E-A-T (avis, décennale, récits de chantier sur `realisations.html`).
+- `/seo schema` pour ajouter `Review`/`AggregateRating` lié à l'entité `GeneralContractor`.
+- Correctif indépendant hors scope SEO/SXO mais urgent : compléter le SIRET sur `mentions-legales.html` (action technique simple, pas un chantier de contenu).
+
+Générer un rapport PDF ? Utilisez `/seo google report`.

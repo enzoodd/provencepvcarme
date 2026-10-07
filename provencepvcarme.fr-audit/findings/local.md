@@ -1,83 +1,134 @@
 # Audit SEO Local — provencepvcarme.fr
 
-**Score Local SEO : 30/100**
+**Score Local SEO : 38/100** (précédent audit du 2026-09-28 : 30/100)
 
 | Dimension | Poids | Score /100 | Contribution |
 |---|---|---|---|
 | Signaux GBP | 25% | 5 | 1.25 |
 | Avis & réputation | 20% | 5 | 1.0 |
-| SEO on-page local | 20% | 55 | 11.0 |
-| Cohérence NAP & citations | 15% | 50 | 7.5 |
-| Schema local | 10% | 75 | 7.5 |
+| SEO on-page local | 20% | 70 | 14.0 |
+| Cohérence NAP & citations | 15% | 35 | 5.25 |
+| Schema local | 10% | 60 | 6.0 |
 | Liens & autorité locale | 10% | 15 | 1.5 |
-| **Total** | 100% | | **≈30/100** |
+| **Total** | 100% | | **≈38/100** |
 
-Type d'établissement détecté : **Hybride** (adresse physique complète visible en footer/mentions légales/schema, mais discours marketing orienté "zone de service" — voir Finding CRITICAL-1). Secteur : **Home Services / artisan du bâtiment (pose de membrane PVC armée pour piscines)**.
+Type d'établissement détecté : **Hybride ambigu**. Le site communique presque partout comme s'il s'agissait d'un point d'ancrage physique clair ("notre atelier de Montélimar", schema avec `addressLocality: Montélimar`), sans jamais afficher de rue ni de numéro — ce qui se rapproche d'un modèle SAB (Service Area Business) à ville d'ancrage masquée. Mais les mentions légales (obligation légale française) révèlent une adresse réelle différente : **Dieulefit**. Cette double identité n'est toujours pas résolue (voir "Toujours ouvert" ci-dessous). Secteur : **Home Services / artisan du bâtiment (pose de membrane PVC armée pour piscines)**.
 
-Pages auditées (6/6) : index.html, contact.html, methode.html, realisations.html, mentions-legales.html, confidentialite.html — servies via http://localhost:8804 (HTTP 200 vérifié, contenu identique aux fichiers sources).
+Pages auditées (13) : index.html, contact.html, methode.html, realisations.html, mentions-legales.html, confidentialite.html, et les 7 pages ville — pose-membrane-pvc-arme-{avignon, orange, pierrelatte, valence, marseille, montpellier, aix-en-provence}.html. Toutes servies en direct depuis **https://provencepvcarme.fr** (HTTP 200 confirmé sur les 13 URLs le jour de l'audit — changement majeur : le DNS ne résolvait pas lors de l'audit du 2026-09-28).
+
+---
+
+## Corrigé depuis le dernier audit (2026-09-28)
+
+- **Le site est en ligne** — le DNS ne résolvait pas lors du dernier audit local ; les 13 pages répondent en HTTP 200 en production. C'est un prérequis absolu pour tout signal local (indexation, GBP, citations) : sans site accessible, aucun des points ci-dessous n'a de valeur.
+- **Incohérence "rayon d'intervention" résolue au niveau du contenu visible.** Le rayon annoncé est désormais uniformément "environ 2h" avec 5 départements nommés (Drôme, Ardèche, Vaucluse, Gard, Isère) sur index.html (hero de la section zones, footer, schema `areaServed`), contact.html (infos pratiques + chips) et methode.html — cohérence retrouvée entre le message et la liste de zones. C'était le point MEDIUM-4 du précédent rapport (contact.html ne listait que les villes, pas les départements) : corrigé, contact.html mentionne maintenant explicitement les 5 départements dans son texte visible.
+- **7 pages de service dédiées créées** (Avignon, Orange, Pierrelatte, Valence, Marseille, Montpellier, Aix-en-Provence), répondant directement au HIGH-2/MEDIUM-4 du précédent audit ("aucune page de service localisée", "dedicated service pages" identifié comme facteur #1 SEO local organique). Chaque page a un schema `Service` propre, un `BreadcrumbList`, une URL indexée au sitemap, et un contenu réellement différencié (voir section dédiée ci-dessous).
+- **La zone SVG "carte de France" a remplacé le schéma radius précédent** — le label central reste "Montélimar", cohérent avec le reste du discours marketing (même s'il reste en tension avec l'adresse légale, voir plus bas).
+
+## Toujours ouvert
+
+- **CRITIQUE — Incohérence NAP Montélimar / Dieulefit, toujours présente, sous une nouvelle forme.** Le précédent audit signalait une contradiction entre un NAP technique (schema + footer + mentions légales, tous alignés sur Dieulefit à l'époque) et un discours marketing parlant de Montélimar. Aujourd'hui, la situation s'est inversée sans se résoudre : le schema JSON-LD (`addressLocality: "Montélimar"`, geo 44.5579/4.7503 = coordonnées réelles du centre de Montélimar) et le footer de **11 pages sur 13** (index, contact, methode, realisations + les 7 pages ville) affichent "Montélimar". Mais **mentions-legales.html** et **confidentialite.html** affichent toujours, en footer et dans le corps du texte légal, **"Dieulefit, Drôme"** ("Adresse : Dieulefit, Drôme, France" dans mentions-legales.html, ligne 81). Un même site affiche donc deux villes différentes selon la page consultée. Le NAP le plus juridiquement engageant (mentions légales, obligation légale française) contredit le NAP commercial dominant. C'est exactement le type d'incohérence NAP qui, si une fiche GBP est créée avec l'une ou l'autre ville, produira un signal négatif direct pour le Local Pack (NAP consistency = facteur #12 Whitespark 2026).
+- **HIGH — Toujours aucun signal GBP détectable.** Recherche exhaustive sur les 13 pages : aucun embed Google Maps, aucun lien vers une fiche Google Business Profile, aucun `sameAs`, aucun widget d'avis. Point le plus pénalisant de l'audit (catégorie GBP primaire = facteur #1 de classement, score 193 Whitespark 2026) — inchangé depuis le dernier audit.
+- **HIGH — Toujours aucun signal d'avis / réputation.** Aucun `aggregateRating`, aucune note affichée, aucun témoignage client sur les 13 pages. Inchangé.
+- **MEDIUM — Aucune citation Tier 1 détectable.** Recherche externe (moteur de recherche) sur "Provence PVC Armé" + Dieulefit/Montélimar : aucun résultat de type Pages Jaunes, Societe.com, BBB, Google Business Profile ou autre annuaire n'apparaît dans les ~96 400 résultats retournés — seuls des sites touristiques génériques sur la Provence remontent. Confirme l'absence totale de présence en ligne hors du site propre.
+- **LOW — SIRET toujours en placeholder.** mentions-legales.html ligne 84-85 contient toujours le commentaire `<!-- TODO: ajouter SIRET -->` et le texte `Numéro SIRET : [SIRET À COMPLÉTER]`. Non corrigé malgré une refonte visible de cette page (date de mise à jour affichée : 24 août 2026, adresse simplifiée en "Dieulefit, Drôme, France" sans rue/CP). À noter pour le brief : le SIRET n'est **pas** présent contrairement à ce qui pouvait être supposé — c'est toujours un placeholder actif.
+
+## Régression / nouveau problème
+
+- **RÉGRESSION MINEURE — Précision géo dégradée.** Le schema `GeneralContractor` affichait précédemment une précision de 7 décimales sur `geo` (largement au-dessus des 5 décimales recommandées). La version actuelle affiche `44.5579` / `4.7503` — **4 décimales seulement**, sous le seuil recommandé de 5 décimales (~1,1 m de précision visée). Le point positif : les nouvelles coordonnées correspondent bien au centre de Montélimar (cohérentes avec `addressLocality`), contrairement à avant où le geo pointait vers Dieulefit alors que le texte disait Montélimar — donc gain de cohérence interne au prix d'une perte de précision technique.
+- **RÉGRESSION MINEURE — `address` schema appauvrie.** Le précédent schema contenait `streetAddress` et `postalCode` (417 Chemin de la Françoise, 26220 Dieulefit). La version actuelle ne contient plus que `addressLocality` + `addressRegion` + `addressCountry`, sans rue ni code postal, sur les 4 pages qui portent le schema `GeneralContractor` (index, contact, methode, realisations). C'est défendable si le choix est d'assumer un modèle SAB sans adresse d'accueil client publique — mais ce choix n'est nulle part assumé explicitly dans le contenu (le site continue de parler d'un "atelier à Montélimar" comme d'un lieu fixe). Si c'est un choix délibéré de confidentialité, il faudrait le documenter/assumer (ex. configurer un GBP en mode "service area business" sans adresse visible) plutôt que de laisser un entre-deux.
+- **NOUVEAU — Incohérence "Marseille" entre meta description homepage et page ville dédiée.** La meta description et l'og:description d'index.html promettent une couverture "à Montélimar et dans le Sud-Est — Drôme, Ardèche, Vaucluse, Gard, **jusqu'à Avignon, Orange et Marseille**" (Marseille citée comme dans la zone couverte). Mais la page dédiée `pose-membrane-pvc-arme-marseille.html` et la section "Zones d'intervention" d'index.html positionnent explicitly Marseille comme **hors du rayon habituel de 2h**, "étudiée au cas par cas" ("Pour un projet plus éloigné — vers Marseille par exemple — contactez-nous pour étudier la faisabilité au cas par cas"). Un extrait Google (meta description) qui promet Marseille en couverture standard, alors que la page cible dit l'inverse, crée un risque de déception/rebond et un signal de contenu incohérent entre la promesse SERP et le contenu réel.
+- **NOUVEAU (mineur) — Département Isère absent de la meta description homepage.** La meta description liste 4 départements ("Drôme, Ardèche, Vaucluse, Gard") alors que le schema `areaServed`, la section zones et le footer en citent 5 (+ Isère). Incohérence mineure entre ce que Google affiche dans les SERP et ce que le site/schema déclare réellement couvrir.
 
 ---
 
 ## NAP — Comparatif des sources
 
-| Champ | Schema JSON-LD (index/contact/méthode/réalisations) | Footer (6 pages) | Mentions légales (corps de texte) | Cohérent ? |
+| Champ | Schema JSON-LD (index/contact/méthode/réalisations) | Footer (11 pages commerciales) | Footer + corps de texte (mentions-legales.html, confidentialite.html) | Cohérent ? |
 |---|---|---|---|---|
 | Nom | Provence PVC Armé | Provence PVC Armé | Provence PVC Armé | Oui |
-| Adresse | 417 Chemin de la Françoise, 26220 Dieulefit | 417 Chemin de la Françoise, 26220 Dieulefit | 417 Chemin de la Françoise, 26220 Dieulefit | Oui |
-| Téléphone | +33660871651 | 06 60 87 16 51 | 06 60 87 16 51 | Oui (format E.164 vs national, équivalent) |
+| Ville | Montélimar | Montélimar | **Dieulefit, Drôme** | **NON — voir "Toujours ouvert"** |
+| Rue / CP | Non renseigné (absent du schema) | Non affiché | Non affiché (mentions légales dit juste "Dieulefit, Drôme, France", sans rue ni CP) | N/A (donnée absente partout désormais) |
+| Téléphone | +33660871651 | 06 60 87 16 51 | 06 60 87 16 51 | Oui (E.164 vs national, équivalent) |
 | Email | provencepvcarme@gmail.com | provencepvcarme@gmail.com | provencepvcarme@gmail.com | Oui |
-| Ville "affichée" au client | — | — | — | **NON — voir Finding CRITICAL-1** |
+| SIRET | — | — | `[SIRET À COMPLÉTER]` (placeholder non rempli) | N/A — absent |
 
-La donnée technique NAP (schema + footer + mentions légales) est identique sur les 6 pages : aucune faute de frappe, aucun ancien numéro, aucune variante d'adresse. C'est un point fort.
+Le téléphone et l'email sont parfaitement cohérents sur les 13 pages — c'est un point fort maintenu. La ville est la seule variable NAP réellement incohérente, mais c'est la plus visible et la plus structurante pour toute future fiche GBP.
 
 ---
 
-## Findings
+## Qualité des 7 pages ville — analyse de différenciation
 
-### CRITICAL-1 — Incohérence "ville de base" : Dieulefit (adresse réelle) vs Montélimar (discours marketing)
+Comparaison ligne à ligne de 3 pages (Avignon, Orange, Marseille) et vérification croisée sur les 4 autres (Pierrelatte, Valence, Montpellier, Aix-en-Provence).
+
+**Verdict : les 7 pages sont réellement différenciées, pas de duplicate content avec simple substitution du nom de ville.** Ce n'est pas un test "doorway page swap" qui échoue — chaque page a un H1/lede propre avec une information factuelle différente (distance de route précise et crédible depuis "l'atelier de Montélimar"), pas un gabarit figé :
+
+| Page | Distance annoncée | Statut de couverture | Photo de chantier réelle | FAQ locale spécifique |
+|---|---|---|---|---|
+| Pierrelatte | "à peine un quart d'heure" | Zone cœur, intervention très régulière, mention réparations ponctuelles | Non (placeholder commenté dans le HTML) | Oui, orientée réactivité/proximité |
+| Orange | "à peine 45 minutes" | Zone cœur | Oui — fond diamant, PVC gris clair | Oui, orientée piscine récente |
+| Valence | "environ 35 minutes", "préfecture de la Drôme" | Zone cœur, agglomération | Non (placeholder) | Oui, orientée agglomération |
+| Avignon | "environ une heure" | Zone cœur, "la plus régulière" | Oui — effet pierre naturelle "Authentic" | Oui, orientée rénovation |
+| Aix-en-Provence | "environ 1h40" | Limite de zone, cas par cas | Oui — granit grey | Oui, orientée "petit chantier possible ?" |
+| Montpellier | "environ 1h45", via A9 | Hors zone, cas par cas | Non (placeholder) | Oui, orientée justification du déplacement |
+| Marseille | "environ deux heures" | Hors zone, cas par cas, "limite de notre rayon" | Non (placeholder) | Oui, orientée "intervenez-vous vraiment jusque-là ?" |
+
+Points forts constatés :
+- Chaque page a un corps de texte unique (150-200 mots), pas un template avec uniquement le nom de ville substitué — le narratif change selon la distance réelle (proximité = réactivité/interventions ponctuelles ; distance = "privilégier les chantiers d'ampleur", "étudier la faisabilité au cas par cas").
+- Les 4 pages sans photo réelle (Pierrelatte, Valence, Marseille, Montpellier) contiennent un commentaire HTML honnête (`<!-- Ajouter une photo de chantier à [ville] dès qu'on en a une réelle -->`) plutôt qu'une photo générique ou trompeuse réutilisée d'une autre ville — bonne pratique anti-duplication mais qui laisse 4/7 pages visuellement plus faibles.
+- Chaque page a son propre schema `Service` (`areaServed` = la ville précise, `provider` lié par `@id` au `GeneralContractor` de la page d'accueil) et son propre `BreadcrumbList` — implémentation technique correcte et non dupliquée bêtement.
+- Le maillage interne "Voir aussi" en bas de chaque page pointe vers 2 pages villes voisines géographiquement (ex. Avignon → Orange, Pierrelatte ; Marseille → Aix-en-Provence, Montpellier) — cohérent et pertinent, pas un maillage aléatoire.
+- Liens vers les 7 pages ville présents dans le footer des 13 pages ET dans la section "Zones d'intervention" d'index.html — bonne profondeur de lien interne (1 clic depuis n'importe quelle page).
+
+Point d'attention (Medium) : la distinction entre les 3 villes "zone cœur avec couverture garantie" (Avignon, Orange, Pierrelatte, Valence) et les 3 villes "hors zone, étudiées au cas par cas" (Marseille, Montpellier, Aix-en-Provence) est bien assumée et transparente dans le contenu — bon point E-E-A-T (pas de survente). Mais cela crée un mélange de pages à intention différente dans une même série "Secteurs" du footer, sans distinction visuelle immédiate pour l'utilisateur avant de cliquer (le footer liste les 7 villes à l'identique, sans indiquer lesquelles sont en zone garantie vs cas par cas).
+
+---
+
+## Findings détaillés
+
+### CRITICAL-1 — Incohérence NAP Montélimar (11 pages) vs Dieulefit (2 pages légales)
 **Sévérité : Critique**
-Le NAP réel (schema, footer, mentions légales) place l'entreprise à **Dieulefit (26220)**. Mais tout le discours visible utilise Montélimar comme ville d'ancrage :
-- Meta description / title / og:description index.html : "à Montélimar et dans ses environs"
-- Hero (index.html, ligne 161) : "Montélimar et ses environs (rayon de 2h)"
-- Section Zone d'intervention (index.html, ligne 371) : **"Nous sommes basés à Montélimar, mais nous nous déplaçons..."** — affirmation factuellement fausse au regard du NAP.
-- Le schéma SVG animé "zones-radius-map" (index.html, lignes 379-410) place le pin central et le label **"Montélimar"** au centre du rayon d'intervention, alors que le point géographique réel (geo lat/long du schema, qui correspond à Dieulefit) est différent.
-- Footer et texte legal (toutes pages) : "à Montélimar et dans ses environs (rayon de 2h)".
-
-Impact : si un Google Business Profile existe ou est créé pour cette activité, l'adresse GBP doit être Dieulefit (ou une adresse de service masquée si SAB) — un GBP affichant Montélimar en ville alors que le NAP web dit Dieulefit créerait une **incohérence NAP majeure entre site et GBP**, un facteur négatif direct pour le Local Pack. Par ailleurs si l'entreprise est en réalité SAB (Service Area Business) sans accueil client à l'adresse, le NAP visible expose inutilement une adresse tout en revendiquant publiquement une autre ville de rattachement — ce qui brouille le signal de proximité (le facteur #1 des variations de classement, 55.2%).
-**Recommandation** : Choisir une seule vérité et l'appliquer partout — soit (a) le site assume Dieulefit comme ville de base et Montélimar comme marché principal desservi ("basés à Dieulefit, nous intervenons sur Montélimar et ses environs"), soit (b) configurer le GBP en mode Service Area Business centré sur Dieulefit avec Montélimar en zone desservie prioritaire. Corriger en priorité la phrase ligne 371 d'index.html et le label du schéma SVG.
+Voir détail dans "Toujours ouvert" ci-dessus. Impact : bloque toute création fiable de fiche GBP tant que la ville de référence n'est pas tranchée. Une fiche GBP doit utiliser l'adresse de vérification réelle (déclarée aux impôts / SIRET) : si celle-ci est Dieulefit, alors afficher "Montélimar" partout ailleurs sur le site crée une divergence entre le NAP web dominant et le NAP GBP — un signal négatif direct. Si l'adresse réelle a changé pour Montélimar, alors mentions-legales.html et confidentialite.html doivent être mis à jour en priorité (obligation légale : ces pages doivent refléter l'adresse réelle de l'entrepreneur individuel).
+**Recommandation** : Trancher définitivement quelle ville sert d'ancrage NAP (celle de l'adresse SIRET réelle) et harmoniser mentions-legales.html + confidentialite.html avec le reste du site — ou l'inverse si Dieulefit est la vérité légale. Ne pas créer de fiche GBP tant que cette décision n'est pas prise.
 
 ### HIGH-2 — Aucun signal GBP détectable sur le site
 **Sévérité : Élevée**
-Recherche exhaustive (grep) sur les 6 pages : aucun embed Google Maps/iframe, aucun widget d'avis Google, aucune mention "Avis Google", aucun lien vers une fiche Google Business Profile, aucun `sameAs` dans le schema JSON-LD pointant vers un profil GBP ou réseaux sociaux. Étant donné que le "Primary GBP category" est le facteur de classement #1 (score 193, Whitespark 2026), l'absence totale de lien/preuve de fiche GBP est le point le plus pénalisant de cet audit.
-**Recommandation** : Créer/vérifier la fiche GBP (catégorie principale précise : "Entreprise de piscines" ou équivalent le plus proche disponible, pas une catégorie générique de type "Entrepreneur général"), y intégrer les mêmes NAP que le site, puis ajouter un lien GBP dans le footer et un `sameAs` dans le schema `GeneralContractor`. Publier des posts GBP régulièrement (règle des 18 jours).
+Inchangé depuis le dernier audit. Aucun embed Maps, aucun lien de fiche, aucun `sameAs`. Le facteur de classement local #1 (catégorie GBP primaire, score 193) ne peut être évalué ni optimisé sans fiche.
+**Recommandation** : Créer/vérifier la fiche GBP une fois le NAP unifié (CRITICAL-1 résolu), avec catégorie principale précise pour la pose de revêtement de piscine (type "Swimming pool contractor" / équivalent français le plus proche — pas une catégorie générique BTP), puis lier le GBP depuis le footer du site et ajouter `sameAs` au schema `GeneralContractor` sur les 4 pages concernées.
 
 ### HIGH-3 — Aucun signal d'avis / réputation
 **Sévérité : Élevée**
-Pas d'`aggregateRating`, pas de note affichée, pas de widget d'avis clients, pas de témoignages sur aucune des 6 pages.
-**Recommandation** : Ajouter une section témoignages/avis sur index.html (et idéalement `aggregateRating` dans le schema une fois des avis GBP réels collectés — ne jamais inventer de notes). Mettre en place une demande d'avis systématique en fin de chantier pour maintenir une vélocité d'avis régulière (règle des 18 jours de Sterling Sky).
+Inchangé. Pas d'`aggregateRating`, pas de témoignage, pas de note visible sur les 13 pages, alors même que le site a maintenant 7 pages ville qui pourraient chacune accueillir un avis local pertinent.
+**Recommandation** : Mettre en place une collecte d'avis systématique en fin de chantier (règle des 18 jours — la vélocité compte plus que le volume). Ajouter une section témoignages sur index.html et, une fois des avis réels GBP collectés, un `aggregateRating` (jamais de données fabriquées).
 
-### MEDIUM-4 — Zone déclarée en schema plus large que le contenu visible correspondant
+### MEDIUM-4 — Promesse de couverture Marseille incohérente entre meta description homepage et page ville dédiée
 **Sévérité : Moyenne**
-Le schema JSON-LD (`areaServed`) sur index/contact/méthode/réalisations liste 12 villes + 5 départements entiers (Drôme, Ardèche, Vaucluse, Gard, Isère). Mais :
-- index.html détaille bien les 5 départements dans son texte visible (section "Zones d'intervention", ligne 371 + chips ligne 374) — bon alignement contenu/schema sur cette page.
-- contact.html (section "Infos pratiques", lignes 239 et 243-245) ne liste que les 12 villes proches de Montélimar dans son contenu visible et sa liste de chips — **aucune mention des 5 départements** pourtant présents dans son propre schema `areaServed` (ligne 58). Un visiteur ou un moteur analysant uniquement le texte visible de contact.html perçoit une zone plus restreinte que celle déclarée en schema.
-- Aucune page dédiée par ville ou département (ex. "pose PVC armé Nîmes/Gard", "... Grenoble/Isère") : la couverture élargie à 5 départements repose uniquement sur une liste de mots-clés en schema/texte, sans pages de service dédiées — or les "dedicated service pages" sont le facteur #1 SEO local organique et #2 en visibilité IA.
-**Recommandation** : Harmoniser le contenu visible de contact.html avec son schema (ajouter la mention des 5 départements). À moyen terme, envisager des pages de service par département ou grande zone (ex. "Intervention Gard / Nîmes", "Intervention Vaucluse / Avignon") avec contenu unique, pour soutenir la promesse de couverture 5 départements plutôt qu'une simple liste de mots-clés.
+Voir détail dans "Régression / nouveau problème". La meta description d'index.html laisse penser que Marseille est couverte au même titre qu'Avignon/Orange, alors que la page dédiée et la section zones du site la présentent comme hors zone standard, étudiée au cas par cas.
+**Recommandation** : Reformuler la meta description d'index.html pour distinguer clairement la zone cœur (Drôme, Ardèche, Vaucluse, Gard, Isère — garantie) de l'extension "cas par cas" (Marseille, Montpellier, Aix), par exemple : "...à Montélimar et dans le Sud-Est (Drôme, Ardèche, Vaucluse, Gard, Isère). Projets étudiés au cas par cas vers Marseille, Aix-en-Provence, Montpellier."
 
-### MEDIUM-5 — Pas de citations Tier 1 détectables depuis le code source
+### MEDIUM-5 — Aucune citation Tier 1 détectable
 **Sévérité : Moyenne**
-Aucune mention ni lien vers Yelp, Pages Jaunes, Waze, Societe.com/annuaires professionnels français, ou tout autre annuaire, dans le code des 6 pages. Impossible de confirmer la présence/absence réelle sur ces plateformes sans accès outil externe (le site testé est en local, non encore crawlable en production pour cette vérification).
-**Recommandation** : Créer/mettre à jour les fiches sur Pages Jaunes, Google Business Profile, et annuaires BTP/piscine spécialisés (ex. Fédération des Professionnels de la Piscine) avec un NAP strictement identique à celui du site (417 Chemin de la Françoise, 26220 Dieulefit / 06 60 87 16 51). Rappel : 3 des 5 facteurs de visibilité IA sont liés aux citations.
+Inchangé. Recherche externe confirmant l'absence de toute présence sur annuaires (Pages Jaunes, Societe.com, BBB, GBP) pour "Provence PVC Armé".
+**Recommandation** : Une fois le NAP unifié, créer les fiches Pages Jaunes, Google Business Profile, Bing Places et annuaires BTP/piscine spécialisés (ex. Fédération des Professionnels de la Piscine) avec un NAP strictement identique partout. Rappel : 3 des 5 facteurs de visibilité IA (Whitespark 2026) sont liés aux citations.
 
-### LOW-6 — SIRET absent des mentions légales (placeholder non complété)
-**Sévérité : Faible (conformité, indirectement E-E-A-T local)**
-mentions-legales.html ligne 86 : `Numéro SIRET : [SIRET À COMPLÉTER]` — commentaire `<!-- TODO: ajouter SIRET -->` toujours présent. Un numéro SIRET visible renforce la légitimité de l'entreprise (signal de confiance local/E-E-A-T) et est une obligation légale française pour un auto-entrepreneur exerçant un commerce.
-**Recommandation** : Compléter le SIRET dès son obtention/disponibilité.
+### LOW-6 — SIRET toujours absent (placeholder actif)
+**Sévérité : Faible (conformité légale + E-E-A-T)**
+Inchangé malgré la mise à jour visible de mentions-legales.html (24 août 2026). Le TODO et le placeholder sont toujours dans le code source livré.
+**Recommandation** : Compléter le SIRET dès disponibilité — obligation légale française pour un auto-entrepreneur exerçant une activité commerciale, et signal de confiance/E-E-A-T local.
 
-### LOW-7 — Schema `GeneralContractor` sans `sameAs`, `hasMap` ni `aggregateRating`
+### LOW-7 — Précision `geo` réduite à 4 décimales (sous le seuil recommandé de 5)
 **Sévérité : Faible**
-Le type `GeneralContractor` (sous-type valide de `LocalBusiness` > `HomeAndConstructionBusiness`) est correctement utilisé et contient : name, address, geo (précision à 7 décimales, dépasse largement la recommandation de 5), openingHoursSpecification, telephone, url, image, priceRange, areaServed, hasCredential (NF T54-804). C'est une bonne base. Il manque toutefois `sameAs` (profils GBP/réseaux sociaux) et `hasMap` (lien Google Maps), et `aggregateRating` ne pourra être ajouté que lorsque des avis réels existeront (ne pas fabriquer de données).
-**Recommandation** : Ajouter `sameAs` dès la création de la fiche GBP/réseaux sociaux, et `hasMap` pointant vers la fiche Maps.
+`44.5579` / `4.7503` = 4 décimales sur les 4 pages portant le schema `GeneralContractor`, contre 7 décimales dans la version précédente. Sous le seuil des 5 décimales recommandé par Google.
+**Recommandation** : Régénérer les coordonnées avec au moins 5 décimales (ex. via Google Maps, clic droit sur le point exact) une fois l'adresse de référence tranchée (Montélimar ou Dieulefit).
+
+### LOW-8 — Schema `GeneralContractor` toujours sans `sameAs`, `hasMap`, `aggregateRating`
+**Sévérité : Faible**
+Inchangé depuis le précédent audit. Les propriétés requises (`name`, `address`) sont présentes ; les recommandées `openingHoursSpecification`, `telephone`, `url`, `image`, `priceRange`, `areaServed`, `hasCredential` (NF T54-804) sont bien présentes et cohérentes sur les 4 pages qui portent ce schema. Il manque `sameAs`, `hasMap`, et `aggregateRating` (légitimement absent tant qu'aucun avis réel n'existe).
+**Recommandation** : Ajouter `sameAs` et `hasMap` dès la création de la fiche GBP.
+
+### INFO-9 — Incohérence mineure "4 vs 5 départements" entre meta description et contenu
+**Sévérité : Info**
+La meta description d'index.html cite 4 départements (Drôme, Ardèche, Vaucluse, Gard) alors que le schema/footer/section zones en citent 5 (+ Isère). Impact SEO faible (peu de recherches portent sur "Isère" pour cette activité vu l'éloignement), mais un signal d'incohérence facile à corriger en même temps que MEDIUM-4.
 
 ---
 
@@ -92,45 +143,47 @@ Le type `GeneralContractor` (sous-type valide de `LocalBusiness` > `HomeAndConst
 | `sameAs` vers GBP en schema | Manquant |
 | Catégorie GBP principale correcte | Non vérifiable depuis le code (pas de lien GBP) |
 | Preuve de posts GBP réguliers | Manquant |
-| Preuve photographique liée à GBP | Manquant (les photos existent sur le site mais aucun lien vers une galerie GBP) |
+| Preuve photographique liée à GBP | Manquant (photos de chantier existent sur le site — 3 des 7 pages ville, plus la page réalisations — mais aucun lien vers une galerie GBP) |
 
 ## Snapshot avis
 
-Aucune note, aucun volume d'avis, aucun `aggregateRating`, aucun taux de réponse observable sur le site — dimension entièrement absente. Ne peut être complété sans accès à une fiche GBP réelle (hors périmètre de cet audit code-source).
+Aucune note, aucun volume d'avis, aucun `aggregateRating`, aucun taux de réponse observable sur les 13 pages. Dimension entièrement absente, non évaluable sans accès à une fiche GBP réelle (hors périmètre de cet audit code-source).
 
 ## Validation schema local
 
-- Type utilisé : `GeneralContractor` (sous-type correct pour un artisan du bâtiment ; cohérent sur les 4 pages qui l'implémentent — index, contact, méthode, réalisations).
-- Propriétés requises : `name` ✔, `address` ✔.
-- Propriétés recommandées : `geo` ✔ (précision > 5 décimales), `openingHoursSpecification` ✔, `telephone` ✔, `url` ✔, `image` ✔, `priceRange` ✔, `areaServed` ✔ (villes + 5 départements), `hasCredential` ✔ (bonus, norme NF T54-804).
+- Type utilisé : `GeneralContractor` (sous-type correct pour un artisan du bâtiment) sur index, contact, methode, realisations — cohérent entre ces 4 pages (même `@id`, mêmes valeurs).
+- Propriétés requises : `name` ✔, `address` ✔ (mais incomplète — voir ci-dessous).
+- Propriétés recommandées : `geo` ✔ mais précision insuffisante (4 décimales, sous le seuil de 5 — LOW-7), `openingHoursSpecification` ✔, `telephone` ✔, `url` ✔, `image` ✔, `priceRange` ✔, `areaServed` ✔ (19 villes + 5 départements, cohérent entre les 4 pages), `hasCredential` ✔ (bonus, norme NF T54-804).
 - Manquant : `sameAs`, `hasMap`, `aggregateRating` (légitimement absent tant qu'aucun avis réel n'existe).
-- mentions-legales.html et confidentialite.html n'ont **aucun schema JSON-LD** (acceptable, ce sont des pages légales, pas des pages commerciales — faible priorité).
-- Schema `Service` (méthode.html) et `BreadcrumbList` (contact/méthode/réalisations) bien formés et cohérents avec l'`areaServed` du `GeneralContractor`.
+- Régression : `address` ne contient plus `streetAddress` ni `postalCode` (seulement `addressLocality`, `addressRegion`, `addressCountry`) — recommandé par Google mais pas strictement requis ; réduit la richesse de l'objet `PostalAddress` par rapport à la version précédente.
+- Les 7 pages ville portent un schema `Service` bien formé : `serviceType`, `provider` (référence `@id` vers le `GeneralContractor`), `areaServed` (type `City`, nom correct), `url`. Chaque page a également un `BreadcrumbList` cohérent à 3 niveaux (Accueil > Zone d'intervention > [Ville]). Implémentation technique propre, aucune duplication de schema brute entre les pages ville.
+- mentions-legales.html et confidentialite.html n'ont aucun schema JSON-LD (acceptable pour des pages légales).
 
-## Qualité des pages (multi-zones)
+## Qualité des pages ville (multi-localisation)
 
-Le site n'a **pas** de pages dédiées par ville/département (pas de structure multi-localisation classique) : la couverture des 17 villes + 5 départements est gérée via une unique section "Zones d'intervention" sur index.html (accordéon/schéma SVG départemental) et une liste de villes sur contact.html. Il n'y a donc pas de test "doorway page swap" applicable, ni de dilution de contenu dupliqué entre pages de ville — mais à l'inverse, aucune page de service localisée ne capte de requêtes long-tail par ville/département (cf. Finding MEDIUM-4).
+Voir la section dédiée ci-dessus ("Qualité des 7 pages ville — analyse de différenciation"). Résumé : contenu réellement unique par page (distance de trajet différenciée et crédible, statut de couverture explicite zone cœur vs cas-par-cas, photos réelles sur 3/7 pages, FAQ locale spécifique par ville, maillage interne pertinent vers les villes voisines). Pas de test "doorway page swap" qui échouerait ici — ce n'est pas un gabarit avec simple substitution du nom de ville. Point d'amélioration : ajouter les 4 photos de chantier manquantes (Pierrelatte, Valence, Marseille, Montpellier) dès que des réalisations réelles existent dans ces secteurs, et clarifier visuellement dans le footer/le maillage la distinction entre zone garantie et zone "cas par cas".
 
 ---
 
 ## Top 10 actions prioritaires
 
-1. **[Critical]** Résoudre l'incohérence Dieulefit (NAP réel) vs Montélimar (discours "basés à Montélimar", ligne 371 index.html + label du schéma SVG) avant toute création/mise à jour de fiche GBP.
-2. **[Critical]** Créer ou auditer la fiche Google Business Profile : catégorie principale précise, NAP identique au site, puis lier le GBP depuis le site (footer + `sameAs` schema).
-3. **[High]** Mettre en place une collecte d'avis clients en fin de chantier (process récurrent, pas ponctuel) pour respecter la règle des 18 jours et alimenter un futur `aggregateRating`.
+1. **[Critical]** Trancher l'incohérence NAP Montélimar (11 pages + schema) vs Dieulefit (mentions-legales.html, confidentialite.html) — harmoniser sur l'adresse SIRET réelle avant toute création de fiche GBP.
+2. **[High]** Créer ou auditer la fiche Google Business Profile une fois le NAP unifié : catégorie principale précise (type piscine, pas BTP générique), NAP identique au site, puis lier le GBP depuis le footer + `sameAs` en schema.
+3. **[High]** Mettre en place une collecte d'avis clients systématique en fin de chantier (règle des 18 jours) pour alimenter un futur `aggregateRating`.
 4. **[High]** Ajouter une section témoignages/avis visible sur index.html dès que des avis réels existent.
-5. **[High]** Ajouter `sameAs` et `hasMap` au schema `GeneralContractor` sur les 4 pages concernées.
-6. **[Medium]** Harmoniser le contenu visible de contact.html avec son propre `areaServed` (ajouter les 5 départements dans le texte/chips, pas seulement les 12 villes).
-7. **[Medium]** Créer/vérifier les citations Tier 1 pertinentes pour la France (Google Business Profile, Pages Jaunes, annuaires BTP/piscine) avec NAP strictement identique.
-8. **[Medium]** Envisager des pages de service dédiées par grande zone/département (Gard, Isère notamment, les plus excentrées) pour soutenir la promesse de couverture élargie avec du contenu unique et des requêtes locales long-tail.
-9. **[Low]** Compléter le numéro SIRET dans mentions-legales.html (placeholder actuellement visible).
-10. **[Low]** Ajouter un embed Google Maps (une fois la fiche GBP créée) sur contact.html pour renforcer les signaux de proximité/adresse en page.
+5. **[Medium]** Reformuler la meta description/og:description d'index.html pour ne pas laisser penser que Marseille est couverte au même titre que la zone cœur (Drôme/Ardèche/Vaucluse/Gard/Isère) — aligner avec le discours "cas par cas" de la page dédiée Marseille.
+6. **[Medium]** Créer/vérifier les citations Tier 1 pertinentes (Google Business Profile, Pages Jaunes, Bing Places, annuaires BTP/piscine) avec NAP strictement identique, une fois le NAP unifié.
+7. **[Medium]** Ajouter les 4 photos de chantier réelles manquantes sur les pages ville Pierrelatte, Valence, Marseille, Montpellier (actuellement en placeholder commenté).
+8. **[Low]** Compléter le numéro SIRET dans mentions-legales.html (placeholder toujours actif malgré la mise à jour de la page le 24 août 2026).
+9. **[Low]** Régénérer les coordonnées `geo` avec au moins 5 décimales de précision (actuellement 4) une fois l'adresse de référence tranchée.
+10. **[Low]** Ajouter `sameAs` et `hasMap` au schema `GeneralContractor` sur les 4 pages concernées, dès la création de la fiche GBP.
 
 ---
 
 ## Limitations
 
-- Audit réalisé sur fichiers locaux servis via localhost:8804 (site non encore vérifié en production réelle) : impossible de confirmer l'existence, l'exactitude ou l'absence d'une fiche Google Business Profile réelle, de citations sur annuaires tiers (Pages Jaunes, Yelp, etc.), ou de position dans le Local Pack — ces éléments nécessitent un accès GBP authentifié ou un outil type DataForSEO (non disponible dans cette session).
-- Le fichier de référence `skills/seo/references/local-schema-types.md` n'a pas été trouvé dans l'environnement ; la validation du sous-type schema (`GeneralContractor`) s'appuie donc sur la connaissance générale de la hiérarchie schema.org plutôt que sur la référence dédiée du skill.
-- Proximité géographique (55.2% de la variance de classement selon Search Atlas) hors du contrôle de cet audit — dépend de l'implantation réelle Dieulefit et de la configuration GBP, non du code source.
+- Audit réalisé par fetch direct des pages en production (curl, HTTP 200 confirmé sur les 13 URLs) — pas d'accès à une fiche Google Business Profile réelle (existence, exactitude, catégorie, avis, posts) : ces éléments nécessitent un accès GBP authentifié ou un outil type DataForSEO (non disponible dans cette session).
+- La recherche de citations externes (Pages Jaunes, BBB, Societe.com, etc.) a été effectuée via un moteur de recherche web générique (résultats limités à ce qu'un fetch simple retourne) plutôt qu'un audit de citations dédié (type BrightLocal/Whitespark) — l'absence constatée est indicative, pas exhaustive à 100%.
+- Proximité géographique (55,2 % de la variance de classement selon Search Atlas) hors du contrôle de cet audit — dépend de l'implantation réelle (Dieulefit ou Montélimar, à trancher) et de la configuration GBP, non du code source.
 - Vélocité d'avis, taux de réponse, catégorie GBP réelle : non évaluables sans accès à la fiche GBP.
+- L'analyse fine de la validité technique du JSON-LD (syntaxe, erreurs de parsing, tests Rich Results) est laissée à l'agent schema dédié, conformément au périmètre de cet audit local SEO.

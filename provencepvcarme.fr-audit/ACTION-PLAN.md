@@ -1,41 +1,47 @@
 # Plan d'action — Provence PVC Armé
 
-*Priorisation : Critical > High > Medium > Low, dérivée de l'audit complet du 2026-08-11 (score global 60/100).*
+*Priorisation : Critical > High > Medium > Low, dérivée de l'audit complet du 2026-09-28 (score global 68/100, contre 60/100 au 2026-08-11). Le site est maintenant en ligne — cette révision remplace entièrement le plan précédent.*
 
-## Phase 1 — Corrections critiques (Semaine 1)
+## Phase 1 — Corrections critiques (cette semaine)
 
-- [ ] **Réparer le menu mobile** : corriger le CSS `.nav-inner` (ajouter un point de rupture/`flex-wrap` sous 900px dans `css/style.css`) — actuellement le header déborde de 84px à 390px et le bouton hamburger est totalement hors écran sur les 4 pages.
-- [ ] **Publier les pages légales réelles** : "Mentions légales" et "Politique de confidentialité" (actuellement `href="#"` sur les 4 pages) — obligation légale (LCEN) et RGPD, aggravée par le fait que le formulaire de contact collecte nom, téléphone, email et photos du domicile.
-- [ ] **Corriger l'adresse dans le schema** : `addressLocality` du JSON-LD LocalBusiness indique "Montélimar" avec le code postal 26220 (celui de Dieulefit) sur les 4 pages, contredisant le footer visible. Trancher l'adresse légale réelle et l'aligner partout.
-- [ ] **Clarifier la zone de service** : "rayon d'1h autour de Montélimar" (title/meta/hero/footer) contredit le schema `areaServed` et la liste de 8 départements de la page contact (certains à plus de 2h). Choisir une seule définition cohérente.
-- [ ] **Planifier la mise en ligne effective** : DNS + hébergement + certificat HTTPS — `provencepvcarme.fr` ne résout pas encore, ce qui bloque 100% de l'indexation tant que non résolu.
+- [ ] **Renseigner le vrai SIRET** dans `mentions-legales.html` (actuellement `Numéro SIRET : [SIRET À COMPLÉTER]`, placeholder visible en production depuis plus d'un mois). À défaut d'un numéro définitif, utiliser une formulation transparente temporaire ("Immatriculation en cours — SIRET communiqué sur demande") plutôt qu'un TODO visible. Relevé indépendamment par 4 des 9 audits comme LE problème prioritaire.
+- [ ] **Trancher l'adresse légale réelle (Montélimar ou Dieulefit) et l'aligner partout** : les 4 blocs JSON-LD `GeneralContractor`, les footers des 13 pages, et le corps de texte de `mentions-legales.html`/`confidentialite.html` doivent converger vers une seule ville. Actuellement 11 pages + schema disent "Montélimar", 2 pages légales disent "Dieulefit, Drôme" — contradiction interne au site, bloquante pour toute future fiche Google Business Profile.
+- [ ] **Corriger le LCP mobile "Poor" (11.2s) de `realisations.html`** : ajouter `fetchpriority="high"` et un `<link rel="preload" as="image">` sur la photo hero (`after-4.webp`/`.jpg`), et générer une variante dédiée allégée (~1600×900, qualité WebP 65-70, cible <120 Ko) au lieu de réutiliser le fichier 1200×1600 plein format partagé avec la vignette de galerie. Régression directe introduite par l'ajout récent de cette section.
+- [ ] **Corriger le LCP mobile "Poor" (6.0s) de l'accueil** : ajouter `preload="metadata"` (ou `preload="none"`) sur `hero-bg.mp4`, ou différer son chargement après le premier rendu. Identique à l'audit précédent, non corrigé depuis.
+- [ ] **Resserrer le `loading="lazy"` des 8 paires before/after de `realisations.html`** pour éviter la contention réseau qui aggrave le point ci-dessus (25 requêtes et 4.2 Mo cumulés constatés au chargement, alors que la plupart sont censées être différées).
 
-## Phase 2 — Améliorations à fort impact (Semaines 2-3)
+## Phase 2 — Améliorations à fort impact (2-3 semaines)
 
-- [ ] Réexporter `media/hero-poster.jpg` en résolution paysage (~1920×1080) + WebP/AVIF qualité 75-80, ajouter un `preload` — c'est le plus gros levier LCP (LCP mesuré à 4.19s, "Poor").
-- [ ] Convertir la galerie de 16+ photos (réalisations/méthode/coulisses, ~5,9 Mo cumulés) en WebP avec fallback JPEG.
-- [ ] Mettre les valeurs réelles des compteurs statistiques (`data-count-to`) directement dans le HTML au lieu de "0", pour garantir un contenu correct même sans exécution JS.
-- [ ] Ajouter la mention SIRET, préciser la durée et la base légale de la garantie étanchéité (ou garantie décennale), mentionner la certification installateur (ex. Renolit/Alkorplan).
-- [ ] Ajouter `defer`/`async` sur les scripts non critiques (GSAP/ScrollTrigger/Lenis) et épingler leurs versions exactes (comme déjà fait pour Three.js).
-- [ ] Auto-héberger ou précharger les polices Google Fonts pour réduire la chaîne de rendu bloquante (~106 Ko, 3 sauts).
+- [ ] Ajouter 3-5 témoignages clients réels (prénom + ville, cohérent avec les chantiers déjà nommés) et/ou lier de vrais avis Google avec `AggregateRating` dès qu'ils existent — zéro preuve sociale actuellement, point faible n°1 identifié par 3 audits différents (contenu, local, SXO).
+- [ ] Mentionner l'assurance décennale (base légale, durée) sur le site — légalement obligatoire pour ce type de chantier et actuellement absente des 13 pages.
+- [ ] Créer ou vérifier la fiche Google Business Profile (catégorie "Swimming pool contractor"/"Swimming pool repair service"), y ajouter un lien `sameAs` dans le schema — zéro signal GBP détectable actuellement (facteur de classement local n°1).
+- [ ] Reprendre les 2-3 phrases de contexte déjà rédigées pour les pages ville (Avignon, Orange, Aix) et les ajouter en légende étendue sous les paires avant/après correspondantes de `realisations.html`, qui reste à 188 mots de contenu narratif propre.
+- [ ] Supprimer le schema `HowTo` de `methode.html` (type déprécié par Google depuis 2023, recommandation déjà faite au dernier audit, non appliquée) — coût nul, le contenu étape par étape reste en HTML visible.
+- [ ] Corriger l'incohérence "Marseille" : la meta description/og:description de l'accueil la présente comme couverte, alors que la page dédiée et la section zones la présentent comme "hors rayon standard, au cas par cas". Harmoniser, et ajouter le département Isère à la meta description (présent dans le schema/footer mais pas dans la meta).
+- [ ] Corriger les `lastmod` stale du sitemap sur 4 pages ville (Orange, Aix-en-Provence, Montpellier, Pierrelatte) pour refléter leur dernier commit réel — le cas Pierrelatte affiche une date antérieure à la création du fichier.
+- [ ] Ajouter un lien explicite vers `confidentialite.html` directement sous le formulaire de contact, au point de collecte des données et photos (actuellement seulement accessible via le footer).
 
-## Phase 3 — Contenu et autorité (Mois 2)
+## Phase 3 — Contenu et autorité (mois suivant)
 
-- [ ] Étoffer `methode.html` (section entretien, FAQ sur le process) pour atteindre ~800 mots (actuellement 463).
-- [ ] Transformer `realisations.html` en véritables études de cas : 2-3 phrases par projet phare (dimensions, choix technique, délai) au lieu de légendes de 3-6 mots.
-- [ ] Ajouter 3-5 témoignages clients réels ou intégrer de vrais avis Google dès qu'ils existent (zéro preuve sociale actuellement).
-- [ ] Étoffer la FAQ à 8-10 questions : coût, saisonnalité, compatibilité par type de piscine (concret/coque/bois/acier — déjà proposés dans le formulaire), gestion d'une fuite après pose.
-- [ ] Ajouter une fourchette de prix indicative (ex. "à partir de X €/m²") pour donner un ancrage factuel aux utilisateurs et aux assistants IA.
-- [ ] Ajouter les schemas `BreadcrumbList` (fils d'Ariane déjà visibles sur méthode/réalisations/contact) et `HowTo` (process en 4 étapes déjà rédigé sur méthode.html) — coût d'implémentation quasi nul, aucun nouveau contenu requis.
-- [ ] Corriger le H1 de `realisations.html` ("Avant / Après" → intégrer "PVC armé"/"piscine") et dédupliquer le bloc "Finitions" répété entre `index.html` et `methode.html`.
-- [ ] Agrandir la cible tactile du bouton "Appeler" sur mobile (actuellement 46×38px, sous le seuil de 44-48px recommandé).
+- [ ] Étoffer `methode.html` vers ~800 mots (actuellement 469, malgré une amélioration qualitative réelle avec la fusion intro/soudure et le nouveau tableau comparatif) — ex. section "erreurs fréquentes", FAQ technique dédiée à la pose, détail des étapes de préparation du support.
+- [ ] Ajouter une fourchette de prix indicative (ex. "à partir de X €/m²") — toujours absente ; la nouvelle question FAQ qui justifie cette absence est un bon palliatif de confiance mais ne remplace pas un repère chiffré face à un SERP informationnel dominé par des pages affichant des €/m² explicites.
+- [ ] Ajouter `sameAs` au schema `GeneralContractor` (réseaux sociaux, GBP) et créer `llms.txt` listant les pages clés — signal le plus corrélé aux citations IA, actuellement à zéro.
+- [ ] Dédupliquer le bloc "Finitions" entre `index.html` et `methode.html` (actuellement identique mot pour mot) — ajouter du texte différenciant sur `methode.html` (quelle finition pour quel usage, résistance UV comparée).
+- [ ] Corriger le H1 de `realisations.html` ("Avant / Après" → intégrer "PVC armé"/"piscine") malgré la refonte visuelle déjà faite.
+- [ ] Ajouter une carte interactive ou un lien "voir l'itinéraire" sur `contact.html` — page la plus proche de la conversion, actuellement sans aucun outil de localisation fonctionnel (la carte SVG stylisée de l'accueil est un bon complément visuel mais ne remplace pas une carte fonctionnelle sur Contact).
+- [ ] Ajouter un signal d'expertise/auteur visible publiquement (bio courte, nombre de chantiers, formation) — "Enzo Oddon" n'apparaît aujourd'hui que dans les pages légales.
+- [ ] Baliser les mini-FAQ des 7 pages ville en `FAQPage` (contenu déjà présent en HTML, juste non structuré).
 
-## Phase 4 — Suivi et itération (Continu)
+## Phase 4 — Suivi, hygiène et polish (continu)
 
-- [ ] Une fois en ligne : soumettre le sitemap dans Google Search Console et Bing Webmaster Tools, configurer les en-têtes de sécurité (HSTS, CSP, X-Content-Type-Options, Referrer-Policy).
-- [ ] Géocoder l'adresse validée pour ajouter `geo` (latitude/longitude) et renseigner `openingHours` dans le schema (données réelles requises, ne pas inventer).
-- [ ] Créer/optimiser la fiche Google Business Profile avec la bonne catégorie ("Swimming pool contractor"/"Swimming pool repair service", pas menuiserie) et surveiller les avis.
-- [ ] Revalider Core Web Vitals (les 3 pages non mesurées cette session) et GEO/citations IA une fois le site indexé et en ligne.
-- [ ] Éviter de mettre à jour le `lastmod` du sitemap sans changement de contenu proportionnel.
-- [ ] Ajouter un `favicon.ico`/`apple-touch-icon` en complément du SVG actuel, et une page 404 personnalisée.
-- [ ] Générer une clé IndexNow au lancement pour accélérer la découverte par Bing/Yandex.
+- [ ] Ajouter des en-têtes de sécurité (HSTS, CSP, X-Content-Type-Options, Referrer-Policy) via un proxy (ex. Cloudflare) — limitation structurelle de GitHub Pages sans cette couche.
+- [ ] Épingler les scripts CDN (GSAP/ScrollTrigger/Lenis) à une version exacte et ajouter des attributs `integrity=` (SRI) — même Three.js, épinglé en version exacte, n'a pas de hash SRI.
+- [ ] Remplacer `href="index.html"` par `href="/"` dans la nav/logo/footer des 13 pages pour cohérence avec le canonical.
+- [ ] Ajouter une page 404 personnalisée (le statut HTTP est déjà correct, seul le corps de page est la page générique GitHub Pages).
+- [ ] Générer une clé IndexNow pour accélérer la découverte Bing/Yandex, maintenant que le site publie du contenu régulièrement.
+- [ ] Ajouter un `favicon.ico` à la racine en complément des PNG déjà en place.
+- [ ] Compresser/convertir en WebP responsive (`srcset`) la galerie before/after (222-436 Ko par image, une seule résolution servie à tous les écrans) et `hero-poster.jpg` (toujours sans variante WebP/AVIF).
+- [ ] Vérifier le rendu desktop natif de `hero-bg.mp4` : fichier en résolution portrait native (960×1706) réutilisé en hero paysage — probable recadrage/agrandissement sous-optimal à vérifier visuellement, et candidat à un ré-export paysage qui réduirait aussi le poids fichier.
+- [ ] Documenter ou corriger le choix d'adresse schema allégée (`streetAddress`/`postalCode` retirés) — soit assumer un modèle "service area business" sans adresse visible, soit les rétablir si une adresse d'accueil client existe réellement.
+- [ ] Une fois le SIRET et l'adresse tranchés : soumettre/mettre à jour la fiche Google Business Profile, vérifier l'indexation via Google Search Console (non configuré actuellement) et surveiller les premières données CrUX réelles.
+- [ ] Automatiser la mise à jour des `lastmod` du sitemap avant chaque déploiement (ex. script basé sur `git log -1 --date=short -- <fichier>`) pour éviter les écarts constatés en Phase 2.
