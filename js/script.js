@@ -7,6 +7,43 @@
   const hasGSAP = !!(window.gsap && window.ScrollTrigger);
   const hasLenis = !!window.Lenis;
 
+  // Deferred gallery images (img[data-src]) — a true load-on-proximity lazy
+  // load, used where the section sits close enough to the top of the page
+  // that native loading="lazy" was still firing on page load and competing
+  // for bandwidth with a higher-priority hero image (measured regression on
+  // realisations.html: LCP >10s on throttled mobile before this fix).
+  const deferredImgs = document.querySelectorAll("img[data-src]");
+  if (deferredImgs.length) {
+    if ("IntersectionObserver" in window) {
+      const loadImg = (img) => {
+        const source = img.closest("picture")?.querySelector("source[data-srcset]");
+        if (source) { source.srcset = source.dataset.srcset; source.removeAttribute("data-srcset"); }
+        img.src = img.dataset.src;
+        img.removeAttribute("data-src");
+      };
+      const io = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              loadImg(entry.target);
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: "50px 0px" }
+      );
+      deferredImgs.forEach((img) => io.observe(img));
+    } else {
+      // No IntersectionObserver support: fall back to loading everything now.
+      deferredImgs.forEach((img) => {
+        const source = img.closest("picture")?.querySelector("source[data-srcset]");
+        if (source) { source.srcset = source.dataset.srcset; source.removeAttribute("data-srcset"); }
+        img.src = img.dataset.src;
+        img.removeAttribute("data-src");
+      });
+    }
+  }
+
   if (hasGSAP) window.gsap.registerPlugin(window.ScrollTrigger);
 
   // Lenis — inertial smooth scroll. Desktop only: touch devices already have

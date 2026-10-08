@@ -25,6 +25,7 @@
 
 <link rel="preload" href="assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="media/after-4.webp" as="image" fetchpriority="high">
 
 <link rel="stylesheet" href="css/style.css">
 
@@ -129,7 +130,7 @@
   <div class="page-hero-media" aria-hidden="true">
     <picture>
       <source srcset="media/after-4.webp" type="image/webp">
-      <img src="media/after-4.jpg" alt="">
+      <img src="media/after-4.jpg" alt="" width="1200" height="1600" fetchpriority="high">
     </picture>
   </div>
   <div class="section-inner section-inner--narrow">
@@ -146,8 +147,8 @@
     <div class="ba-grid">
       <figure class="ba-pair">
         <button class="ba-toggle" type="button" data-before="media/before-1.jpg" data-after="media/after-1.jpg" aria-label="Voir avant et après, La Motte-Chalancon, PVC Pierre de Bali">
-          <picture><source srcset="media/before-1.webp" type="image/webp"><img class="ba-img-before" src="media/before-1.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, La Motte-Chalancon" loading="lazy"></picture>
-          <picture><source srcset="media/after-1.webp" type="image/webp"><img class="ba-img-after" src="media/after-1.jpg" width="1200" height="1600" alt="Bassin après mise en eau, La Motte-Chalancon, PVC Pierre de Bali" loading="lazy"></picture>
+          <picture><source data-srcset="media/before-1.webp" type="image/webp"><img class="ba-img-before ba-img-deferred" data-src="media/before-1.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, La Motte-Chalancon"></picture>
+          <picture><source data-srcset="media/after-1.webp" type="image/webp"><img class="ba-img-after ba-img-deferred" data-src="media/after-1.jpg" width="1200" height="1600" alt="Bassin après mise en eau, La Motte-Chalancon, PVC Pierre de Bali"></picture>
           <span class="ba-tag">Avant</span>
           <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
         </button>
@@ -156,8 +157,8 @@
 
       <figure class="ba-pair">
         <button class="ba-toggle" type="button" data-before="media/before-2.jpg" data-after="media/after-2.jpg" aria-label="Voir avant et après, Pont-de-Barret, PVC gris clair">
-          <picture><source srcset="media/before-2.webp" type="image/webp"><img class="ba-img-before" src="media/before-2.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Pont-de-Barret" loading="lazy"></picture>
-          <picture><source srcset="media/after-2.webp" type="image/webp"><img class="ba-img-after" src="media/after-2.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Pont-de-Barret, PVC gris clair" loading="lazy"></picture>
+          <picture><source data-srcset="media/before-2.webp" type="image/webp"><img class="ba-img-before ba-img-deferred" data-src="media/before-2.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Pont-de-Barret"></picture>
+          <picture><source data-srcset="media/after-2.webp" type="image/webp"><img class="ba-img-after ba-img-deferred" data-src="media/after-2.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Pont-de-Barret, PVC gris clair"></picture>
           <span class="ba-tag">Avant</span>
           <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
         </button>
@@ -166,8 +167,8 @@
 
       <figure class="ba-pair">
         <button class="ba-toggle" type="button" data-before="media/before-3.jpg" data-after="media/after-3.jpg" aria-label="Voir avant et après, Avignon, PVC effet pierre naturelle « Authentic »">
-          <picture><source srcset="media/before-3.webp" type="image/webp"><img class="ba-img-before" src="media/before-3.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Avignon, PVC effet pierre naturelle « Authentic »" loading="lazy"></picture>
-          <picture><source srcset="media/after-3.webp" type="image/webp"><img class="ba-img-after" src="media/after-3.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Avignon, PVC effet pierre naturelle « Authentic »" loading="lazy"></picture>
+          <picture><source data-srcset="media/before-3.webp" type="image/webp"><img class="ba-img-before ba-img-deferred" data-src="media/before-3.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Avignon, PVC effet pierre naturelle « Authentic »"></picture>
+          <picture><source data-srcset="media/after-3.webp" type="image/webp"><img class="ba-img-after ba-img-deferred" data-src="media/after-3.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Avignon, PVC effet pierre naturelle « Authentic »"></picture>
           <span class="ba-tag">Avant</span>
           <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
         </button>
@@ -176,8 +177,8 @@
 
       <figure class="ba-pair">
         <button class="ba-toggle" type="button" data-before="media/before-4.jpg" data-after="media/after-4.jpg" aria-label="Voir avant et après, Poët-Laval, PVC vert olive">
-          <picture><source srcset="media/before-4.webp" type="image/webp"><img class="ba-img-before" src="media/before-4.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Poët-Laval, PVC vert olive" loading="lazy"></picture>
-          <picture><source srcset="media/after-4.webp" type="image/webp"><img class="ba-img-after" src="media/after-4.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Poët-Laval, PVC vert olive" loading="lazy"></picture>
+          <picture><source data-srcset="media/before-4.webp" type="image/webp"><img class="ba-img-before ba-img-deferred" data-src="media/before-4.jpg" width="1200" height="1600" alt="Bassin avant mise en eau, Poët-Laval, PVC vert olive"></picture>
+          <picture><source data-srcset="media/after-4.webp" type="image/webp"><img class="ba-img-after ba-img-deferred" data-src="media/after-4.jpg" width="1200" height="1600" alt="Bassin après mise en eau, Poët-Laval, PVC vert olive"></picture>
           <span class="ba-tag">Avant</span>
           <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
         </button>
