@@ -1501,47 +1501,49 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .legal-content a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
 .legal-content a:hover { color: var(--lagon); }
 
-/* ---------- zone-content (pages de zone : Avignon/Orange/Marseille) — plain readable
-   paragraphs, same metrics as .legal-content for visual consistency ---------- */
-.zone-content p { margin: 0 0 var(--space-4); font-size: 16px; line-height: 1.7; color: var(--ink); }
-.zone-content p:last-child { margin-bottom: 0; }
-.zone-content a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
-.zone-content a:hover { color: var(--lagon); }
-
-/* Texte justifié + césure. Vérifié visuellement à 390px (mobile) avant
-   application : avec lang="fr" sur <html>, la césure Chromium/WebKit
-   évite l'écueil classique des grands espaces blancs entre les mots --
-   pas besoin de limiter à un @media (min-width) ici. */
-.zone-content p,
-.zone-lede {
-  text-align: justify;
-  hyphens: auto;
-  -webkit-hyphens: auto;
+/* ---------- sector cards (pages département : secteurs/communes) ----------
+   Calqué sur .diff-card (voir plus haut) mais sans le compteur ::before —
+   une liste de secteurs n'a pas de rang numéroté. Réutilise .diff-icon-wrap
+   et ses variantes couleur (--lagon/--gold/--marine) telles quelles. */
+.sector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
 }
-
-/* ---------- zone-content-grid (page Avignon : photo de chantier réelle + texte) ----------
-   Photo pleine largeur au-dessus du texte, comme .process-img (methode.html) et .ba-toggle
-   (realisations.html) : même ratio 4/3 + object-fit cover + arrondi + ombre. C'était la seule
-   photo du site à ne pas suivre cette convention (ratio portrait brut, affichée à côté du
-   texte) -- ramenée ici au même traitement que partout ailleurs sur le site. */
-.zone-content-grid { display: block; }
-.zone-content-grid p { margin: 0; }
-.zone-photo { margin: 0 0 var(--space-5); }
-.zone-photo picture {
-  display: block;
-  aspect-ratio: 4 / 3;
+.sector-card {
+  padding: var(--space-4) var(--space-3);
   border-radius: var(--radius-l);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
+  background: var(--paper);
+  border: 1px solid color-mix(in srgb, var(--marine) 8%, transparent);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  scroll-margin-top: calc(var(--nav-height) + 16px);
 }
-.zone-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.zone-photo figcaption { margin-top: 14px; font-size: 13.5px; color: var(--ink-soft); letter-spacing: 0.01em; }
-.zone-photo figcaption a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
-.zone-photo figcaption a:hover { color: var(--lagon); }
+.sector-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.sector-card h3 { font-size: 16.5px; color: var(--marine); margin-bottom: 6px; letter-spacing: -0.01em; }
+.sector-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.45; margin: 0; }
 
-.zone-see-also p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
-.zone-see-also a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
-.zone-see-also a:hover { color: var(--lagon); }
+/* ---------- stat chips (temps de trajet type par secteur) ----------
+   Même recette visuelle que .tab-chip (voir .stat-groups/.stat-grid
+   plus haut) mais sans le comportement tablist interactif : ce sont de
+   simples chiffres affichés, pas des onglets à sélectionner. Réutilise
+   .tab-chip-value/.tab-chip-label/.stat-unit (typo seule, pas de JS liée). */
+.stat-chip {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  min-height: 140px;
+  padding: var(--space-4);
+  border-radius: var(--radius-l);
+  border: 1px solid color-mix(in srgb, var(--marine) 10%, transparent);
+  background: var(--paper);
+}
+
+.sector-see-also p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+.sector-see-also a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
+.sector-see-also a:hover { color: var(--lagon); }
 
 /* ---------- breadcrumb (sub-pages) ---------- */
 .breadcrumb {
