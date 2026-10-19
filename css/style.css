@@ -942,6 +942,41 @@ section[id] { scroll-margin-top: var(--nav-height); }
 
 .ba-pair figcaption { margin-top: 14px; font-size: 13.5px; color: var(--ink-soft); letter-spacing: 0.01em; }
 
+/* ---------- chantier brief cartouche (En bref) ---------- */
+.chantier-brief {
+  margin-top: 14px;
+  padding: var(--space-3) var(--space-3);
+  background: var(--marine);
+  border-radius: var(--radius-m);
+}
+.chantier-brief-label {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lagon-light);
+  margin: 0 0 10px;
+}
+.chantier-brief-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px var(--space-3);
+  margin: 0;
+}
+.chantier-brief-grid dt {
+  font-size: 11px;
+  color: color-mix(in srgb, var(--paper) 58%, transparent);
+  margin: 0;
+}
+.chantier-brief-grid dd {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--paper);
+  margin: 3px 0 0;
+  letter-spacing: 0.01em;
+}
+
 @media (max-width: 780px) {
   .ba-grid { grid-template-columns: 1fr; }
 }
