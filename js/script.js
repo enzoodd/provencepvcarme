@@ -254,29 +254,51 @@
     });
   }
 
-  // Chantier spotlight — le bandeau "Suivez un chantier de A à Z" alterne
-  // automatiquement entre la photo avant et après (ambiant, pas de clic requis :
-  // le bandeau entier reste un lien vers la page du chantier).
-  document.querySelectorAll(".chantier-spotlight").forEach((spot, i) => {
-    const media = spot.querySelector(".chantier-spotlight-media");
-    const tag = spot.querySelector(".chantier-spotlight-tag");
-    if (!media || !media.querySelector(".chantier-spotlight-img-after")) return;
-    if (prefersReducedMotion) return;
+  // Before/after toggle — both photos sit stacked in the same box and simply
+  // crossfade via CSS opacity (the .is-after class flips them together, no
+  // separate wipe/clip-path layered on top — that used to fight the crossfade
+  // and leave a brief white flash where both images were partly transparent
+  // at once). Also auto-cycles every ~4.5s, paused while hovered/touched, and
+  // staggered per card so the four don't all flip in lockstep.
+  document.querySelectorAll(".ba-toggle").forEach((toggle, i) => {
+    const tag = toggle.querySelector(".ba-tag");
+    const hintLabel = toggle.querySelector(".ba-hint-label");
 
-    let isAfter = false;
-    let timer = null;
+    function setState(isAfter) {
+      toggle.classList.toggle("is-after", isAfter);
+      if (tag) tag.textContent = isAfter ? "Après" : "Avant";
+      if (hintLabel) hintLabel.textContent = isAfter ? "Voir avant" : "Voir après";
+    }
 
-    function schedule(delay) {
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        isAfter = !isAfter;
-        media.classList.toggle("is-after", isAfter);
-        if (tag) tag.textContent = isAfter ? "Après" : "Avant";
-        schedule(4500);
+    const AUTO_INTERVAL = 4500;
+    const STAGGER = i * 900;
+    let autoTimer = null;
+    let paused = false;
+
+    function scheduleNext(delay) {
+      clearTimeout(autoTimer);
+      autoTimer = setTimeout(function () {
+        if (!paused) setState(!toggle.classList.contains("is-after"));
+        scheduleNext(AUTO_INTERVAL);
       }, delay);
     }
 
-    schedule(4500 + i * 900);
+    if (!prefersReducedMotion) {
+      scheduleNext(AUTO_INTERVAL + STAGGER);
+      toggle.addEventListener("mouseenter", function () { paused = true; });
+      toggle.addEventListener("mouseleave", function () { paused = false; });
+      toggle.addEventListener("touchstart", function () { paused = true; }, { passive: true });
+      toggle.addEventListener("touchend", function () { paused = false; }, { passive: true });
+      // WCAG 2.2.2 (Pause, Stop, Hide) — a keyboard user tabbing onto the button
+      // needs the same pause the mouse/touch listeners above already give.
+      toggle.addEventListener("focus", function () { paused = true; });
+      toggle.addEventListener("blur", function () { paused = false; });
+    }
+
+    toggle.addEventListener("click", function () {
+      setState(!toggle.classList.contains("is-after"));
+      if (!prefersReducedMotion) scheduleNext(AUTO_INTERVAL);
+    });
   });
 
   // Devis form — soumission AJAX vers Formspree, sans rechargement de page
