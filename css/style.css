@@ -976,9 +976,130 @@ section[id] { scroll-margin-top: var(--nav-height); }
   margin: 3px 0 0;
   letter-spacing: 0.01em;
 }
+.chantier-brief--standalone {
+  margin-top: 0;
+  padding: var(--space-4);
+  max-width: 420px;
+}
+.chantier-brief--standalone .chantier-brief-grid { gap: 16px var(--space-4); }
+.chantier-brief--standalone .chantier-brief-grid dd { font-size: 15px; }
+
+.chantier-back-link { margin: var(--space-4) 0 0; }
+.chantier-back-link a {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--marine);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--marine) 25%, transparent);
+  padding-bottom: 2px;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.chantier-back-link a:hover { color: var(--lagon-deep); border-color: var(--lagon-deep); }
+
+/* ---------- membrane detail (swatch + text, chantier page) ---------- */
+.membrane-detail {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--space-4);
+  align-items: center;
+  margin-top: var(--space-3);
+}
+.membrane-swatch {
+  margin: 0;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-l);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.membrane-swatch img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.membrane-detail-text { margin: 0; }
+@media (max-width: 640px) {
+  .membrane-detail { grid-template-columns: 1fr; }
+  .membrane-swatch { max-width: 220px; }
+}
+
+/* ---------- chantier spotlight banner (invite to the A-to-Z page) ---------- */
+.chantier-spotlight {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  min-height: 360px;
+  text-decoration: none;
+  box-shadow: var(--shadow-lg);
+  isolation: isolate;
+}
+.chantier-spotlight-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.chantier-spotlight-media picture,
+.chantier-spotlight-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.chantier-spotlight-media img {
+  object-fit: cover;
+  object-position: center 65%;
+  transition: transform 0.7s var(--ease);
+}
+.chantier-spotlight:hover .chantier-spotlight-media img { transform: scale(1.06); }
+.chantier-spotlight-media::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(185deg, color-mix(in srgb, var(--marine) 15%, transparent) 0%, color-mix(in srgb, var(--marine) 70%, transparent) 55%, color-mix(in srgb, var(--marine) 94%, transparent) 100%);
+}
+.chantier-spotlight-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  min-height: 360px;
+  padding: var(--space-5) var(--space-5) var(--space-6);
+}
+.chantier-spotlight-eyebrow {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lagon-light);
+  margin: 0 0 10px;
+}
+.chantier-spotlight-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--paper);
+  margin: 0 0 10px;
+}
+.chantier-spotlight-title svg {
+  flex-shrink: 0;
+  transition: transform 0.35s var(--ease);
+}
+.chantier-spotlight:hover .chantier-spotlight-title svg { transform: translateX(10px); }
+.chantier-spotlight-sub {
+  max-width: 52ch;
+  font-size: 15px;
+  color: color-mix(in srgb, var(--paper) 78%, transparent);
+  margin: 0;
+}
+.chantier-spotlight:hover { box-shadow: var(--shadow-xl); }
+.chantier-spotlight:focus-visible { outline: 2px solid var(--lagon-light); outline-offset: 3px; }
 
 @media (max-width: 780px) {
   .ba-grid { grid-template-columns: 1fr; }
+  .chantier-spotlight { min-height: 300px; }
+  .chantier-spotlight-content { min-height: 300px; padding: var(--space-4); }
 }
 
 /* ---------- coulisses du chantier — mosaic gallery ---------- */
