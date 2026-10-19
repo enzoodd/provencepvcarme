@@ -1019,61 +1019,48 @@ section[id] { scroll-margin-top: var(--nav-height); }
   .membrane-swatch { max-width: 220px; }
 }
 
-/* ---------- chantier spotlight banner (invite to the A-to-Z page) ----------
-   Split card: left = avant/après photo pair (the hook), right = dark content
-   panel with a 4-step preview, so the card sells the whole story before the
-   click, not just a single photo. */
+/* ---------- chantier spotlight banner (invite to the A-to-Z page) ---------- */
 .chantier-spotlight {
   position: relative;
-  display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  display: block;
   overflow: hidden;
   border-radius: var(--radius-xl);
+  min-height: 360px;
   text-decoration: none;
   box-shadow: var(--shadow-lg);
-  background: var(--marine);
-  transition: box-shadow 0.3s var(--ease);
+  isolation: isolate;
 }
-.chantier-spotlight:hover { box-shadow: var(--shadow-xl); }
-.chantier-spotlight:focus-visible { outline: 2px solid var(--lagon-light); outline-offset: 3px; }
-
 .chantier-spotlight-media {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 340px;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
-.chantier-spotlight-img { position: relative; overflow: hidden; }
-.chantier-spotlight-img picture,
-.chantier-spotlight-img img { display: block; width: 100%; height: 100%; }
-.chantier-spotlight-img img { object-fit: cover; transition: transform 0.7s var(--ease); }
-.chantier-spotlight:hover .chantier-spotlight-img img { transform: scale(1.06); }
-.chantier-spotlight-img::after {
+.chantier-spotlight-media picture,
+.chantier-spotlight-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.chantier-spotlight-media img {
+  object-fit: cover;
+  object-position: center 65%;
+  transition: transform 0.7s var(--ease);
+}
+.chantier-spotlight:hover .chantier-spotlight-media img { transform: scale(1.06); }
+.chantier-spotlight-media::after {
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 50%, color-mix(in srgb, var(--marine) 60%, transparent) 100%);
+  background: linear-gradient(185deg, color-mix(in srgb, var(--marine) 15%, transparent) 0%, color-mix(in srgb, var(--marine) 70%, transparent) 55%, color-mix(in srgb, var(--marine) 94%, transparent) 100%);
 }
-.chantier-spotlight-tag {
-  position: absolute; top: 14px; z-index: 1;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 11px;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  padding: 6px 12px;
-  border-radius: 100px;
-  color: var(--paper);
-}
-.chantier-spotlight-tag--before { left: 14px; background: color-mix(in srgb, black 12%, var(--marine) 85%); }
-.chantier-spotlight-tag--after { right: 14px; background: var(--lagon); }
-
 .chantier-spotlight-content {
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-5);
+  justify-content: flex-end;
+  height: 100%;
+  min-height: 360px;
+  padding: var(--space-5) var(--space-5) var(--space-6);
 }
 .chantier-spotlight-eyebrow {
   font-family: var(--font-mono);
@@ -1082,269 +1069,37 @@ section[id] { scroll-margin-top: var(--nav-height); }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--lagon-light);
-  margin: 0;
+  margin: 0 0 10px;
 }
 .chantier-spotlight-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
   font-family: var(--font-display);
-  font-size: clamp(22px, 2.4vw, 29px);
+  font-size: clamp(26px, 4vw, 40px);
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--paper);
-  margin: 0;
+  margin: 0 0 10px;
 }
+.chantier-spotlight-title svg {
+  flex-shrink: 0;
+  transition: transform 0.35s var(--ease);
+}
+.chantier-spotlight:hover .chantier-spotlight-title svg { transform: translateX(10px); }
 .chantier-spotlight-sub {
-  max-width: 42ch;
-  font-size: 14.5px;
+  max-width: 52ch;
+  font-size: 15px;
   color: color-mix(in srgb, var(--paper) 78%, transparent);
   margin: 0;
 }
-.chantier-spotlight-steps {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-3);
-  margin: var(--space-2) 0 0;
-  padding: 0;
-}
-.chantier-spotlight-steps li {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-  color: color-mix(in srgb, var(--paper) 68%, transparent);
-}
-.chantier-spotlight-steps span {
-  flex-shrink: 0;
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--paper) 14%, transparent);
-  color: var(--paper);
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 10.5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.chantier-spotlight-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: var(--space-3);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14.5px;
-  color: var(--lagon-light);
-}
-.chantier-spotlight-cta svg { transition: transform 0.35s var(--ease); }
-.chantier-spotlight:hover .chantier-spotlight-cta svg { transform: translateX(6px); }
+.chantier-spotlight:hover { box-shadow: var(--shadow-xl); }
+.chantier-spotlight:focus-visible { outline: 2px solid var(--lagon-light); outline-offset: 3px; }
 
-@media (max-width: 860px) {
-  .ba-grid { grid-template-columns: 1fr; }
-  .chantier-spotlight { grid-template-columns: 1fr; }
-  .chantier-spotlight-media { min-height: 220px; }
-  .chantier-spotlight-sub { max-width: none; }
-}
-
-/* ---------- avant/après drag slider (chantier page hero) ----------
-   Base layer = "après" (always visible); "avant" is layered on top and
-   clipped to --ba-pos from the left, so dragging right reveals more of the
-   before photo. Driven by pointer + keyboard in js/script.js. */
-.ba-slider {
-  position: relative;
-  max-width: var(--container);
-  margin: 0 auto;
-  aspect-ratio: 16/10;
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-xl);
-  cursor: ew-resize;
-  touch-action: pan-y;
-  background: var(--marine);
-}
-.ba-slider-after,
-.ba-slider-before { position: absolute; inset: 0; }
-.ba-slider-after picture, .ba-slider-after img,
-.ba-slider-before picture, .ba-slider-before img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.ba-slider-before { clip-path: inset(0 calc(100% - var(--ba-pos, 50%)) 0 0); }
-@media (prefers-reduced-motion: no-preference) {
-  .ba-slider-before { transition: clip-path 0.05s linear; }
-}
-.ba-slider-tag {
-  position: absolute; top: 18px; z-index: 2;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 11.5px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 7px 14px;
-  border-radius: 100px;
-  color: var(--paper);
-  pointer-events: none;
-}
-.ba-slider-tag--before { left: 18px; background: color-mix(in srgb, black 12%, var(--marine) 85%); }
-.ba-slider-tag--after { right: 18px; background: var(--lagon); }
-.ba-slider-handle {
-  position: absolute; top: 0; bottom: 0;
-  left: var(--ba-pos, 50%);
-  z-index: 3;
-  display: flex; align-items: center; justify-content: center;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-.ba-slider-handle::before {
-  content: "";
-  position: absolute; top: 0; bottom: 0; left: 50%;
-  width: 3px;
-  background: var(--paper);
-  transform: translateX(-50%);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--marine) 25%, transparent);
-}
-.ba-slider-grip {
-  position: relative;
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  background: var(--paper);
-  color: var(--marine);
-  box-shadow: var(--shadow-lg);
-  display: flex; align-items: center; justify-content: center;
-}
-.ba-slider:focus-visible { outline: 2px solid var(--lagon-light); outline-offset: 4px; }
-.ba-slider-hint {
-  text-align: center;
-  font-size: 12.5px;
-  color: var(--ink-soft);
-  margin: var(--space-2) 0 0;
-}
-@media (max-width: 640px) {
-  .ba-slider { aspect-ratio: 4/5; border-radius: var(--radius-l); }
-}
-
-/* ---------- compact chantier facts (replaces a long "En bref" block when
-   the page needs the TL;DR right under the hero, not at the bottom) ---------- */
-.chantier-facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin: var(--space-4) 0 0;
-  padding: 0;
-}
-.chantier-facts > div {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 9px 16px;
-  background: var(--sand);
-  border-radius: var(--radius-m);
-}
-.chantier-facts dt {
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 10.5px;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--lagon-deep);
-  margin: 0;
-}
-.chantier-facts dd {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14.5px;
-  color: var(--ink);
-  margin: 0;
-}
-
-/* ---------- compact step timeline (chantier page) — a condensed, scannable
-   alternative to a long stack of full-width process sections. A connecting
-   rail (desktop only) sits above a row of cards, echoing the site's existing
-   .diff-card language (paper surface, hairline border, hover lift, ghost
-   numeral) instead of bare photos floating on the page. ---------- */
-.chantier-rail {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  align-items: center;
-  position: relative;
-  margin: var(--space-5) 0 var(--space-3);
-}
-.chantier-rail::before {
-  content: "";
-  position: absolute;
-  top: 50%; left: 6%; right: 6%;
-  height: 2px;
-  background: linear-gradient(90deg, var(--lagon) 0%, var(--gold) 38%, var(--lagon) 68%, var(--marine) 100%);
-  opacity: 0.4;
-  transform: translateY(-50%);
-}
-.chantier-rail-node {
-  position: relative;
-  justify-self: center;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 2px solid var(--lagon);
-  color: var(--marine);
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 12.5px;
-  display: flex; align-items: center; justify-content: center;
-}
-.chantier-rail-node:nth-child(2) { border-color: var(--gold); }
-.chantier-rail-node:nth-child(3) { border-color: var(--lagon); }
-.chantier-rail-node:nth-child(4) { border-color: var(--marine); }
-@media (max-width: 780px) { .chantier-rail { display: none; } }
-
-.chantier-timeline {
-  list-style: none;
-  margin: 0; padding: 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  counter-reset: ctstep;
-}
-.chantier-timeline-step {
-  counter-increment: ctstep;
-  position: relative;
-  overflow: hidden;
-  padding: var(--space-2) var(--space-2) var(--space-3);
-  border-radius: var(--radius-l);
-  background: var(--paper);
-  border: 1px solid color-mix(in srgb, var(--marine) 9%, transparent);
-  border-top: 3px solid var(--lagon);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-}
-.chantier-timeline-step:nth-child(2) { border-top-color: var(--gold); }
-.chantier-timeline-step:nth-child(3) { border-top-color: var(--lagon); }
-.chantier-timeline-step:nth-child(4) { border-top-color: var(--marine); }
-.chantier-timeline-step:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-.chantier-timeline-step::after {
-  content: counter(ctstep, decimal-leading-zero);
-  position: absolute;
-  top: 0; right: 10px;
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1;
-  color: color-mix(in srgb, var(--marine) 6%, transparent);
-  pointer-events: none;
-  z-index: 0;
-}
-.chantier-timeline-step > * { position: relative; z-index: 1; }
-.chantier-timeline-img {
-  aspect-ratio: 1;
-  border-radius: var(--radius-m);
-  overflow: hidden;
-  margin-bottom: var(--space-2);
-}
-.chantier-timeline-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s var(--ease); }
-.chantier-timeline-step:hover .chantier-timeline-img img { transform: scale(1.07); }
-.chantier-timeline-step h3 { font-size: 15px; margin: 0 0 4px; letter-spacing: -0.005em; }
-.chantier-timeline-step p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
 @media (max-width: 780px) {
-  .chantier-timeline { grid-template-columns: repeat(2, 1fr); gap: var(--space-4) var(--space-3); }
-}
-@media (max-width: 420px) {
-  .chantier-timeline { grid-template-columns: 1fr 1fr; }
+  .ba-grid { grid-template-columns: 1fr; }
+  .chantier-spotlight { min-height: 300px; }
+  .chantier-spotlight-content { min-height: 300px; padding: var(--space-4); }
 }
 
 /* ---------- coulisses du chantier — mosaic gallery ---------- */
