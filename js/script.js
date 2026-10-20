@@ -584,6 +584,23 @@
       });
     });
 
+    // Chantier finale photo — the 4th/last photo starts slightly smaller and
+    // faded, then scales up to full size+opacity as the visitor scrolls it
+    // into view, "growing" to put it forward before it doubles as the
+    // avant/après click-to-compare (.ba-toggle, wired up above).
+    document.querySelectorAll(".chantier-finale-toggle").forEach((el) => {
+      gsap.fromTo(
+        el,
+        { scale: 0.82, opacity: 0.55 },
+        {
+          scale: 1,
+          opacity: 1,
+          ease: "none",
+          scrollTrigger: { trigger: el, start: "top 95%", end: "top 55%", scrub: true },
+        }
+      );
+    });
+
     window.addEventListener("load", () => ScrollTrigger.refresh());
   } else {
     // Finish folders — no scroll-scrub available here (reduced motion, or GSAP
@@ -592,6 +609,35 @@
     document.querySelectorAll(".finish-folder").forEach((folder) => {
       applyFinishFan(folder.querySelectorAll(".finish-chip"), 1);
     });
+
+    // ---------- Fallback: chantier finale photo grows on scroll (no GSAP) ----------
+    if (!prefersReducedMotion) {
+      document.querySelectorAll(".chantier-finale-toggle").forEach((el) => {
+        let growTicking = false;
+        function applyGrow() {
+          growTicking = false;
+          const rect = el.getBoundingClientRect();
+          const vh = window.innerHeight || document.documentElement.clientHeight;
+          const start = vh * 0.95;
+          const end = vh * 0.55;
+          const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
+          el.style.transform = "scale(" + (0.82 + progress * 0.18).toFixed(3) + ")";
+          el.style.opacity = (0.55 + progress * 0.45).toFixed(3);
+        }
+        applyGrow();
+        document.addEventListener(
+          "scroll",
+          function () {
+            if (!growTicking) {
+              growTicking = true;
+              requestAnimationFrame(applyGrow);
+            }
+          },
+          { passive: true }
+        );
+        window.addEventListener("resize", applyGrow);
+      });
+    }
 
     // ---------- Fallback: IntersectionObserver reveal (no GSAP / reduced motion) ----------
     if (!prefersReducedMotion && "IntersectionObserver" in window) {

@@ -1223,7 +1223,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
   list-style: none;
   margin: 0; padding: 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
   counter-reset: ctstep;
 }
@@ -1241,7 +1241,6 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 .chantier-timeline-step:nth-child(2) { border-top-color: var(--gold); }
 .chantier-timeline-step:nth-child(3) { border-top-color: var(--lagon); }
-.chantier-timeline-step:nth-child(4) { border-top-color: var(--marine); }
 .chantier-timeline-step:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
 .chantier-timeline-step::after {
   content: counter(ctstep, decimal-leading-zero);
@@ -1266,11 +1265,47 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .chantier-timeline-step:hover .chantier-timeline-img img { transform: scale(1.07); }
 .chantier-timeline-step h3 { font-size: 15px; margin: 0 0 4px; letter-spacing: -0.005em; }
 .chantier-timeline-step p { font-size: 12.5px; color: var(--ink-soft); line-height: 1.5; margin: 0; }
-@media (max-width: 780px) {
-  .chantier-timeline { grid-template-columns: repeat(2, 1fr); gap: var(--space-4) var(--space-3); }
+@media (max-width: 700px) {
+  .chantier-timeline { grid-template-columns: 1fr; gap: var(--space-3); }
 }
-@media (max-width: 420px) {
-  .chantier-timeline { grid-template-columns: 1fr 1fr; }
+
+/* ---------- chantier finale: the 4th photo, singled out full-width below
+   the first three. Scales up from a slightly smaller/faded state to full
+   size+opacity as it scrolls into view (js/script.js, GSAP ScrollTrigger
+   scrub when available, a scroll-progress fallback otherwise) — "grows" to
+   draw the eye, then doubles as the avant/après click-to-compare (reuses
+   .ba-toggle). transform-origin stays centered so the grow reads as a
+   clean zoom rather than a shift. ---------- */
+.chantier-finale { margin-top: var(--space-6); }
+.chantier-finale-toggle {
+  aspect-ratio: 16/9;
+  max-width: 760px;
+  margin: 0 auto;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+.chantier-finale-caption {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  max-width: 760px;
+  margin: var(--space-4) auto 0;
+}
+.chantier-finale-num {
+  flex: none;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--marine);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.chantier-finale-caption h3 { font-size: 17px; margin: 3px 0 4px; letter-spacing: -0.005em; }
+.chantier-finale-caption p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
+@media (max-width: 700px) {
+  .chantier-finale-toggle { aspect-ratio: 4/3; }
 }
 
 /* ---------- coulisses du chantier — mosaic gallery ---------- */

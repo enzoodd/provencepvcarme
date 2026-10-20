@@ -126,8 +126,8 @@
 
 <main id="main-content">
 
-<!-- ========== HERO : avant/après à glisser ========== -->
-<section class="section section--roomy">
+<!-- ========== HERO : infos ========== -->
+<section class="section section--tight">
   <div class="section-inner section-inner--narrow">
     <p class="breadcrumb"><a href="index.html">Accueil</a> / <a href="realisations.html">Réalisations</a> / <span>Saint-Restitut</span></p>
     <p class="eyebrow">Chantier &middot; Saint-Restitut (26)</p>
@@ -143,21 +143,9 @@
   </div>
 </section>
 
+<!-- ========== LE CHANTIER, ETAPE PAR ETAPE : 3 photos puis la 4e grossit
+     au scroll et devient la comparaison avant/après cliquable ========== -->
 <section class="section section--tight">
-  <div class="section-inner section-inner--narrow">
-    <figure class="ba-pair">
-      <button class="ba-toggle" type="button" aria-label="Voir avant et après, construction de la piscine en membrane PVC armée à Saint-Restitut">
-        <picture><source srcset="media/before-5.webp" type="image/webp"><img class="ba-img-before" src="media/before-5.jpg" width="1200" height="1600" alt="Bassin maçonné traditionnel avant pose de la membrane, Saint-Restitut"></picture>
-        <picture><source srcset="media/after-5.webp" type="image/webp"><img class="ba-img-after" src="media/after-5.jpg" width="1200" height="2033" alt="Piscine terminée en membrane PVC armée effet pierre naturelle granit grey, Saint-Restitut" fetchpriority="high"></picture>
-        <span class="ba-tag">Avant</span>
-        <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
-      </button>
-    </figure>
-  </div>
-</section>
-
-<!-- ========== LE CHANTIER, ETAPE PAR ETAPE (condensé) ========== -->
-<section class="section section--roomy">
   <div class="section-inner">
     <p class="eyebrow">Le chantier</p>
     <h2 class="section-title">Du bassin brut à la mise en eau, en 4 étapes</h2>
@@ -191,14 +179,25 @@
         <h3>Mise en eau</h3>
         <p>Membrane soudée et contrôlée, puis mise en eau progressive du bassin.</p>
       </li>
-      <li class="chantier-timeline-step">
-        <div class="chantier-timeline-img">
-          <picture><source srcset="media/after-5.webp" type="image/webp"><img src="media/after-5.jpg" width="1200" height="2033" alt="Piscine neuve 3x4 en membrane PVC armée terminée à Saint-Restitut, effet pierre naturelle granit grey" loading="lazy"></picture>
-        </div>
-        <h3>Bassin terminé</h3>
-        <p>Plage en bois, margelles en pierre claire, écrin de chênes verts.</p>
-      </li>
     </ol>
+
+    <div class="chantier-finale">
+      <figure class="ba-pair">
+        <button class="ba-toggle chantier-finale-toggle" type="button" aria-label="Voir avant et après, construction de la piscine en membrane PVC armée à Saint-Restitut">
+          <picture><source srcset="media/before-5.webp" type="image/webp"><img class="ba-img-before" src="media/before-5.jpg" width="1200" height="1600" alt="Bassin maçonné traditionnel avant pose de la membrane, Saint-Restitut"></picture>
+          <picture><source srcset="media/after-5.webp" type="image/webp"><img class="ba-img-after" src="media/after-5.jpg" width="1200" height="2033" alt="Piscine neuve 3x4 en membrane PVC armée terminée à Saint-Restitut, effet pierre naturelle granit grey" fetchpriority="high"></picture>
+          <span class="ba-tag">Avant</span>
+          <span class="ba-hint"><span class="ba-hint-label">Voir après</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span>
+        </button>
+      </figure>
+      <div class="chantier-finale-caption">
+        <span class="chantier-finale-num" aria-hidden="true">4</span>
+        <div>
+          <h3>Bassin terminé</h3>
+          <p>Plage en bois, margelles en pierre claire, écrin de chênes verts. Cliquez sur la photo pour comparer avant / après.</p>
+        </div>
+      </div>
+    </div>
 
     <p class="chantier-back-link"><a href="realisations.html#realisations">&larr; Voir toutes nos réalisations</a></p>
   </div>
