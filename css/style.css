@@ -132,9 +132,6 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-/* Lenis drives scroll itself once active — native smooth-scroll would double up on it */
-html.lenis { scroll-behavior: auto !important; }
-html.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 
 body {
   margin: 0;

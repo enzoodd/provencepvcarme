@@ -3,9 +3,7 @@
   "use strict";
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const isDesktopViewport = window.innerWidth >= 768;
   const hasGSAP = !!(window.gsap && window.ScrollTrigger);
-  const hasLenis = !!window.Lenis;
 
   // Deferred gallery images (img[data-src]) — a true load-on-proximity lazy
   // load, used where the section sits close enough to the top of the page
@@ -45,29 +43,6 @@
   }
 
   if (hasGSAP) window.gsap.registerPlugin(window.ScrollTrigger);
-
-  // Lenis — inertial smooth scroll. Desktop only: touch devices already have
-  // great native momentum scrolling, and Lenis is really a mouse-wheel refinement.
-  // Skipped entirely under prefers-reduced-motion.
-  let lenis = null;
-  if (hasLenis && !prefersReducedMotion && isDesktopViewport) {
-    lenis = new window.Lenis({
-      duration: 1.1,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
-      smoothWheel: true,
-    });
-    if (hasGSAP) {
-      lenis.on("scroll", window.ScrollTrigger.update);
-      window.gsap.ticker.add((time) => lenis.raf(time * 1000));
-      window.gsap.ticker.lagSmoothing(0);
-    } else {
-      const raf = (time) => {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      };
-      requestAnimationFrame(raf);
-    }
-  }
 
   // Seam progress bar (top, horizontal) + seam rail (left, vertical, fills as you scroll)
   const seam = document.getElementById("seamProgress");
