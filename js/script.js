@@ -650,44 +650,4 @@
     }
   }
 
-  // ---------- avant/après drag slider (chantier page hero) ----------
-  document.querySelectorAll(".ba-slider").forEach((slider) => {
-    let pos = 50;
-    let dragging = false;
-
-    function apply() {
-      slider.style.setProperty("--ba-pos", pos + "%");
-      slider.setAttribute("aria-valuenow", Math.round(pos));
-    }
-    function setFromClientX(clientX) {
-      const rect = slider.getBoundingClientRect();
-      pos = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
-      apply();
-    }
-
-    slider.setAttribute("role", "slider");
-    slider.setAttribute("tabindex", "0");
-    slider.setAttribute("aria-label", "Faites glisser pour comparer la photo avant et la photo après");
-    slider.setAttribute("aria-valuemin", "0");
-    slider.setAttribute("aria-valuemax", "100");
-    apply();
-
-    slider.addEventListener("pointerdown", (e) => {
-      dragging = true;
-      slider.setPointerCapture(e.pointerId);
-      setFromClientX(e.clientX);
-    });
-    slider.addEventListener("pointermove", (e) => {
-      if (dragging) setFromClientX(e.clientX);
-    });
-    ["pointerup", "pointercancel"].forEach((evt) => {
-      slider.addEventListener(evt, () => { dragging = false; });
-    });
-    slider.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") { pos = Math.max(0, pos - 5); apply(); e.preventDefault(); }
-      else if (e.key === "ArrowRight") { pos = Math.min(100, pos + 5); apply(); e.preventDefault(); }
-      else if (e.key === "Home") { pos = 0; apply(); e.preventDefault(); }
-      else if (e.key === "End") { pos = 100; apply(); e.preventDefault(); }
-    });
-  });
 })();
