@@ -600,15 +600,62 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 /* ---------- sections ---------- */
-/* Simple gold separator between every section, top-anchored so each
-   boundary gets exactly one line (never doubled). Same rule for every
-   section regardless of light/dark variant — no per-page or per-junction
-   variation. .footer gets the matching border-top below for the one
-   boundary (last section -> footer) that .section itself doesn't cover. */
-.section { padding: var(--space-8) 24px; border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
+.section { padding: var(--space-8) 24px; }
 .section--roomy { padding-block: var(--space-10); }
 .section--tight { padding-block: var(--space-7); }
-.section--tint { background: var(--sand); }
+
+/* Continuous light background — every light section shares the same
+   --paper base, and the page "breathes" through soft warm halos instead of
+   flat colour blocks separated by lines.
+   Each boundary between two sections carries one halo, split exactly in
+   half: the upper section paints it at its bottom edge (at X 100%), the
+   lower section paints the identical gradient at its top edge (at X 0%).
+   Same centre row, same radii, same colours → the two halves meet
+   pixel-for-pixel and the boundary disappears.
+   Joints cycle over 5 positions (nth-of-type) so halos wander left/right
+   and vary in size/warmth rather than repeating every other section.
+   A third, fully contained halo (--m-*) adds depth inside each section.
+   Dark sections (.section--dark, .section--photo) and the video hero keep
+   their own opaque backgrounds — deliberate contrast breaks. */
+.section:not(.section--dark):not(.section--photo) {
+  /* joint palette — a soft gold and a sandy beige */
+  --halo-gold: color-mix(in srgb, var(--gold-light) 34%, transparent);
+  --halo-gold-soft: color-mix(in srgb, var(--gold-light) 24%, transparent);
+  --halo-sand: color-mix(in srgb, #EBD9B4 46%, transparent);
+
+  --j1: ellipse 62vw 420px at 14%;  --j1-c: var(--halo-gold);
+  --j2: ellipse 56vw 380px at 86%;  --j2-c: var(--halo-sand);
+  --j3: ellipse 70vw 340px at 44%;  --j3-c: var(--halo-gold-soft);
+  --j4: ellipse 58vw 440px at 76%;  --j4-c: var(--halo-gold);
+  --j5: ellipse 54vw 360px at 6%;   --j5-c: var(--halo-sand);
+
+  background:
+    radial-gradient(var(--jt) 0%, var(--jt-c), color-mix(in srgb, var(--jt-c) 62%, transparent) 22%, color-mix(in srgb, var(--jt-c) 30%, transparent) 46%, color-mix(in srgb, var(--jt-c) 10%, transparent) 70%, transparent 100%),
+    radial-gradient(var(--jb) 100%, var(--jb-c), color-mix(in srgb, var(--jb-c) 62%, transparent) 22%, color-mix(in srgb, var(--jb-c) 30%, transparent) 46%, color-mix(in srgb, var(--jb-c) 10%, transparent) 70%, transparent 100%),
+    radial-gradient(var(--m-shape, ellipse 34% 30% at 50% 50%), var(--m-c, transparent), color-mix(in srgb, var(--m-c, transparent) 62%, transparent) 22%, color-mix(in srgb, var(--m-c, transparent) 30%, transparent) 46%, color-mix(in srgb, var(--m-c, transparent) 10%, transparent) 70%, transparent 100%),
+    var(--paper);
+}
+/* joint above = previous section's bottom joint */
+.section:nth-of-type(5n+1) { --jt: var(--j5); --jt-c: var(--j5-c); --jb: var(--j1); --jb-c: var(--j1-c); --m-shape: ellipse 30% 26% at 78% 48%; }
+.section:nth-of-type(5n+2) { --jt: var(--j1); --jt-c: var(--j1-c); --jb: var(--j2); --jb-c: var(--j2-c); --m-shape: ellipse 28% 30% at 30% 55%; }
+.section:nth-of-type(5n+3) { --jt: var(--j2); --jt-c: var(--j2-c); --jb: var(--j3); --jb-c: var(--j3-c); --m-shape: ellipse 32% 28% at 66% 42%; }
+.section:nth-of-type(5n+4) { --jt: var(--j3); --jt-c: var(--j3-c); --jb: var(--j4); --jb-c: var(--j4-c); --m-shape: ellipse 30% 32% at 22% 50%; }
+.section:nth-of-type(5n)   { --jt: var(--j4); --jt-c: var(--j4-c); --jb: var(--j5); --jb-c: var(--j5-c); --m-shape: ellipse 34% 28% at 60% 58%; }
+/* inner halo: a faint lagon cool-down on alternating sections so the warm
+   tones don't read as one flat beige wash */
+.section:nth-of-type(odd)  { --m-c: color-mix(in srgb, var(--lagon) 6%, transparent); }
+.section:nth-of-type(even) { --m-c: color-mix(in srgb, var(--gold-light) 16%, transparent); }
+/* former flat sand blocks now just carry a slightly richer inner halo */
+.section--tint { --m-c: color-mix(in srgb, #EBD9B4 40%, transparent) !important; }
+@media (max-width: 780px) {
+  .section:not(.section--dark):not(.section--photo) {
+    --j1: ellipse 95vw 280px at 12%;
+    --j2: ellipse 90vw 250px at 88%;
+    --j3: ellipse 110vw 230px at 45%;
+    --j4: ellipse 95vw 300px at 80%;
+    --j5: ellipse 90vw 250px at 6%;
+  }
+}
 .section--dark {
   background:
     radial-gradient(circle at 15% 20%, color-mix(in srgb, var(--lagon) 18%, transparent), transparent 45%),
@@ -1901,11 +1948,8 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .form-status--error { background: color-mix(in srgb, var(--error) 16%, transparent); border: 1px solid color-mix(in srgb, var(--error) 45%, transparent); }
 
 /* ---------- footer ---------- */
-.footer { background: var(--marine); color: color-mix(in srgb, var(--paper) 70%, transparent); padding: var(--space-7) 24px var(--space-4); border-top: 1px solid color-mix(in srgb, var(--gold) 35%, transparent); }
-/* index/methode/realisations: footer sits directly under the dark
-   cta-band — same marine, no real colour change, so no separator
-   there. contact.html/legal pages keep the default .footer
-   border-top since their footer follows a light section. */
+.footer { background: var(--marine); color: color-mix(in srgb, var(--paper) 70%, transparent); padding: var(--space-7) 24px var(--space-4); }
+/* kept for markup compatibility — the footer no longer has a top border */
 .footer--seamless { border-top: none; }
 .footer-inner {
   max-width: var(--container);
@@ -2006,15 +2050,14 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .breadcrumb--light { color: color-mix(in srgb, var(--paper) 50%, transparent); }
 .breadcrumb--light a { color: var(--lagon-light); }
 
-/* ---------- section--mesh: subtle tinted gradient, used behind "pourquoi nous" ---------- */
-.section--mesh {
+/* ---------- section--mesh: "pourquoi nous" — background now comes from the
+   shared continuous halo system (see .section), only a cooler lagon inner
+   halo is kept here as its signature ---------- */
+.section.section--mesh {
   position: relative;
   padding: var(--space-6) 24px;
-  background:
-    radial-gradient(ellipse 60% 50% at 12% 15%, color-mix(in srgb, var(--lagon) 7%, transparent), transparent 60%),
-    radial-gradient(ellipse 55% 60% at 88% 10%, color-mix(in srgb, var(--gold) 9%, transparent), transparent 55%),
-    radial-gradient(ellipse 70% 55% at 50% 105%, color-mix(in srgb, var(--sand-deep) 50%, transparent), transparent 65%),
-    var(--paper);
+  --m-shape: ellipse 40% 45% at 14% 30%;
+  --m-c: color-mix(in srgb, var(--lagon) 8%, transparent) !important;
 }
 
 /* ---------- differentiation cards (homepage "pourquoi nous") ---------- */
