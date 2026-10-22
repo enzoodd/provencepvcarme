@@ -2506,3 +2506,44 @@ section[id] { scroll-margin-top: var(--nav-height); }
   .footer-inner { grid-template-columns: 1fr; }
   .nav-cta .btn-call span { display: none; }
 }
+
+/* ---------- texte courant justifié ----------
+   Uniquement les paragraphes en phrases complètes sur une mesure assez
+   large (intros, texte des pages villes, FAQ, encadrés, pages légales).
+   La césure automatique (lang="fr" sur chaque page) évite les rivières
+   de blancs.
+   Titres, boutons, labels, chiffres, légendes, questions de FAQ, footer
+   et liste repliable des secteurs restent alignés comme avant, de même que
+   les blocs étroits et courts (cartes secteurs, étapes de la méthode,
+   cartes d'avis) : 2 à 4 lignes sur 240-300px, le justifié n'y produit
+   que des trous, même avec la césure. */
+.section-lede,
+.city-prose p,
+.faq-item p,
+.callout p,
+.legal-content p,
+.tab-panel p {
+  text-align: justify;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+}
+/* blocs centrés : l'intro reste centrée (une dernière ligne justifiée
+   partirait à gauche et casserait l'axe) */
+.cta-band .section-lede,
+.reviews-section .section-lede,
+.brands-section .section-lede { text-align: center; }
+/* mobile : dans les blocs à padding (FAQ, encadrés) la mesure tombe
+   vers 285px et les termes insécables (150/100e, NF T54-804) creusent des
+   rivières même avec la césure — retour au fer à gauche */
+@media (max-width: 600px) {
+  .faq-item p,
+  .callout p {
+    text-align: left;
+    -webkit-hyphens: manual;
+    -moz-hyphens: manual;
+    -ms-hyphens: manual;
+    hyphens: manual;
+  }
+}
