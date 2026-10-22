@@ -1972,6 +1972,51 @@ section[id] { scroll-margin-top: var(--nav-height); }
 .footer-col a { display: inline-block; padding: 9px 0; }
 .footer-col span { padding: 9px 0; }
 .footer-col a:hover { color: var(--lagon-light); }
+
+/* ---------- footer : liste Secteurs repliable (<details> natif, fermé par
+   défaut) — les 18 liens restent dans le HTML pour l'indexation, mais ne
+   prennent qu'une ligne tant que le visiteur ne les déplie pas ---------- */
+.footer-sectors summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 0;
+  font-size: 14px;
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.2s var(--ease);
+}
+.footer-sectors summary::-webkit-details-marker { display: none; }
+.footer-sectors summary::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-top: -3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.25s var(--ease), margin 0.25s var(--ease);
+}
+.footer-sectors[open] summary::after { transform: rotate(-135deg); margin-top: 3px; }
+.footer-sectors summary:hover { color: var(--lagon-light); }
+.footer-sectors summary:focus-visible { outline: 2px solid var(--lagon-light); outline-offset: 3px; border-radius: 2px; }
+.footer-sectors-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 0 0 12px;
+  border-left: 1px solid color-mix(in srgb, var(--paper) 15%, transparent);
+}
+.footer-sectors-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--paper) 50%, transparent);
+  margin: 10px 0 2px;
+}
+.footer-sectors-label:first-child { margin-top: 2px; }
+.footer-col .footer-sectors-body a { padding: 5px 0; font-size: 13.5px; }
 .footer-bottom {
   max-width: var(--container);
   margin: 0 auto;
