@@ -1846,7 +1846,6 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 .zones-list--villes { margin-top: 0; }
-.zones-list--villes + .zones-villes-label { margin-top: var(--space-4); }
 .zones-list--villes a {
   font-family: var(--font-mono);
   font-weight: 600;
