@@ -1846,6 +1846,7 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 .zones-list--villes { margin-top: 0; }
+.zones-list--villes + .zones-villes-label { margin-top: var(--space-4); }
 .zones-list--villes a {
   font-family: var(--font-mono);
   font-weight: 600;
@@ -2031,8 +2032,23 @@ section[id] { scroll-margin-top: var(--nav-height); }
 }
 
 .sector-see-also p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
+.sector-see-also p + p { margin-top: var(--space-2); }
 .sector-see-also a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
 .sector-see-also a:hover { color: var(--lagon); }
+
+/* ---------- pages ville : texte courant + avis isolé ----------
+   Les pages département n'ont que des cartes ; une page ville a besoin
+   de vrais paragraphes (contexte local, trajet) et d'un avis client
+   affiché seul, hors du bandeau défilant de l'accueil. */
+.city-prose { margin-top: var(--space-4); max-width: 68ch; }
+.city-prose p { font-size: 15.5px; line-height: 1.7; color: var(--ink-soft); margin: 0 0 var(--space-3); }
+.city-prose p:last-child { margin-bottom: 0; }
+.city-prose strong { color: var(--ink); }
+.city-prose a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
+.city-prose a:hover { color: var(--lagon); }
+.callout a { color: var(--lagon-deep); text-decoration: underline; text-underline-offset: 2px; }
+.city-review { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); margin-top: var(--space-5); }
+.city-review .review-card { width: auto; max-width: 560px; flex: 1 1 320px; }
 
 /* ---------- breadcrumb (sub-pages) ---------- */
 .breadcrumb {
