@@ -83,21 +83,40 @@
   const heroVideoToggle = document.getElementById("heroVideoToggle");
   const heroVideoEl = document.getElementById("heroVideo");
   if (heroVideoToggle && heroVideoEl) {
+    // The button mirrors the video's real state: when a phone refuses autoplay
+    // (iOS Low Power Mode, Android battery saver), it must offer "play" instead
+    // of showing a pause icon over a frozen poster.
+    const syncToggle = () => {
+      const paused = heroVideoEl.paused;
+      heroVideoToggle.setAttribute("aria-pressed", paused ? "true" : "false");
+      heroVideoToggle.setAttribute("aria-label", paused ? "Lire la vidéo" : "Mettre la vidéo en pause");
+    };
+    heroVideoEl.addEventListener("play", syncToggle);
+    heroVideoEl.addEventListener("pause", syncToggle);
+
     if (prefersReducedMotion) {
       heroVideoEl.pause();
-      heroVideoToggle.setAttribute("aria-pressed", "true");
-      heroVideoToggle.setAttribute("aria-label", "Lire la vidéo");
+    } else {
+      // Fallback for the autoplay attribute: retry explicitly once metadata is
+      // there (preload="metadata"). A refusal is expected in power-saving modes
+      // and simply leaves the poster with a working play button.
+      heroVideoEl.muted = true;
+      const tryPlay = () => {
+        if (!heroVideoEl.paused) return;
+        const p = heroVideoEl.play();
+        if (p && p.catch) p.catch(syncToggle);
+      };
+      if (heroVideoEl.readyState >= 1) tryPlay();
+      else heroVideoEl.addEventListener("loadedmetadata", tryPlay, { once: true });
     }
+    syncToggle();
+
     heroVideoToggle.addEventListener("click", function () {
-      const isPaused = heroVideoEl.paused;
-      if (isPaused) {
-        heroVideoEl.play();
-        heroVideoToggle.setAttribute("aria-pressed", "false");
-        heroVideoToggle.setAttribute("aria-label", "Mettre la vidéo en pause");
+      if (heroVideoEl.paused) {
+        const p = heroVideoEl.play();
+        if (p && p.catch) p.catch(syncToggle);
       } else {
         heroVideoEl.pause();
-        heroVideoToggle.setAttribute("aria-pressed", "true");
-        heroVideoToggle.setAttribute("aria-label", "Lire la vidéo");
       }
     });
   }
