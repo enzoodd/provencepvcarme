@@ -96,18 +96,33 @@
 
     if (prefersReducedMotion) {
       heroVideoEl.pause();
+      console.info("[hero-video] prefers-reduced-motion actif : vidéo laissée en pause (bouton lecture disponible).");
     } else {
-      // Fallback for the autoplay attribute: retry explicitly once metadata is
-      // there (preload="metadata"). A refusal is expected in power-saving modes
-      // and simply leaves the poster with a working play button.
-      heroVideoEl.muted = true;
-      const tryPlay = () => {
+      // Fallback for the autoplay attribute: retry explicitly on loadedmetadata
+      // and canplay. A refusal is expected in power-saving modes (iOS Low Power
+      // Mode, battery saver) and leaves the poster with a working play button;
+      // the reason is logged so it can be read in the mobile browser console.
+      const tryPlay = (event) => {
+        heroVideoEl.muted = true;
         if (!heroVideoEl.paused) return;
         const p = heroVideoEl.play();
-        if (p && p.catch) p.catch(syncToggle);
+        if (p && p.catch) {
+          p.catch((err) => {
+            console.warn("[hero-video] lecture refusée sur « " + event.type + " » : " + err.name + " — " + err.message);
+            syncToggle();
+          });
+        }
       };
-      if (heroVideoEl.readyState >= 1) tryPlay();
-      else heroVideoEl.addEventListener("loadedmetadata", tryPlay, { once: true });
+      heroVideoEl.addEventListener("loadedmetadata", tryPlay);
+      heroVideoEl.addEventListener("canplay", tryPlay);
+      // Events may already have fired before this deferred script ran.
+      if (heroVideoEl.readyState >= 1) tryPlay({ type: "readyState " + heroVideoEl.readyState });
+      if (!heroVideoEl.paused) console.info("[hero-video] lecture en cours (autoplay natif).");
+      else heroVideoEl.addEventListener("playing", () => console.info("[hero-video] lecture en cours."), { once: true });
+      heroVideoEl.addEventListener("error", () => {
+        const e = heroVideoEl.error;
+        console.warn("[hero-video] erreur de chargement/décodage : code " + (e ? e.code : "?") + (e && e.message ? " — " + e.message : ""));
+      });
     }
     syncToggle();
 
